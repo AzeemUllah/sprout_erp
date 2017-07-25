@@ -1,0 +1,199 @@
+.EmpContract
+    
+    .o_content
+        .o_view_manager_content
+            .o_form_view.o_form_editable
+                header(style='margin-left:-15px;margin-right:-15px;')
+                    ul.oe_form_field_status.oe_form_status_clickable.o_form_field(data-original-title='', title='')
+                        li.oe_active(data-id='draft')
+                            span.label New
+                            span.arrow
+                                span
+                        li(data-id='open')
+                            span.label Running
+                            span.arrow
+                                span
+                        li(data-id='pending')
+                            span.label To Renew
+                            span.arrow
+                                span
+                        li(data-id='close')
+                            span.label Expired
+                            span.arrow
+                                span
+                .o_form_sheet_bg
+                    .o_form_sheet
+                        .oe_title
+                            label.o_form_label.oe_edit_only(for='o_field_input_932')
+                                | Contract Reference
+                            h1
+                                input#o_field_input_932.o_form_input.o_form_field.o_form_required(placeholder='Contract Reference', type='text')
+                        .o_group
+                            table.o_group.o_inner_group.o_group_col_6
+                                tbody
+                                    tr
+                                        td.o_td_label(colspan='1')
+                                            label.o_form_label(for='o_field_input_933')
+                                                | Employee
+                                        td(colspan='1', style='width: 100%;')
+                                            .o_form_field_many2one.o_with_button.o_form_field.o_form_required
+                                                .o_form_input_dropdown(style='width: 187px;')
+                                                    input#o_field_input_933.o_form_input.ui-autocomplete-input(style='width: 187px;',type='text', autocomplete='off')
+                                                    span.o_dropdown_button(draggable='false')
+                                                .fa.fa-external-link.btn.btn-default.o_external_button(style='margin-top: -59px;margin-left: 190px;', draggable='false', tabindex='-1', type='button',data-toggle='modal', data-target='.bd-example-modal-lg60')
+                                    tr
+                                        td.o_td_label(colspan='1')
+                                            label.o_form_label(for='o_field_input_934')
+                                                | Job Title
+                                        td(colspan='1', style='width: 100%;')
+                                            .o_form_field_many2one.o_form_field.o_with_button
+                                                .o_form_input_dropdown(style='width: 187px;')
+                                                    input#o_field_input_934.o_form_input.ui-autocomplete-input(style='width: 187px;', type='text', autocomplete='off')
+                                                    span.o_dropdown_button(draggable='false')
+                                                    .fa.fa-external-link.btn.btn-default.o_external_button(style='margin-top: -59px;margin-left: 190px;',draggable='false', tabindex='-1',data-toggle='modal', data-target='.bd-example-modal-lg3')
+                            table.o_group.o_inner_group.o_group_col_6
+                                tbody
+                                    tr
+                                        td.o_td_label(colspan='1')
+                                            label.o_form_label(for='o_field_input_935')
+                                                | Department
+                                        td(colspan='1', style='width: 100%;')
+                                            .o_form_field_many2one.o_form_field.o_with_button
+                                                .o_form_input_dropdown(style='width: 187px;')
+                                                    input#o_field_input_935.o_form_input.ui-autocomplete-input(style='width: 187px;',type='text', autocomplete='off')
+                                                    span.o_dropdown_button(draggable='false')
+                                                .fa.fa-external-link.btn.btn-default.o_external_button(style='margin-top: -59px;margin-left: 190px;',draggable='false', tabindex='-1', type='button',data-toggle='modal', data-target='.bd-example-modal-lg1')
+                                    tr
+                                        td.o_td_label(colspan='1')
+                                            label.o_form_label(for='o_field_input_936')
+                                                | Contract Type
+                                        td(colspan='1', style='width: 100%;')
+                                            .o_form_field_many2one.o_with_button.o_form_field.o_form_required
+                                                .o_form_input_dropdown(style='width: 187px;')
+                                                    input#o_field_input_936.o_form_input.ui-autocomplete-input(type='text', autocomplete='off')
+                                                    span.o_dropdown_button(draggable='false')
+                                                .fa.fa-external-link.btn.btn-default.o_external_button(style='margin-top: -59px;margin-left: 190px;',draggable='false', tabindex='-1', type='button',data-toggle='modal', data-target='.bd-example-modal-lg64')
+                        .o_notebook
+                            ul.nav.nav-tabs(role='tablist')
+                                li.active
+                                    a(data-toggle='tab', disable_anchor='true', role='tab', href='#notebook_page_937', aria-expanded='true')
+                                        | Information
+                                li
+                                    a(data-toggle='tab', disable_anchor='true', role='tab', href='#notebook_page_938', aria-expanded='false')
+                                        | Work Permit
+                            .tab-content.nav.nav-tabs
+                                #notebook_page_937.tab-pane.active(role='tabpanel')
+                                    .o_group
+                                        table.o_group.o_inner_group.o_group_col_6
+                                            tbody
+                                                tr
+                                                    td(colspan='2', style='width: 100%;')
+                                                        .o_horizontal_separator
+                                                            | Salary and Advantages
+                                                tr
+                                                    td.o_td_label(colspan='1')
+                                                        label.o_form_label.o_form_label_help(for='o_field_input_939', data-original-title='', title='')
+                                                            | Wage
+                                                    td(colspan='1', style='width: 100%;')
+                                                        input#o_field_input_939.o_form_input.o_form_field.o_form_required.o_form_field_number(type='text')
+                                                tr
+                                                    td(colspan='2', style='width: 100%;')
+                                                        textarea.o_form_textarea.o_form_field(rows='6', name='advantages', placeholder='Advantages...', style='height: 50px;')
+                                                        textarea.o_form_textarea.o_form_field(disabled='', style='position: absolute; opacity: 0; height: 10px; top: -10000px; left: -10000px; width: 413px;')
+                                        table.o_group.o_inner_group.o_group_col_6
+                                            tbody
+                                                tr
+                                                    td(colspan='2', style='width: 100%;')
+                                                        .o_horizontal_separator
+                                                            | Duration
+                                                tr
+                                                    td.o_td_label(colspan='1')
+                                                        label.o_form_label
+                                                            | Trial Period Duration
+                                                    td(colspan='1', style='width: 100%;')
+                                                        div
+                                                            .o_datepicker.o_form_field_date.oe_inline.o_form_field
+                                                                input.o_datepicker_input.o_form_input(type='text', name='trial_date_start')
+                                                                span.o_datepicker_button
+                                                            |  -
+                                                            .o_datepicker.o_form_field_date.oe_inline.o_form_field
+                                                                input.o_datepicker_input.o_form_input(type='text', name='trial_date_end')
+                                                                span.o_datepicker_button
+                                                tr
+                                                    td.o_td_label(colspan='1')
+                                                        label.o_form_label
+                                                            | Duration
+                                                    td(colspan='1', style='width: 100%;')
+                                                        div
+                                                            .o_datepicker.o_form_field_date.oe_inline.o_form_field.o_form_required
+                                                                input.o_datepicker_input.o_form_input(type='text', name='date_start')
+                                                                span.o_datepicker_button
+                                                            |  -
+                                                            .o_datepicker.o_form_field_date.oe_inline.o_form_field
+                                                                input.o_datepicker_input.o_form_input(type='text', name='date_end')
+                                                                span.o_datepicker_button
+                                                tr
+                                                    td.o_td_label(colspan='1')
+                                                        label.o_form_label(for='o_field_input_942')
+                                                            | Working Schedule
+                                                    td(colspan='1', style='width: 100%;')
+                                                        .o_form_field_many2one.o_form_field
+                                                            .o_form_input_dropdown
+                                                                input#o_field_input_942.o_form_input.ui-autocomplete-input(type='text', autocomplete='off')
+                                                                span.o_dropdown_button(draggable='false')
+                                                            button.fa.fa-external-link.btn.btn-default.o_external_button(draggable='false', tabindex='-1', type='button', style='display: none;')
+                                    .o_horizontal_separator
+                                        | Notes
+                                    textarea.o_form_textarea.o_form_field(rows='6', name='notes', style='height: 50px;')
+                                    textarea.o_form_textarea.o_form_field(disabled='', style='position: absolute; opacity: 0; height: 10px; top: -10000px; left: -10000px; width: 826px;')
+                                #notebook_page_938.tab-pane(role='tabpanel')
+                                    table.o_group.o_inner_group
+                                        tbody
+                                            tr
+                                                td.o_td_label(colspan='1')
+                                                    label.o_form_label(for='o_field_input_943')
+                                                        | Visa No
+                                                td(colspan='1', style='width: 50%;')
+                                                    input#o_field_input_943.o_form_input.o_form_field(type='text')
+                                                td.o_td_label(colspan='1')
+                                                    label.o_form_label(for='o_field_input_944')
+                                                        | Work Permit No
+                                                td(colspan='1', style='width: 50%;')
+                                                    input#o_field_input_944.o_form_input.o_form_field(type='text')
+                                            tr
+                                                td.o_td_label(colspan='1')
+                                                    label.o_form_label
+                                                        | Visa Expire Date
+                                                td(colspan='1', style='width: 33.3333%;')
+                                                    .o_datepicker.o_form_field_date.o_form_field
+                                                        input.o_datepicker_input.o_form_input(type='text', name='visa_expire')
+                                                        span.o_datepicker_button
+                .o_chatter.o_form_field.oe_chatter.o_form_invisible
+                    .o_chatter_topbar
+                        button.btn.btn-sm.btn-primary.o_chatter_button_new_message(title='Send a message', type='button')
+                            | New message
+                        button.btn.btn-sm.btn-link.o_chatter_button_log_note(title='Log a note. Followers will not be notified.')
+                            | Log an internal note
+                        .o_followers.o_form_field.o_form_invisible
+                            .o_followers_title_box
+                                button.btn.btn-sm.btn-link.dropdown-toggle(aria-expanded='false', data-toggle='dropdown', title='No follower')
+                                    i.fa.fa-user
+                                    span.o_followers_count 0
+                                    span.caret
+                                ul.dropdown-menu.o_followers_list(role='menu')
+                                    li.o_add_follower
+                                        a(href='#')  Add Followers
+                                    li.o_add_follower_channel
+                                        a(href='#')  Add Channels
+                            .o_followers_actions
+                                .btn-group.btn-group-sm.o_subtypes_list
+                                    button.btn.btn-sm.btn-link.o_followers_follow_button.o_followers_notfollow
+                                        span.o_follow Follow
+                                        span.fa.fa-times.o_followers_unfollow
+                                        span.o_followers_unfollow  Unfollow
+                                        span.fa.fa-check.o_followers_following
+                                        span.o_followers_following  Following
+                                    button.btn.btn-sm.btn-link.dropdown-toggle(aria-expanded='false', data-toggle='dropdown', disabled='disabled')
+                                        span.fa.fa-bell
+                                    ul.dropdown-menu(role='menu')
+                    .o_mail_thread

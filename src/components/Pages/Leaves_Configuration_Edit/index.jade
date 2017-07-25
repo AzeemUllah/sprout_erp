@@ -1,0 +1,84 @@
+.all_transfers_table
+    DashboardController( v-bind:save='true',v-bind:heading="nextactivity",v-bind:savedbtn='true',v-bind:discardbtn='true', v-bind:links="btnlinks",v-bind:num1='true',v-bind:num2='true',v-bind:paginbtn1='true',v-bind:paginbtn2='true',v-bind:firstbtn='false',v-bind:secondbtn='false',v-bind:fifthbtn='false',v-bind:thirdbtn='false',v-bind:fourthbtn='false',v-bind:searchbar='false',v-bind:dropdownbtn1='false',v-bind:dropdownbtn2='false',v-bind:dropdownbtn3='false',v-bind:actionbtn='true',v-bind:Attachmentbtn='true',v-bind:printbtn='false')
+    .o_content.row
+        .o_view_manager_content
+            .o_form_view.o_form_nosheet.o_form_editable
+                .o_group
+                    table.o_group.o_inner_group.o_group_col_6
+                        tbody
+                            tr
+                                td.o_td_label(colspan='1')
+                                    label.o_form_label(for='o_field_input_178')
+                                        | Leave Type
+                                td(colspan='1', style='width: 100%;')
+                                    input#o_field_input_178.o_form_input.o_form_field.o_form_required(type='text')
+                                    button.o_field_translate.fa.fa-globe.btn.btn-link.o_translate_active(type='button')
+                            tr
+                                td.o_td_label(colspan='1')
+                                    label.o_form_label.o_form_label_help(for='o_field_input_179', data-original-title='', title='')
+                                        | Apply Double Validation
+                                td(colspan='1', style='width: 100%;')
+                                    .o_checkbox.o_form_field_boolean.o_form_field
+                                        input#o_field_input_179(type='checkbox', name='double_validation')
+                                        span
+                            tr
+                                td.o_td_label(colspan='1')
+                                    label.o_form_label.o_form_label_help(for='o_field_input_180', data-original-title='', title='')
+                                        | Allow to Override Limit
+                                td(colspan='1', style='width: 100%;')
+                                    .o_checkbox.o_form_field_boolean.o_form_field
+                                        input#o_field_input_180(type='checkbox', name='limit')
+                                        span
+                    table.o_group.o_inner_group.o_group_col_6
+                        tbody
+                            tr
+                                td.o_td_label(colspan='1')
+                                    label.o_form_label.o_form_label_help(for='o_field_input_181', data-original-title='', title='')
+                                        | Meeting Type
+                                td(colspan='1', style='width: 100%;')
+                                    .o_form_field_many2one.o_form_field
+                                        .o_form_input_dropdown
+                                            input#o_field_input_181.o_form_input.ui-autocomplete-input(type='text', autocomplete='off')
+                                            span.o_dropdown_button(draggable='false')
+                                        button.fa.fa-external-link.btn.btn-default.o_external_button(draggable='false', tabindex='-1', type='button', style='display: none;')
+                            tr
+                                td.o_td_label(colspan='1')
+                                    label.o_form_label.o_form_label_help(for='o_field_input_182', data-original-title='', title='')
+                                        | Color in Report
+                                td(colspan='1', style='width: 100%;')
+                                    select#o_field_input_182.o_form_input.o_form_field.o_form_required(name='color_name')
+                                        option(value='false')
+                                        option(value='"red"') Red
+                                        option(value='"blue"') Blue
+                                        option(value='"lightgreen"') Light Green
+                                        option(value='"lightblue"') Light Blue
+                                        option(value='"lightyellow"') Light Yellow
+                                        option(value='"magenta"') Magenta
+                                        option(value='"lightcyan"') Light Cyan
+                                        option(value='"black"') Black
+                                        option(value='"lightpink"') Light Pink
+                                        option(value='"brown"') Brown
+                                        option(value='"violet"') Violet
+                                        option(value='"lightcoral"') Light Coral
+                                        option(value='"lightsalmon"') Light Salmon
+                                        option(value='"lavender"') Lavender
+                                        option(value='"wheat"') Wheat
+                                        option(value='"ivory"') Ivory
+                            tr
+                                td.o_td_label(colspan='1')
+                                    label.o_form_label.o_form_label_help(for='o_field_input_183', data-original-title='', title='')
+                                        | Active
+                                td(colspan='1', style='width: 100%;')
+                                    .o_checkbox.o_form_field_boolean.o_form_field
+                                        input#o_field_input_183(type='checkbox', name='active')
+                                        span
+                            tr
+                                td.o_td_label(colspan='1')
+                                    label.o_form_label(for='o_field_input_184')
+                                        | Company
+                                td(colspan='1', style='width: 100%;')
+                                    .o_form_field_many2one.o_form_field
+                                        .o_form_input_dropdown
+                                            input#o_field_input_184.o_form_input.ui-autocomplete-input(type='text', autocomplete='off')
+                                            span.o_dropdown_button(draggable='false')
+                                        button.fa.fa-external-link.btn.btn-default.o_external_button(draggable='false', tabindex='-1', type='button', style='display: none;')

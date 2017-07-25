@@ -1,0 +1,29 @@
+.modal-body.o_act_window
+    .o_view_manager_content
+        .o_form_view.o_form_editable
+            .o_form_sheet_bg
+                .o_form_sheet
+                    table.o_group.o_inner_group
+                        tbody
+                            tr
+                                td.o_td_label(colspan='1')
+                                    label.o_form_label.oe_inline(for='o_field_input_97')
+                                        | Job Title
+                                td(colspan='1', style='width: 100%;')
+                                    input#o_field_input_97.o_form_input.oe_inline.o_form_field.o_form_required(placeholder='e.g. Sales Manager', type='text')
+                                    button.o_field_translate.fa.fa-globe.btn.btn-link(type='button')
+                            tr
+                                td.o_td_label(colspan='1')
+                                    label.o_form_label.o_form_label_help(for='o_field_input_98', data-original-title='', title='')
+                                        | Job Email
+                                td(colspan='1', style='width: 100%;')
+                                    div(name='alias_def', attrs="{'invisible': [('alias_domain', '=', False)]}")
+                                        .o_form_field_many2one.oe_read_only.o_form_field(data-original-title='', title='')
+                                            .o_form_input_dropdown
+                                                input.o_form_input.ui-autocomplete-input(type='text', autocomplete='off')
+                                                span.o_dropdown_button(draggable='false')
+                                            button.fa.fa-external-link.btn.btn-default.o_external_button(draggable='false', tabindex='-1', type='button', style='display: none;')
+                                        .oe_edit_only(name='edit_alias')
+                                            input#o_field_input_98.o_form_input.oe_inline.o_form_field(type='text')
+                                            | @
+                                            span.oe_inline.o_form_field localhost

@@ -1,0 +1,38 @@
+.container-fluid
+    //button.btn.btn-primary(data-toggle='modal', data-target='.bd-example-modal-lg') Large modal
+    .modal.fade.bd-example-modal-lg(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true',v-bind:class="modal")
+        .modal-dialog.modal-lg(style='width: 1022px;max-width: 100%;')
+            .modal-content
+                .modal-header
+                    h4.modal-title(style="font-size: 13px;",v-if='heading') {{ heading }}
+                    button.close(type='button', data-dismiss='modal') ×
+                .modal-body
+                    slot
+                .modal-footer(style='-webkit-justify-content: flex-start !important')
+                    button.btn.btn-sm.btn-primary.savebtn(type='button',v-if='save')
+                        span Save
+                    //button.btn.btn-primary.samobuttopcontroller2(type="button" class="btn btn-default" data-dismiss="modal") No Activitysas
+                    button.btn.btn-sm.btn-primary.savebtn(type='button',v-if='saveclose')
+                        span Save  & Close
+                    button.btn.btn-sm.btn-primary.savebtn(type='button',v-if='Ok')
+                        span Ok
+                    button.btn.btn-sm.btn-primary.savebtn(type='button', v-if='savenew')
+                        span Save & New
+                    button.btn.btn-sm.btn-primary.savebtn(type='button', v-if='sheduaeactivity')
+                        span Shedule Activity
+                    button.btn.btn-sm.btn-primary.savebtn(type='button', v-if='noactivity' , class="btn btn-default" data-dismiss="modal")
+                        span No Activity
+                    button.btn.btn-sm.btn-default.o_form_button_cancel.discardbtn(type='button', v-if='discard', data-dismiss="modal")
+                        span Discard
+                    button.btn.btn-sm.btn-default.o_form_button_cancel.discardbtn#changepassword(type='button', v-if='password' style='background-color: rgb(108, 108, 158);color: white;')
+                        span Change Password
+                    button.btn.btn-sm.btn-default.o_form_button_cancel.discardbtn(type='button', v-if='cancel', data-dismiss="modal")
+                        span Cancel
+                    button.btn.btn-sm.btn-default.o_form_button_cancel.discardbtn(type='button', v-if='close', data-dismiss="modal")
+                        span Close
+                    button.btn.btn-sm.btn-default.o_form_button_cancel.discardbtn(type='button', v-if='create', data-dismiss="modal",style='background-color: #8d8cd5;')
+                        span Create
+                    button.btn.btn-sm.btn-default.o_form_button_cancel.discardbtn(type='button', v-if='select', data-dismiss="modal",style='background-color: #8d8cd5;')
+                        span Select
+
+

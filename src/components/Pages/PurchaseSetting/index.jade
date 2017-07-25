@@ -1,0 +1,174 @@
+.purchasesetting
+    TopController
+    .row.samopurchasesettingrow2
+        .col-xs-12(style='padding-left:10px;')
+            h1(style='font-size:22px;color: #7c7bad;font-weight: bold;')  Logistics
+
+    .test
+        .row
+            .col-xs-12
+                .test
+                    .row
+                        .col-xs-6(style='padding-left:15px;font-weight: bold;')
+                            .one
+                                label(style='font-size:15px;')
+                                    | Purchase Lead Time *
+                                br
+                                br
+                                label(style='font-size:15px;')
+                                    | Purchase Order Modification *
+                                br
+                                br
+
+                                label(style='font-size:15px;')
+                                    | Levels of Approvals *
+
+                        .col-xs-6(style='padding-left:45px;')
+                            .two
+                                input#usr.form-control(type='text')
+                                form
+                                    .checkbox
+                                        label
+                                            input(type='checkbox', value='')
+                                            | Allow to edit purchase orders
+                                    .checkbox
+                                        label
+                                            input(type='checkbox', value='')
+                                            | Confirmed purchase orders are not editable
+                                    .checkbox
+                                        label
+                                            input(type='checkbox', value='')
+                                            | Confirm purchase orders in one step
+                                    .checkbox
+                                        label
+                                            input(type='checkbox', value='')
+                                            | Get 2 levels of approvals to confirm a purchase order
+
+
+
+    .row
+        .col-xs-12(style='padding-left:10px;')
+            h1(style='font-size:22px;color: #7c7bad;font-weight: bold;')  Purchase Order
+    .test
+        .row
+            .col-xs-12
+                .test
+                    .row
+                        .col-xs-6(style='padding-left:15px;font-weight: bold;')
+                            .one
+                                label(style='font-size:15px;')
+                                    | Product Variants
+                                br
+                                br
+                                label(style='font-size:15px;')
+                                    | Units of Measure
+                                br
+                                br
+                                br
+                                label(style='font-size:15px;')
+                                    | Costing Methods
+                                br
+                                br
+                                label(style='font-size:15px;')
+                                    | Calls for Tenders
+                                br
+                                br
+
+                                label(style='font-size:15px;')
+                                    | Vendor Price
+                                br
+                                br
+
+                                label(style='font-size:15px;')
+                                    | Warning
+                                br
+
+
+
+                        .col-xs-6(style='padding-left:45px;')
+                            .two
+
+                                form
+                                    .checkbox
+                                        label
+                                            input(type='checkbox', value='')
+                                            | No variants on products
+                                    .checkbox
+                                        label
+                                            input(type='checkbox', value='')
+                                            | Products can have several attributes, defining variants (Example: size, color,...)
+                                    .checkbox
+                                        label
+                                            input(type='checkbox', value='')
+                                            | Products have only one unit of measure (easier)
+                                    .checkbox
+                                        label
+                                            input(type='checkbox', value='')
+                                            | Some products may be sold/puchased in different units of measure (advanced)
+
+                                    .checkbox
+                                        label
+                                            input(type='checkbox', value='')
+                                            | Set a fixed cost price on each product
+                                    .checkbox
+                                        label
+                                            input(type='checkbox', value='')
+                                            | Use a 'Fixed', 'Real' or 'Average' price costing method
+                                    .checkbox
+                                        label
+                                            input(type='checkbox', value='')
+                                            | Purchase propositions trigger draft purchase orders to a single supplier
+                                    .checkbox
+                                        label
+                                            input(type='checkbox', value='')
+                                            | Allow using call for tenders to get quotes from multiple suppliers (advanced)
+                                    .checkbox
+                                        label
+                                            input(type='checkbox', value='')
+                                            | Manage vendor price on the product form
+                                    .checkbox
+                                        label
+                                            input(type='checkbox', value='')
+                                            | Allow using and importing vendor pricelists
+                                    .checkbox
+                                        label
+                                            input(type='checkbox', value='')
+                                            | All the products and the customers can be used in purchase orders
+                                    .checkbox
+                                        label
+                                            input(type='checkbox', value='')
+                                            | An informative or blocking warning can be set on a product or a customer
+
+
+    .row
+        .col-xs-12(style='padding-left:15px;')
+            h1(style='font-size:22px;color: #7c7bad;font-weight: bold;')  Location & Warehouse
+    .test
+        .row
+            .col-xs-12
+                .test
+                    .row
+                        .col-xs-6(style='padding-left:48px;font-weight: bold;')
+                            .one
+                                label(style='font-size:15px;')
+                                    | Dropshipping
+                                br
+
+
+
+                        .col-xs-6(style='padding-left:35px;')
+                            .two
+
+                                form
+                                    .checkbox
+                                        label
+                                            input(type='checkbox', value='')
+                                            | Suppliers always deliver to your warehouse(s)
+                                    .checkbox
+                                        label
+                                            input(type='checkbox', value='')
+                                            | Allow suppliers to deliver directly to your customers
+    .row
+        .col-xs-12(style='padding-left:15px;')
+            p
+                | (*) This configuration is related to the company you're logged into.

@@ -1,0 +1,62 @@
+.all_transfers_table
+    DashboardController( v-bind:save='true',v-bind:heading="nextactivity",v-bind:editbtn='true',v-bind:createbtn='true', v-bind:links="btnlinks",v-bind:num1='true',v-bind:num2='true',v-bind:paginbtn1='true',v-bind:paginbtn2='true',v-bind:firstbtn='false',v-bind:secondbtn='false',v-bind:fifthbtn='false',v-bind:thirdbtn='false',v-bind:fourthbtn='false',v-bind:searchbar='false',v-bind:dropdownbtn1='false',v-bind:dropdownbtn2='false',v-bind:dropdownbtn3='false',v-bind:actionbtn='true',v-bind:Attachmentbtn='true',v-bind:printbtn='false')
+    .o_content.row
+        .o_view_manager_content
+            .o_form_view.o_form_nosheet.o_form_readonly
+                .o_group
+                    table.o_group.o_inner_group.o_group_col_6
+                        tbody
+                            tr
+                                td.o_td_label(colspan='1')
+                                    label.o_form_label
+                                        | Leave Type
+                                td(colspan='1', style='width: 100%;')
+                                    span.o_form_field.o_form_required Legal Leaves 2017
+                                    button.o_field_translate.fa.fa-globe.btn.btn-link(type='button')
+                            tr
+                                td.o_td_label(colspan='1')
+                                    label.o_form_label.o_form_label_help.o_form_label_false(for='o_field_input_149', data-original-title='', title='')
+                                        | Apply Double Validation
+                                td(colspan='1', style='width: 100%;')
+                                    .o_checkbox.o_form_field_boolean.o_form_field
+                                        input#o_field_input_149(type='checkbox', name='double_validation', disabled='')
+                                        span
+                            tr
+                                td.o_td_label(colspan='1')
+                                    label.o_form_label.o_form_label_help.o_form_label_false(for='o_field_input_150', data-original-title='', title='')
+                                        | Allow to Override Limit
+                                td(colspan='1', style='width: 100%;')
+                                    .o_checkbox.o_form_field_boolean.o_form_field
+                                        input#o_field_input_150(type='checkbox', name='limit', disabled='')
+                                        span
+                    table.o_group.o_inner_group.o_group_col_6
+                        tbody
+                            tr
+                                td.o_td_label(colspan='1')
+                                    label.o_form_label.o_form_label_help.o_form_label_empty.o_form_label_false(data-original-title='', title='')
+                                        | Meeting Type
+                                td(colspan='1', style='width: 100%;')
+                                    a.o_form_uri.o_form_field.o_form_field_empty(href='#')
+                            tr
+                                td.o_td_label(colspan='1')
+                                    label.o_form_label.o_form_label_help(data-original-title='', title='')
+                                        | Color in Report
+                                td(colspan='1', style='width: 100%;')
+                                    span.o_form_field.o_form_required Black
+                            tr
+                                td.o_td_label(colspan='1')
+                                    label.o_form_label.o_form_label_help(for='o_field_input_153', data-original-title='', title='')
+                                        | Active
+                                td(colspan='1', style='width: 100%;')
+                                    .o_checkbox.o_form_field_boolean.o_form_field
+                                        input#o_field_input_153(type='checkbox', name='active', disabled='')
+                                        span
+                            tr
+                                td.o_td_label(colspan='1')
+                                    label.o_form_label.o_form_label_empty.o_form_label_false
+                                        | Company
+                                td(colspan='1', style='width: 100%;')
+                                    a.o_form_uri.o_form_field.o_form_field_empty(href='#')
+
+
+
