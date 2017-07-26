@@ -48,9 +48,11 @@ export default{
                 changepasswordbtnlink_modal: "",
             },
             tableheader: [
-                "Company Name",
-                "Partner",
                 "ID",
+                "Partner",
+                "Company Name",
+
+
 
             ],
             tablefoot: [
@@ -83,7 +85,7 @@ export default{
     methods: {
         select: function () {
             var self = this;
-            self.$http.post("/companytable", {
+            self.$http.post("/setting/companytable", {
                 "username": self.options,
             }).then(function(res){
                 var data = res.body.result;
@@ -112,7 +114,7 @@ export default{
             var self = this;
             //alert(self.current_company+ " ");
             console.log("a"+del);
-            self.$http.post("/delete_company_info", {"delete_items": del}).then(function(res){
+            self.$http.post("/setting/delete_company_info", {"delete_items": del}).then(function(res){
 
                 //console.log(res.body);
             },function(err){

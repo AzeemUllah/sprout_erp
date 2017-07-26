@@ -6,30 +6,50 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 //var mongoose = require("mongoose");
 var session = require("express-session");
-//var passport = require("passport");
-//var flash = require("connect-flash");
+var passport = require("passport");
+var flash = require("connect-flash");
 var validator = require("express-validator");
 var history = require("connect-history-api-fallback");
 //require("./config/passport");
 
 var userRoutes = require('./routes/user');
-
-var webSetting = require('./routes/setting');
-var connectRoutes = require('./routes/connect-4Slash');
-var userMetaRoutes = require('./routes/login-user-meta');
-var getCompanies = require('./routes/get_companies');
 var webRoutes = require('./routes/web');
+var webSetting = require('./routes/setting');
 //var apiRoutes = require('./routes/api');
-var bcrypt = require('bcrypt-nodejs');
 
 var app = express();
 
 
 
 
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+
+// uncomment after placing your favicon in /public
+//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(validator());
+app.use(cookieParser());
+app.use(session({secret: "This is Sprout Secret!", resave: false, saveUninitialized: false}));
+app.use(flash());
+//app.use(passport.initialize());
+//app.use(passport.session());
+app.use(express.static(path.join(__dirname, 'public')));
+
+/*app.use(function(req, res, next){
+ res.locals.login = req.isAuthenticated();
+ if(req.isAuthenticated()){
+ res.locals.full_name = req.user.full_name;
+ }
+ next();
+ });*/
+
 
 //AZEEM ULLAH's CODE
-var flash    = require('connect-flash');
+var connectRoutes = require('./routes/connect-4Slash');
 var crypto   = require('crypto');
 //var csrf = require('csurf');
 /* Login script */
@@ -47,47 +67,6 @@ app.use(sess({
     saveUninitialized: true,
     maxAge: 200000000
 }));
-//ENDS HERE
-
-
-
-
-
-
-
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-
-
-
-
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
-
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
-app.use(validator());
-app.use(cookieParser());
-app.use(session({secret: "This is Sprout Secret!", resave: false, saveUninitialized: false}));
-app.use(flash());
-//app.use(passport.initialize());
-//app.use(passport.session());
-app.use(express.static(path.join(__dirname, 'public')));
-
-/*app.use(function(req, res, next){
-    res.locals.login = req.isAuthenticated();
-    if(req.isAuthenticated()){
-        res.locals.full_name = req.user.full_name;
-    }
-    next();
-});*/
-
-
-
-//AZEEMS CODE STARTS HERE
 app.use(validator({
     errorFormatter: function (param, msg, value) {
         var namespace = param.split('.'), root = namespace.shift(), formParam = root;
@@ -102,139 +81,10 @@ app.use(validator({
     }
 }));
 app.use(flash());
-
-/*
-var mysql = require("mysql");
-var connection = mysql.createConnection({
-    host: "46.101.37.156",
-    user: "sprout",
-    password: "sprout12345",
-    database: "sprout"
-});
-
-connection.connect(function (err) {
-    if(err){
-        console.error('error connecting: ' + err.stack);
-        return;
-    }
-    console.log("connected as id "+ connection.threadId);
-});*/
-
-
 var connection = require('./routes/db_conn');
-
-
-
-/*
-passport.use('local', new LocalStrategy({
-        usernameField: 'username',
-        passwordField: 'password',
-        passReqToCallback: true //passback entire req to call back
-    } , function (req, username, password, done){
-        console.log(username+' = '+ password);
-        console.log(req.query.database);
-        if(!username || !password ) { return done(null, false, req.flash('message','All fields are required.')); }
-        var salt = '7fa73b47df808d36c5fe328546ddef8b9011b2c6';
-        connection.query("select * from user where email = ?", [username], function(err, rows){
-            console.log(rows);
-            if (err) return done(req.flash('message',err));
-
-            if(!rows.length){ return done(null, false, req.flash('message','Invalid username or password.')); }
-            //console.log("a" + rows[0].email);
-            salt = salt+''+password;
-            //var encPassword = crypto.createHash('sha1').update(salt).digest('hex');
-            //var dbPassword  = rows[0].password;
-            //console.log("a" + dbPassword);
-            if(!bcrypt.compareSync(password, rows[0].password)){
-                return done(null, false, req.flash('message','Invalid username or password.'));
-            }
-
-            return done(null, rows[0]);
-        });
-    }
-));
-
-passport.serializeUser(function(user, done){
-    done(null, user.id);
-});
-
-passport.deserializeUser(function(id, done){
-    connection.query("select * from user where id = "+ id, function (err, rows){
-        done(err, rows[0]);
-    });
-});
-*/
-/*
-app.get('/signin', function(req, res){
-    res.render('login/index',{'message' :req.flash('message')});
-});*/
-/*
-app.post('/signin', function(req, res, next) {
-    passport.authenticate('local', function(err, user, info) {
-        switch (req.accepts('html', 'json')) {
-            case 'html':
-                if (err) { return next(err); }
-                if (!user) { return res.redirect('/signin'); }
-                req.logIn(user, function(err) {
-                    if (err) { return next(err); }
-                    return res.redirect('/Setting');
-                });
-                break;
-            case 'json':
-                if (err)  { return next(err); }
-                if (!user) { return res.status(401).send({"ok": false}); }
-                req.logIn(user, function(err) {
-                    if (err) { return res.status(401).send({"ok": false}); }
-                    return res.send({"ok": true});
-                });
-                break;
-            default:
-                res.status(406).send();
-        }
-    })(req, res, next);
-});
-*/
-/*
-app.post('/signin', function(req, res, next) {
-    passport.authenticate('local', function(error, user, info) {
-        if(error) {
-            return res.status(500).json("an error occured");
-        }
-        if(!user) {
-            console.log(req);
-            return res.status(401).json("Crediantials Invalid");
-        }
-        res.status(200).json("ok");
-    })(req, res, next);
-});*/
-/*
-app.post("/signin", passport.authenticate('local', {
-    successRedirect: '/Setting',
-    failureRedirect: '/signin',
-    failureFlash: true
-}), function(req, res, info){
-    res.render('login/index',{'message' :req.flash('message')});
-});
-*/
-/*
-app.get('/logout', function(req, res){
-    req.session.destroy();
-    req.logout();
-    res.redirect('/signin');
-});
-*/
-
-//ENDS HERE
-
-
-
-
-app.use('/user', userRoutes);
-app.use('/Setting', webSetting);
 app.use('/connect-4slash', connectRoutes);
-app.use('/login-user-meta', userMetaRoutes);
-app.use('/get-companies', getCompanies);
-app.use('/', webRoutes);
+//ENDS HERE
+app.use('/user', userRoutes);
 
 app.use(history({
     rewrites: [
@@ -259,16 +109,17 @@ app.use(history({
         { from: /\/leaves/, to: '/leaves'},
         { from: /\/test/, to: '/test'},
         { from: /\/projects/, to: '/projects'},
-        { from: /\/setting/, to: '/Setting'},
+        { from: /\/setting/, to: '/setting'},
         { from: /\/forgot_password/, to: '/forgot_password'},
         { from: /\/email_temp/, to: '/email_temp'},
         { from: /\/password/, to: '/password'},
         { from: /\/clear/, to: '/clear'},
-        //{ from: /\/dashboard/, to: '/dashboard'},
+        { from: /\/login/, to: '/login'},
+
     ]
 }));
-
-
+app.use('/', webRoutes);
+app.use('/setting', webSetting);
 //app.use('/api', apiRoutes);
 
 // catch 404 and forward to error handler

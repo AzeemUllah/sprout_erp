@@ -30,7 +30,7 @@ export default{
                 ],
                 GoogleDrive:[
                     {
-                        url: "/setting/Templatetable",
+                        url: "/setting/templatetable",
                         title: "Templates"
                     },
                 ],

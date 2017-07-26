@@ -447,6 +447,18 @@ router.post('/outgoing_update', function (req, res, next) {
         }
     });
 });
+//incoming_update
+// router.post('/incoming_update', function (req, res, next) {
+//     console.log(req);
+//     connection.query('UPDATE `incoming_email_server` SET `description`= "'+req.body.description_e+'",`priority`="'+req.body.priority_e+'",`smtp_server`="'+req.body.smtp_server_e+'",`smtp_port`="'+req.body.smtp_port_e+'",`connection_security` ="'+req.body.connection_security_e+'",`username`="'+req.body.username_e+'",`password`="'+req.body.password_e+'" WHERE id = "'+req.body.id+'"', function (error, results, fields) {
+//         if (!error) {
+//             res.json({"status": "ok", "result": results});
+//         } else {
+//             console.log(result);
+//             res.json({"status": "failed", "message": error.message});
+//         }
+//     });
+// });
 //incoming_edit_service
 router.post('/incoming_edit_service', function (req, res, next) {
     connection.query('SELECT `name`, `server_type`, `last_fetched_date`, `server_name`, `port`, `ssl_tsl`, `username`, `password`, `action_id`, `status` FROM `incoming_email_server` WHERE "'+req.body.id+'"', function (error, results, fields) {
@@ -461,7 +473,7 @@ router.post('/incoming_edit_service', function (req, res, next) {
 //incoming_update
 router.post('/incoming_update', function (req, res, next) {
     console.log(req);
-    connection.query('UPDATE `outgoing_email_server` SET `description`= "'+req.body.description_e+'",`priority`="'+req.body.priority_e+'",`smtp_server`="'+req.body.smtp_server_e+'",`smtp_port`="'+req.body.smtp_port_e+'",`connection_security`="'+req.body.connection_security_e+'",`username`="'+req.body.username_e+'",`password`="'+req.body.password_e+'" WHERE  "'+req.body.id+'"', function (error, results, fields) {
+    connection.query('UPDATE `incoming_email_server` SET `name`= "'+req.body.name+'",`server_type`="'+req.body.servertype+'",`server_name`="'+req.body.servername+'",`port`="'+req.body.port+'",`ssl_tsl`="'+req.body.ssl+'",`username`="'+req.body.username+'",`password`="'+req.body.password+'",`action_id`="'+req.body.newrecord+'",`status`="'+req.body.status+'" WHERE  "'+req.body.id+'"', function (error, results, fields) {
         if (!error) {
             res.json({"status": "ok", "result": results});
         } else {
@@ -497,8 +509,31 @@ router.post('/delete_outgoing', function (req, res, next) {
     console.log(req.body.delete_items);
 
 });
+router.post('/delete_incoming', function (req, res, next) {
+    for (var i = 0; i < req.body.delete_items.length; ++i) {
+        connection.query('DELETE FROM `incoming_email_server` WHERE id = "'+req.body.delete_items[i]+'"' , function (error, results, fields) {
+            if (error){
+                res.json({"status": "failed", "message": error.message});
+            }
+            // console.log(results);
+        });
+    }
+    console.log(req.body.delete_items);
+
+});
 router.post('/delete_outgoing_inside', function (req, res, next) {
     connection.query('DELETE FROM `outgoing_email_server` WHERE id = "' +req.body.id+'"', function (error, results, fields) {
+        if (error) {
+            res.json({"status": "failed", "message": error.message});
+        }else {
+        }
+        // res.redirect('setting/users')
+        // console.log(results);
+    });
+    //console.log(req.body.delete_items);
+});
+router.post('/delete_incoming_inside', function (req, res, next) {
+    connection.query('DELETE FROM `incoming_email_server` WHERE id = "' +req.body.id+'"', function (error, results, fields) {
         if (error) {
             res.json({"status": "failed", "message": error.message});
         }else {
@@ -582,6 +617,17 @@ router.post('/add_user', function (req, res, next) {
             }
         });
     }
+});
+//templateinfo
+router.post('/templateinfo', function (req, res, next) {
+    connection.query('SELECT * FROM `users_template` WHERE `id`= "'+req.body.id+'"', function (error, results, fields) {
+        if (!error) {
+            res.json({"status": "ok", "result": results});
+        } else {
+            //console.log("check");
+            res.json({"status": "failed", "message": error.message});
+        }
+    });
 });
 //usertable
 router.post('/usertable', function (req, res, next) {

@@ -35,8 +35,9 @@
                         div
                             .o_form_field_many2one.o_form_field
                                 .o_form_input_dropdown
-                                    input#o_field_input_157.o_form_input.ui-autocomplete-input(type='text', autocomplete='off' v-model='templatefilter')
-                                    span.o_dropdown_button(draggable='false')
+                                    select(v-model='template_filter')
+                                        option(v-for='option in options2', v-bind:value="option.id")
+                                            | {{ option.name }}
                                 button.fa.fa-external-link.btn.btn-default.o_external_button(draggable='false', tabindex='-1', type='button', style='display: none;')
                             p.oe_grey
                                 b To create a new filter:

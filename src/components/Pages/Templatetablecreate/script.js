@@ -29,6 +29,8 @@ export default{
             templatefilter: "",
             templateurl: "",
             templategdrivename: "",
+            name: "",
+            options2: "",
         }
     },
     props: [
@@ -39,7 +41,13 @@ export default{
             var self = this;
             if(!self.formstatus){
                 self.formstatus = true;
-                self.$http.post("/template", {"template_name": self.templatename,"template_active": self.templateactive,"template_model": self.templatemodel,"template_filter": self.templatefilter,"template_url": self.templateurl,"template_gdrivename": self.templategdrivename}).then(function(res){
+                self.$http.post("/setting/template", {
+                    "template_name": self.templatename,
+                    "template_active": self.templateactive,
+                    "template_model": self.templatemodel,
+                    "template_filter": self.templatefilter,
+                    "template_url": self.templateurl,
+                    "template_gdrivename": self.templategdrivename}).then(function(res){
                     self.formstatus = false;
                     console.log(res.body);
 
@@ -48,6 +56,13 @@ export default{
                     alert(err);
                 });
             }
+        },
+        select: function () {
+            var self = this;
+            //alert(self.companyName);
+            self.$http.post("/templateselet", {"name": self.name}).then(function(res){self.options2 =res.body.result;},function(err){
+                //alert(err);
+            });
         },
 
         validateBeforeSubmit() {

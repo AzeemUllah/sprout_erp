@@ -8,6 +8,16 @@ export default{
         var self = this;
         document.title = this.title;
         this.select();
+        $("#delete").click(function () {
+            $(".checkBoxClass:checked").each(function(){
+                del.push($(this).val());
+                // self.btnlinks.deletebtnlink = "/setting/users/"+del;
+                // self.delete();
+            });
+            console.log(del);
+            self.delete(del);
+            alert(del);
+        });
     },
     data () {
         return {
@@ -85,11 +95,13 @@ export default{
                 alert(err);
             });
         },
-        delete: function () {
+        delete: function (del) {
             var self = this;
             //alert(self.current_company+ " ");
-            self.$http.post("/delete_users", {"id": self.$route.params.id ,"status": self.status}).then(function(res){
-                console.log(res.body);
+            console.log("a"+del);
+            self.$http.post("/setting/delete_incoming", {"delete_items": del}).then(function(res){
+
+                //console.log(res.body);
             },function(err){
                 //alert(err);
             });
