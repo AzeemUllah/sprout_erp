@@ -17,6 +17,11 @@ export default{
     ],
     data () {
         return {
+            title:"Incoming Mail Servers - Sprout",
+            btnlinks: {
+                savebtnlink:"",
+                discardbtnlink:"/setting/incomingmailserver"
+            },
             name: "",
             servertype: "",
             servername: "",
