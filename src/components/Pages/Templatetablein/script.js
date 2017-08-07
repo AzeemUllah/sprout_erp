@@ -3,6 +3,8 @@ import Templatetableincompo from "./../../partials/Templatetableincompo/Template
 
 export default{
     created: function () {
+        var self = this;
+        self.select();
         document.title = this.title;
 
     },
@@ -16,35 +18,31 @@ export default{
             },
             templatename:"",
             active:"",
-            model:"",
-            filter:"",
-            templateurl:"",
-            gdrivename:"",
+            name_e:"",
+            filter_name:"",
+            template_url:"",
+            gdrive_name_pattern:"",
+            model_description:"",
+
         }
     },
     methods: {
         select: function () {
             var self = this;
             //alert(self.companyName);
-            self.$http.post("/setting/templateinfo", {"id": self.$route.params.id}).then(function (res) {
+            self.$http.post("/setting/templateininfo", {"id": self.$route.params.id}).then(function (res) {
 
                 var parentdata = res.body.result[0];
-                self.templatename = parentdata.templatename;
+                console.log(parentdata);
+                self.name_e = parentdata.name;
+                self.filter_name = parentdata.filter_name;
+                self.template_url = parentdata.template_url;
+                self.gdrive_name_pattern = parentdata.gdrive_name_pattern;
+                self.model_description = parentdata.model_description;
                 self.active = parentdata.active;
-                self.model = parentdata.model;
-                self.filter = parentdata.filter;
-                self.templateurl = parentdata.templateurl;
-                self.gdrivename = parentdata.gdrivename;
-                //console.log(self.status);
+                console.log(parentdata);
                 //console.log(this.$route.query.id);
-                self.$http.post("/alias_value", {"alias_id": self.alias_id}).then(function (res) {
-                    //console.log(res.body);
-                    var parentdata = res.body.result[0];
-                    self.name = parentdata.name;
 
-                }, function (err) {
-                    //alert(err);
-                });
 
             }, function (err) {
                 // alert(err);

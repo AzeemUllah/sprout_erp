@@ -1,4 +1,6 @@
 import DashboardController from "./../../partials/DashboardController/DashboardController.vue"
+import Tabledrag from "./../../partials/Tabledrag/Tabledrag.vue"
+
 
 export default{
     created: function () {
@@ -20,17 +22,16 @@ export default{
             nextactivity: "Product",
             dashboard: "Dashboard",
             btnlinks: {
-                createbtnlink: "#/app/purchase/CreateProduct",
-                discardbtnlink: "#/app/sales/Salesnextactivityview",
-                importbtnlink: "#/app/imported",
-                secondbtnlink: "#/app/Employees/TableDep"
+                createbtnlink: "/purchase/CreateProduct",
+                secondbtnlink: "/purchase/producttable"
             },
 
         }
     },
 
     components: {
-        DashboardController
+        DashboardController,
+        Tabledrag
 
 
 

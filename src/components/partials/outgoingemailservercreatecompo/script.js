@@ -9,7 +9,7 @@ export default{
                 {
                     // x="You pressed OK!";
                     //console.log("asdasdas");
-                    window.location.href = "../outgoingemailserverin/"+self.$route.params.id;
+                    window.location.href = "../setting/outgoingemailserver";
                     self.submit();
                 }
                 else

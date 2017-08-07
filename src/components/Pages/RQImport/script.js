@@ -37,7 +37,7 @@ export default{
                 createbtnlink: "",
                 discardbtnlink: "",
                 importbtnlink: "",
-                cancelbtnlink:"#app/purchase/request_quotation"
+                cancelbtnlink:"/purchase"
 
             },
         }

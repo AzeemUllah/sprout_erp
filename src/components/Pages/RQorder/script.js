@@ -88,10 +88,11 @@ export default{
             modal60: "Open:Manager",
             modal61: "Open:Manager",
             btnlinks: {
-                createbtnlink: "#/app/attendance/InsideHrTwo",
-                discardbtnlink: "#/app/purchase/purchase_order",
-                editbtnlink:"#/app/attendance/InsideHrTwo",
-                importbtnlink: "#/app/imported"
+                savebtnlink:"",
+                discardbtnlink: "/purchase/purchase_order",
+                firstbtnlink:"/purchase/rqordergrid",
+
+
             },
         }
     },

@@ -1,6 +1,7 @@
 import DashboardController from "./../../partials/DashboardController/DashboardController.vue"
 import Request_Quotation_Lower from "./../../partials/Request_quotation_lower/Request_quotation_lower.vue"
 import Modal from "./../../partials/Modal/Modal.vue"
+import Vendorbillcreatecompo from "./../../partials/Vendorbillcreatecompo/Vendorbillcreatecompo.vue"
 
 
 export default{
@@ -73,25 +74,11 @@ export default{
     data () {
         return {
             nextactivity: "Vendor Bills/New",
-            modal2: "Open: Department",
-            modal3: "Open: Job Title",
-            modal4: "Open: Currency",
-            modal5: "Open: Recruitment Responsible",
-            modal6: "Open: Job Location",
-            modal7: "Create: Contacts",
-            modal8: "Open: Title",
-            modal9: "Open: Account Receivable",
-            modal10: "Open: Account Payable",
-            modal11: "Open: Working Address",
-            modal12: "Warning",
-            modal50: "Open:Manager",
-            modal60: "Open:Manager",
-            modal61: "Open:Manager",
             btnlinks: {
-                createbtnlink: "#/app/attendance/InsideHrTwo",
-                discardbtnlink: "#/app/purchase/vendor_bills",
-                editbtnlink:"#/app/attendance/InsideHrTwo",
-                importbtnlink: "#/app/imported"
+                savebtnlink:"",
+                discardbtnlink: "/purchase/vendor_bills",
+
+
             },
         }
     },
@@ -99,6 +86,7 @@ export default{
         DashboardController,
         Request_Quotation_Lower,
         Modal,
+        Vendorbillcreatecompo
     },
 
 

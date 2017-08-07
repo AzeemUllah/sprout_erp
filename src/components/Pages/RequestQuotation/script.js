@@ -21,9 +21,8 @@ export default{
             heading: "Requests for Quotation",
             dashboard: "Dashboard",
             btnlinks: {
-                createbtnlink: "#/app/purchase/RQcreate",
-                discardbtnlink: "#/app/sales/Salesnextactivityview",
-                importbtnlink: "#/app/purchase/RQImport",
+                createbtnlink: "/purchase/RQcreate",
+                importbtnlink: "/purchase/RQImport",
                 secondbtnlink: "",
                 firstbtnlink: "",
             },
@@ -64,17 +63,10 @@ export default{
                         "232.0",
                         "7878",
                         "RFQ",
-
-
-
                     ],
-                    "url": "#/app/purchase/RQ"
-
-
+                    "url": "/purchase/RQ"
                 },
-
             },
-
         }
     },
 

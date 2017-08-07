@@ -44,7 +44,7 @@ export default{
                     },
 
                 ],
-                Reports: { url: "/",title: "Reports" },
+                Reports: "/purchase/purchasereports",
                 Configuration: [
                     {
                         url: "/purchase/setting",

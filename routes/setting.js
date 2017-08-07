@@ -620,8 +620,19 @@ router.post('/add_user', function (req, res, next) {
 });
 //templateinfo
 router.post('/templateinfo', function (req, res, next) {
-    connection.query('SELECT * FROM `users_template` WHERE `id`= "'+req.body.id+'"', function (error, results, fields) {
+    connection.query('SELECT * FROM `users_template`', function (error, results, fields) {
         if (!error) {
+            res.json({"status": "ok", "result": results});
+        } else {
+            //console.log("check");
+            res.json({"status": "failed", "message": error.message});
+        }
+    });
+});
+router.post('/templateininfo', function (req, res, next) {
+    connection.query('SELECT users_template_filter.name , aliased_model.model_description FROM users_template_filter, aliased_model ,users_template WHERE users_template.id = "'+req.body.id+'" AND users_template_filter.id = users_template.filter_id AND aliased_model.id = users_template.model_id ', function (error, results, fields) {
+        if (!error) {
+            console.log(results);
             res.json({"status": "ok", "result": results});
         } else {
             //console.log("check");
@@ -982,6 +993,34 @@ router.get('/password', function(req, res, next){
     res.render('password', {title: 'Sprout' , success: req.session.success, errors: errors, token: token, email: email});
 
 });
+
+
+
+router.post('/checkUserExists', function(req, res, next){
+   console.log(req.body.token_number);
+    connection.query("SELECT * from user where user_token ='"+req.body.token_number+"'" , function (error, results, fields) {
+        if (!error) {
+            connection.query("SELECT * from sprout_users.users where email ='"+results[0].email+"'" , function (error2, results2, fields2) {
+                if (!error2) {
+                    if(results2.length>0){
+                        res.json({"status": "ok","message": "User Exists.", "email": results[0].email});
+                    }
+                    else{
+                        res.json({"status": "ok","message": "User Doesnot Exists."});
+                    }
+                } else {
+                    //console.log("check");
+                    res.json({"status": "failed", "message": error2.message});
+                }
+            });
+        } else {
+            //console.log("check");
+            res.json({"status": "failed", "message": error.message});
+        }
+    });
+});
+
+
 router.post('/password', function(req, res, next){
     var salt = bcrypt.genSaltSync(saltRounds);
     var hash = bcrypt.hashSync(req.body.password, salt);
@@ -1003,6 +1042,38 @@ router.post('/password', function(req, res, next){
     }
 
 });
+
+
+
+router.post('/conformPassword', function(req, res, next){
+    // req.check('email', 'Invalid email address').isEmail();
+console.log(req.body.email);
+        connection.query("select * from sprout_users.users where email ='"+req.body.emailOld+"'"  , function (error, results, fields) {
+            if(results.length>0){
+                console.log(results[0].password);
+                if(bcrypt.compareSync(req.body.password, results[0].password)){
+
+                    connection.query("UPDATE user SET password = '"+results[0].password+"', status = 'active' WHERE user_token = '"+req.body.emailOld+"'"  , function (error2, results2, fields2) {
+                        if (error2) res.send("failed: "+error2.message);
+                        res.redirect('/setting/users')
+                    });
+
+
+                    res.redirect('/setting/users');
+                }
+                else{
+                    res.send("Wrong Password");
+                }
+            }
+            else{
+                res.json({"status": "ok","message": "User Doesnot Exists."});
+            }
+        });
+        //req.session.success = true;
+
+
+});
+
 router.get('/get_email', function (req, res) {
    console.log(req.body.token);
 });

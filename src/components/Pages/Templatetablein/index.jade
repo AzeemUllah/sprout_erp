@@ -11,7 +11,7 @@
                                 label.o_form_label
                                     | Template Name
                             td(colspan='1', style='width: 100%;')
-                                span.o_form_field.o_form_required {{templatename}}
+                                span.o_form_field.o_form_required {{name_e}}
                         tr
                             td.o_td_label(colspan='1')
                                 label.o_form_label(for='o_field_input_165')
@@ -25,14 +25,14 @@
                                 label.o_form_label
                                     | Model
                             td(colspan='1', style='width: 100%;')
-                                a.o_form_uri.o_form_field.o_form_required(href='#') {{model}}
+                                a.o_form_uri.o_form_field.o_form_required(href='#') {{model_description}}
                         tr
                             td.o_td_label(colspan='1')
                                 label.o_form_label
                                     | Filter
                             td(colspan='1', style='width: 100%;')
                                 div
-                                    a.o_form_uri.o_form_field(href='#') {{filter}}
+                                    a.o_form_uri.o_form_field(href='#') {{filter_name}}
                                     p.oe_grey
                                         b To create a new filter:
                                         br
@@ -50,7 +50,7 @@
                                 label.o_form_label
                                     | Template URL
                             td(colspan='1', style='width: 100%;')
-                                span.o_form_field.o_form_required {{templateurl}}
+                                span.o_form_field.o_form_required {{template_url}}
 
                         tr
                             td.o_td_label(colspan='1')
@@ -64,7 +64,7 @@
                                     | Google Drive Name Pattern
                             td(colspan='1', style='width: 100%;')
                                 div
-                                    span.o_form_field.o_form_required {{gdrivename}}
+                                    span.o_form_field.o_form_required {{gdrive_name_pattern}}
                                     p.oe_grey
                                         | The name of the attached document can use fixed or variable data. To distinguish between documents in
                                         | Google Drive, use fixed words and fields. For instance, in the example above, if you wrote Agrolait_%(name)s_Sales

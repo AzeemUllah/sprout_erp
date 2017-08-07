@@ -1,5 +1,5 @@
 import DashboardController from "./../../partials/DashboardController/DashboardController.vue"
-
+import RQcreatecompo from "./../../partials/RQcreatecompo/RQcreatecompo.vue"
 import Message from "./../../partials/Message/Message.vue"
 import Modal from "./../../partials/Modal/Modal.vue"
 import Request_quotation_lower from "./../../partials/Request_quotation_lower/Request_quotation_lower.vue"
@@ -91,10 +91,8 @@ export default{
             modal60: "Open:Manager",
             modal61: "Open:Manager",
             btnlinks: {
-                createbtnlink: "#/app/attendance/InsideHrTwo",
-                discardbtnlink: "#/app/purchase/RQ",
-                editbtnlink:"#/app/attendance/InsideHrTwo",
-                importbtnlink: "#/app/imported"
+                savebtnlink:"",
+                discardbtnlink: "/purchase/RQ",
             },
         }
     },
@@ -103,6 +101,7 @@ export default{
         Request_quotation_lower,
         Modal,
         Message,
+        RQcreatecompo
     },
 
 

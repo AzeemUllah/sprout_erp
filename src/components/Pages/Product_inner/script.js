@@ -2,6 +2,7 @@ import DashboardController from "./../../partials/DashboardController/DashboardC
 import TableMain from "./../../partials/TableMain/TableMain.vue"
 import Request_quotation_lower from "./../../partials/Request_quotation_lower/Request_quotation_lower.vue"
 import Message from "./../../partials/Message/Message.vue"
+import Productinnercompo from "./../../partials/Productinnercompo/Productinnercompo.vue"
 
 export default{
     created: function () {
@@ -77,5 +78,6 @@ export default{
         TableMain,
         Request_quotation_lower,
         Message,
+        Productinnercompo,
     }
 }

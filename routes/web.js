@@ -43,7 +43,7 @@ connection.connect(function (err) {
 });
 
 
-router.post('/yo', function(req, res, next){
+router.get('/yo', function(req, res, next){
     connection.query("INSERT INTO test (name, age, email) VALUES ('Company Inc','545', 'Highway 37')") ;
 });
 
@@ -301,7 +301,7 @@ var privilegeAuthentication = function(req, res, next) {
      }
      }
      */
-
+next();
 };
 
 
@@ -359,10 +359,16 @@ router.get("/recruitment",privilegeAuthentication, function(req, res, next){
 router.get("/setting", function(req, res, next){
     res.render('modules/Setting', {title: 'Sprout'});
 });
+router.get("/setting/*", function(req, res, next){
+    res.render('modules/Setting', {title: 'Sprout'});
+});
 router.get("/discuess", privilegeAuthentication, function(req, res, next){
     res.render('modules/discuess', {title: 'Sprout'});
 });
 router.get("/purchase", function(req, res, next){
+    res.render('modules/purchase', {title: 'Sprout'});
+});
+router.get("/purchase/*", function(req, res, next){
     res.render('modules/purchase', {title: 'Sprout'});
 });
 router.get("/pointofsale", privilegeAuthentication, function(req, res, next){

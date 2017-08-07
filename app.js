@@ -12,13 +12,15 @@ var validator = require("express-validator");
 var history = require("connect-history-api-fallback");
 //require("./config/passport");
 
+var getCompanies = require('./routes/get_companies');
 var userRoutes = require('./routes/user');
 var webRoutes = require('./routes/web');
 var webSetting = require('./routes/setting');
+var webpurchase = require('./routes/purchase');
+var webrecruitment = require('./routes/recruitment');
 //var apiRoutes = require('./routes/api');
 
 var app = express();
-
 
 
 
@@ -82,6 +84,8 @@ app.use(validator({
 }));
 app.use(flash());
 var connection = require('./routes/db_conn');
+app.use('/get-companies', getCompanies);
+app.use('/', webRoutes);
 app.use('/connect-4slash', connectRoutes);
 //ENDS HERE
 app.use('/user', userRoutes);
@@ -118,8 +122,10 @@ app.use(history({
 
     ]
 }));
-app.use('/', webRoutes);
+
 app.use('/setting', webSetting);
+app.use('/purchase', webpurchase);
+app.use('/recruitment', webrecruitment);
 //app.use('/api', apiRoutes);
 
 // catch 404 and forward to error handler

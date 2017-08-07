@@ -1,20 +1,9 @@
 .o_content
     .o_view_manager_content
         .o_form_view.o_form_editable
-            header(style='margin-left:-15px;margin-right:-15px;')
-                button.btn.btn-sm.oe_highlight.o_form_invisible(type='button')
-                    span Launch Recruitment
-                button.btn.btn-sm(type='button')
-                    span Stop Recruitment
-                ul.oe_form_field_status.oe_form_status.o_form_field.o_form_required(data-original-title='', title='')
-                    li.oe_active(data-id='recruit')
-                        span.label Recruitment in Progress
-                        span.arrow
-                            span
-                    li(data-id='open')
-                        span.label Not Recruiting
-                        span.arrow
-                            span
+            slot(name='head')
+
+
             .o_form_sheet_bg
                 .o_form_sheet
                     .oe_button_box(name='button_box')
@@ -37,72 +26,10 @@
                             .fa.fa-fw.fa-share.o_button_icon
                             .o_form_field.o_stat_info
                                 span.o_stat_text Trackers
-                    .oe_title
-                        label.o_form_label.oe_edit_only(for='o_field_input_4')
-                            | Job Title
-                        h1
-                            input#o_field_input_4.o_form_input.o_form_field.o_form_required(placeholder='e.g. Sales Manager', type='text')
-                            button.o_field_translate.fa.fa-globe.btn.btn-link(type='button')
+                    slot(name='title')
                     .o_group
-                        table.o_group.o_inner_group.o_group_col_6
-                            tbody
-                                tr
-                                    td.o_td_label(colspan='1')
-                                        label.o_form_label(for='o_field_input_5')
-                                            | Department
-                                    td(colspan='1', style='width: 100%;')
-                                        .o_form_field_many2one.o_form_field
-                                            .o_form_input_dropdown
-                                                input#o_field_input_5.o_form_input.ui-autocomplete-input(type='text', autocomplete='off')
-                                                span.o_dropdown_button(draggable='false')
-                                            button.fa.fa-external-link.btn.btn-default.o_external_button(draggable='false', tabindex='-1', type='button', style='display: none;')
-                                tr
-                                    td.o_td_label(colspan='1')
-                                        label.o_form_label(for='o_field_input_6')
-                                            | Recruitment Responsible
-                                    td(colspan='1', style='width: 100%;')
-                                        .o_form_field_many2one.o_form_field
-                                            .o_form_input_dropdown
-                                                input#o_field_input_6.o_form_input.ui-autocomplete-input(type='text', autocomplete='off')
-                                                span.o_dropdown_button(draggable='false')
-                                            button.fa.fa-external-link.btn.btn-default.o_external_button(draggable='false', tabindex='-1', type='button', style='display: none;')
-                                tr
-                                    td.o_td_label(colspan='1')
-                                        label.o_form_label.o_form_label_help(for='o_field_input_7', data-original-title='', title='')
-                                            | Specific Email Address
-                                    td(colspan='1', style='width: 100%;')
-                                        div(name='alias_def', attrs="{'invisible': [('alias_domain', '=', False)]}")
-                                            .o_form_field_many2one.oe_read_only.o_form_field(data-original-title='', title='')
-                                                .o_form_input_dropdown
-                                                    input.o_form_input.ui-autocomplete-input(type='text', autocomplete='off')
-                                                    span.o_dropdown_button(draggable='false')
-                                                button.fa.fa-external-link.btn.btn-default.o_external_button(draggable='false', tabindex='-1', type='button', style='display: none;')
-                                            .oe_edit_only(name='edit_alias')
-                                                input#o_field_input_7.o_form_input.oe_inline.o_form_field(type='text')
-                                                | @
-                                                span.oe_inline.o_form_field localhost
-                                tr
-                                    td.o_td_label(colspan='1')
-                                        label.o_form_label.o_form_label_help(for='o_field_input_8', data-original-title='', title='')
-                                            | Expected New Employees
-                                    td(colspan='1', style='width: 100%;')
-                                        input#o_field_input_8.o_form_input.o_form_field.o_form_field_number(type='text')
-                        table.o_group.o_inner_group.o_group_col_6
-                            tbody
-                                tr
-                                    td.o_td_label(colspan='1')
-                                        label.o_form_label.o_form_label_help(for='o_field_input_9', data-original-title='', title='')
-                                            | Job Location
-                                    td(colspan='1', style='width: 100%;')
-                                        .o_form_field_many2one.o_with_button.o_form_field
-                                            .o_form_input_dropdown
-                                                input#o_field_input_9.o_form_input.ui-autocomplete-input(type='text', autocomplete='off')
-                                                span.o_dropdown_button(draggable='false')
-                                            button.fa.fa-external-link.btn.btn-default.o_external_button(draggable='false', tabindex='-1', type='button')
-                    div(attrs="{'invisible': [('state', '!=', 'recruit')]}")
-                        label.o_form_label
-                            | Job Description
-                        textarea.o_form_textarea.o_form_field(rows='6', name='description', style='resize: horizontal; height: 50px;')
-                        textarea.o_form_textarea.o_form_field(disabled='', style='position: absolute; opacity: 0; height: 10px; top: -10000px; left: -10000px; width: 826px;')
-                        textarea.o_form_textarea.o_form_field(disabled='', style='position: absolute; opacity: 0; height: 10px; top: -10000px; left: -10000px; width: 10px;')
+                        slot(name='job')
+                        slot(name='jobs')
+                    slot(name='jobsone')
+
 

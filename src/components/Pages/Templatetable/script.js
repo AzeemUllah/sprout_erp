@@ -28,14 +28,17 @@ export default{
             tableheader: [
                 "Template Name",
                 "Model",
-                "",
+
+
 
             ],
             tablefoot: [
                 "",
                 "",
                 "",
-                "",
+
+
+
 
             ],
             tabledata: {
@@ -43,6 +46,7 @@ export default{
                     "data": [
                         "template 1",
                         "partner 1",
+                        "",
                         "",
 
                     ],
@@ -52,6 +56,7 @@ export default{
                     "data": [
                         "template 2",
                         "partner 2",
+                        "",
                         "",
 
                     ],

@@ -119,7 +119,7 @@ const routes = [
                     { path: 'templatetablecreate', component: Templatetablecreate},
                     { path: 'templatetablecreatecompo', component: Templatetablecreatecompo},
                     { path: 'templatetableincompo', component: Templatetableincompo},
-                    { path: 'templatetablein', component: Templatetablein},
+                    { path: 'templatetablein/:id', component: Templatetablein},
                     { path: 'templatetableedit', component: Templatetableedit},
                     { path: 'tssignup', component: tssignup},
                     { path: 'companiesin/:id', component: Companiesin},

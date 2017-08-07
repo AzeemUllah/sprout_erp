@@ -2,6 +2,7 @@ import DashboardController from "./../../partials/DashboardController/DashboardC
 import Request_quotation_lower from "./../../partials/Request_quotation_lower/Request_quotation_lower.vue"
 import Message from "./../../partials/Message/Message.vue"
 import Modal from "./../../partials/Modal/Modal.vue"
+import RQin from "./../../partials/RQin/RQin.vue"
 
 
 export default{
@@ -89,10 +90,8 @@ export default{
             modal60: "Open:Manager",
             modal61: "Open:Manager",
             btnlinks: {
-                createbtnlink: "#/app/purchase/RQcreate",
-                discardbtnlink: "#/app/Employees/EmpDash",
-                editbtnlink:"#/app/purchase/RQEdit",
-                importbtnlink: "#/app/imported"
+                createbtnlink: "/purchase/RQcreate",
+                editbtnlink:"/purchase/RQEdit",
             },
         }
     },
@@ -101,6 +100,7 @@ export default{
         Request_quotation_lower,
         Modal,
         Message,
+        RQin
     },
 
 

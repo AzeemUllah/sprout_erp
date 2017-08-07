@@ -1,6 +1,7 @@
 import DashboardController from "./../../partials/DashboardController/DashboardController.vue"
 import Request_Quotation_Lower from "./../../partials/Request_quotation_lower/Request_quotation_lower.vue"
 import Modal from "./../../partials/Modal/Modal.vue"
+import RQcreatecompo from "./../../partials/RQcreatecompo/RQcreatecompo.vue"
 
 
 export default{
@@ -35,6 +36,20 @@ export default{
             });
 
         });
+        $('#datepicker').datepicker({
+            format: "dd.mm.yyyy",
+            todayBtn: "linked",
+            language: "de",
+            daysOfWeekDisabled: "0,6",
+            daysOfWeekHighlighted: "4",
+            todayHighlight: true,
+        }).on('changeDate',showTestDate);
+
+        function showTestDate() {
+            var value = $('#datepicker').datepicker('getFormattedDate');
+            self.dates_value = value;
+            //console.log(value);
+        };
         $(function(){
             $('.samobuttopcontroller1').off('click');
             $('.samobuttopcontroller1').on('click', function () {
@@ -88,10 +103,10 @@ export default{
             modal60: "Open:Manager",
             modal61: "Open:Manager",
             btnlinks: {
-                createbtnlink: "#/app/attendance/InsideHrTwo",
-                discardbtnlink: "#/app/purchase/request_quotation",
-                editbtnlink:"#/app/attendance/InsideHrTwo",
-                importbtnlink: "#/app/imported"
+
+                discardbtnlink: "/purchase",
+                savebtnlink:"",
+
             },
         }
     },
@@ -99,6 +114,7 @@ export default{
         DashboardController,
         Request_Quotation_Lower,
         Modal,
+        RQcreatecompo
     },
 
 

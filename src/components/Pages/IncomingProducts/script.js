@@ -39,9 +39,8 @@ export default{
     data(){
         return {
             btnlinks: {
-                createbtnlink: "#/app/purchase/incomcreate",
-
-                importbtnlink:"#/app/purchase/IncomingProductImport"
+                createbtnlink: "/purchase/incomcreate",
+                importbtnlink:"/purchase/IncomingProductImport"
             },
             tableheader: [
                 "Expected Date",
@@ -64,7 +63,7 @@ export default{
                         " New",
 
                     ],
-                    "url": "#/app/purchase/Incomingmenu"
+                    "url": "/purchase/Incomingmenu"
 
 
                 },

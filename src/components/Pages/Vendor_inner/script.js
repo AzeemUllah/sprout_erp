@@ -89,10 +89,8 @@ export default{
             modal60: "Open:Manager",
             modal61: "Open:Manager",
             btnlinks: {
-                createbtnlink: "#/app/purchase/VendorBillCreate",
-                discardbtnlink: "#/app/Employees/EmpDash",
-                editbtnlink:"#/app/purchase/VendorBillEdits",
-                importbtnlink: "#/app/imported"
+                createbtnlink: "/purchase/VendorBillCreate",
+                editbtnlink:"/purchase/VendorBillEdits",
             },
         }
     },

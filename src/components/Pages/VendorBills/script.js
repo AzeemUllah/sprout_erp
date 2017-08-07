@@ -48,8 +48,8 @@ export default{
             title : "Recruitment - Sprout",
             pipeline: "Vendor Bills",
             btnlinks: {
-                createbtnlink: "#/app/purchase/VendorBillCreate",
-                importbtnlink: "#/app/purchase/VendorbillImport",
+                createbtnlink: "/purchase/VendorBillCreate",
+                importbtnlink: "/purchase/VendorbillImport",
                 firstbtnlink: "",
                 secondbtnlink: ""
             },
@@ -64,6 +64,7 @@ export default{
                 " Total",
                 " To Pay",
                 " Status",
+                " ",
 
             ],
             tablefooter:[
@@ -100,7 +101,7 @@ export default{
 
 
                     ],
-                    "url": "#/app/purchase/vendorinner"
+                    "url": "/purchase/vendorinner"
 
 
                 },

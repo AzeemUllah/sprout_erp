@@ -5,7 +5,20 @@ export default{
         $(function () {
             $('#save').on("click",function(){
                 document.getElementById('submitButton').click();
+
             });
+            var r = confirm("Are you sure update user");
+            if (r)
+            {
+                // x="You pressed OK!";
+                //console.log("asdasdas");
+                window.location.href = "../usersin/"+self.$route.params.id;
+                self.submit();
+            }
+            else
+            {
+                // x="You pressed Cancel!";
+            }
         });
 
 

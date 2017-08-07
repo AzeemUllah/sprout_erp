@@ -5,6 +5,7 @@
   "scripts": {
     "start": "nodemon ./bin/www",
     "watchify": "watchify -vd -e src/Pages/Setting/main.js -o public/Modules/Setting/build.js",
+    "watchifypurchase": "watchify -vd -e src/Pages/Purchase/main.js -o public/Modules/Purchase/build.js",
     "dev": "npm-run-all --parallel watchify start",
     "build": "cross-env NODE_ENV=production browserify -g envify -p [ vueify/plugins/extract-css -o public/Modules/Setting/build.css ] -e src/Pages/Setting/main.js | uglifyjs -c warnings=false -m > public/Modules/Setting/build.js",
     "build_accounting": "cross-env NODE_ENV=production browserify -g envify -p [ vueify/plugins/extract-css -o public/Modules/Accounting/build.css ] -e src/Pages/Accounting/main.js | uglifyjs -c warnings=false -m > public/Modules/Accounting/build.js",

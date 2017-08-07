@@ -125,6 +125,7 @@ router.post("/", function(req, res){
     //  var pakageType = req.body.pakage_type;
     var createdAt = req.body.created_at;
     var allowed_apps = req.body.allowed_apps;
+    var allowed_users = req.body.allowed_users;
     companyName = companyName.replace(' ', '');
     // --- NOT OF OUR USE ---
     // var totalAmount = req.body.total_amount;
@@ -290,8 +291,8 @@ router.post("/", function(req, res){
 
             function(connection, callback) {
                 connection.query("INSERT INTO `sprout_users`.`companies_data` " +
-                    "( `company_name` , `data_allowed` , `data_consumed`)" +
-                    "VALUES ( '"+db_name+"', '1000000000', '0')" , function (error) {
+                    "( `company_name` , `data_allowed` , `data_consumed`,`number_of_users`)" +
+                    "VALUES ( '"+db_name+"', '1000000000', '0','"+allowed_users+"')" , function (error) {
                     if(error){
                         return res.status(500).json({ status: 'Error', message: 'Error inserting into database. '});
                     }

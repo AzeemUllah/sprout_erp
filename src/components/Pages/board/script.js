@@ -44,11 +44,11 @@ export default{
     data(){
         return {
             modalheading: "Schedule an Activity",
-            title : "Recruitment - Sprout",
+            title : "Purchase Orders - Sprout",
             pipeline: "Purchase Orders",
             btnlinks: {
-                createbtnlink: "#/app/purchase/RQorder",
-                importbtnlink: "#/app/purchase/PurchaseorderImport",
+                createbtnlink: "/purchase/RQorder",
+                importbtnlink: "/purchase/PurchaseorderImport",
                 firstbtnlink: "",
                 secondbtnlink: ""
             },

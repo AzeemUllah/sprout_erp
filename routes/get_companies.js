@@ -5,8 +5,6 @@
  * Created by 4slashmac on 5/26/17.
  */
 
-// REQUIRMENTS CHANGED. THIS FILE IS NO LONGER IN USE.
-
 var express = require("express");
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');

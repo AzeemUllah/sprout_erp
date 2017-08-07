@@ -55,6 +55,14 @@ import InsideHrThree from "./../../components/Pages/InsideHrThree/InsideHrThree.
 import Subview from "./../../components/Pages/Subview/Subview.vue"
 import RQImport from "./../../components/Pages/RQImport/RQImport.vue"
 import board from "./../../components/Pages/board/board.vue"
+import RQordergrid from "./../../components/Pages/RQordergrid/RQordergrid.vue"
+import RQcreatecompo from "./../../components/partials/RQcreatecompo/RQcreatecompo.vue"
+import Productinnercompo from "./../../components/partials/Productinnercompo/Productinnercompo.vue"
+import RQin from "./../../components/partials/RQin/RQin.vue"
+import Vendorbillcreatecompo from "./../../components/partials/Vendorbillcreatecompo/Vendorbillcreatecompo.vue"
+import Purchasereports from "./../../components/Pages/Purchasereports/Purchasereports.vue"
+import Purchasereportsgraph from "./../../components/Pages/Purchasereportsgraph/Purchasereportsgraph.vue"
+import producttable from "./../../components/Pages/producttable/producttable.vue"
 
 const routes = [
     { path: '/purchase', component: Test,
@@ -116,6 +124,14 @@ const routes = [
                     { path: 'product_boxes', component: Product_Boxes},
                     { path: 'pagination', component: Pagination},
                     { path: 'InsideHrThree', component: InsideHrThree},
+                    { path: 'rqordergrid', component: RQordergrid},
+                    { path: 'rqcreatecompo', component: RQcreatecompo},
+                    { path: 'rqin', component: RQin},
+                    { path: 'purchasereports', component: Purchasereports},
+                    { path: 'purchasereportsgraph', component: Purchasereportsgraph},
+                    { path: 'productinnercompo', component: Productinnercompo},
+                    { path: 'vendorbillcreatecompo', component: Vendorbillcreatecompo},
+                    { path: 'producttable', component: producttable},
                 ]
             },
         ]

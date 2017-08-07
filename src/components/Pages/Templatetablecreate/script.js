@@ -7,6 +7,19 @@ export default{
         document.title = this.title;
         $(function() {
             $("#save").click(function () {
+                // alert("successfully update");
+                var r = confirm("Are you sure update");
+                if (r)
+                {
+                    // x="You pressed OK!";
+                    //console.log("asdasdas");
+                    window.location.href = "../setting/Templatetable";
+                    self.submit();
+                }
+                else
+                {
+                    // x="You pressed Cancel!";
+                }
                 self.submit();
 
             });
