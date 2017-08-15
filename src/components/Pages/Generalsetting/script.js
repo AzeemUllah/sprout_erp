@@ -3,7 +3,7 @@
 export default{
     created: function () {
         var self = this;
-        var doc = new PDFDocument;
+        // var doc = new PDFDocument;
         $(function() {
             $(".checked").prop('checked', true);
             $("#apply").click(function () {
@@ -19,13 +19,13 @@ export default{
                 //     $("#gayab").hide();
                 // }
             });
-            $("#previewinternal").click(function () {
-                doc.pipe.createWriteStream('output.pdf');
-                    doc.addPage()
-                        .fillColor("blue")
-                        .text('Here is a link!', 100, 100);
-                doc.end();
-            });
+            // $("#previewinternal").click(function () {
+            //     doc.pipe.createWriteStream('output.pdf');
+            //         doc.addPage()
+            //             .fillColor("blue")
+            //             .text('Here is a link!', 100, 100);
+            //     doc.end();
+            // });
         });
         self.select();
     },
