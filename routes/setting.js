@@ -296,7 +296,7 @@ router.post('/paperformat', function (req, res, next) {
 //Outgoing Mail Server
 router.post('/outgoingmail', function (req, res, next) {
     console.log(req);
-    connection.query('INSERT INTO `outgoing_email_server`(`description`,`priority`,`smtp_server`,`smtp_port`,`connection_security`,`username`,`password`) VALUES ("'+req.body.descriptio_n+'","'+req.body.priorit_y+'","'+req.body.smtpserver+'","'+req.body.smtpport+'","'+req.body.connectionsecurity+'","'+req.body.usernam_e+'","'+req.body.passwor_d+'")', function (error, results, fields) {
+    connection.query('INSERT INTO `outgoing_email_server`(`description`,`priority`,`smtp_server`,`smtp_port`,`connection_security`,`username`,`password`) VALUES ("'+req.body.description_e+'","'+req.body.priority_e+'","'+req.body.smtp_server_e+'","'+req.body.smtp_port_e+'","'+req.body.connection_security_e+'","'+req.body.username_e+'","'+req.body.password_e+'")', function (error, results, fields) {
         if (error) {
             res.json({"status": "failed", "message": error.message});
         }
@@ -548,6 +548,10 @@ router.post('/delete_incoming_inside', function (req, res, next) {
 /**************************************************user work******************************/
 //create users
 router.post('/add_user', function (req, res, next) {
+    //console.log(req.session.db_name);
+
+
+
     //console.log(req);
     var salt = bcrypt.genSaltSync(saltRounds);
     var hash = bcrypt.hashSync(req.body.password, salt);
@@ -564,58 +568,117 @@ router.post('/add_user', function (req, res, next) {
         req.session.success = false;
         res.redirect('/setting/usersoutcreate')
     }else {
-        res.render('email_template', {token: token}, function (err, output) {
-            html = output;
-        });
-        var mailOptions = {
-            from: '<no-reply@gmail.com>', // sender address
-            to: req.body.email, // list of receivers
-            subject: 'Hello USama ✔', // Subject line
-            html: html // html body
-        };
-        connection.query('INSERT INTO `user`(`username`, `email`, `user_token`, `country_id`,`status`,`type`,`created_at`,`language`,`timezone`,`notification`,`alias_id`,`signature`,`barcode`,`security_pin`) ' +
-            'VALUES ("' + req.body.username + '","' + req.body.email + '","' + token + '","' + req.body.country_id + '","' + status + '","' + type + '","' + datetime + '","' + req.body.language + '","' + req.body.timezone + '","' + req.body.emailmessages + '","' + req.body.alias + '","' + req.body.signature + '","' + req.body.barcode + '","' + req.body.security_pin + '")', function (error, results, fields) {
 
+        // Azeem's Modifications - Custom limit in number of users implemented here.
+        var num_current_users = 0;
+        var num_allowed_users = 0;
+
+        connection.query('select count(*) as number_current_users from '+req.session.db_name+'.user', function (error, results, fields) {
             if (error) {
                 res.json({"status": "failed", "message": error.message});
-            } else {
-                connection.query('INSERT INTO `users_access_rights`(`current_company_id`, `sales`, `project`, `inventory`, `manufacturing`, `accounting`, `purchases`, `recruitment`, `expenses`, `timesheets`, `attandance`, `fleet`, `mass_mailing`, `pos`, `administration`,`employee`,`manager`,`equipment_manager`,`officer`, `user_id`) ' +
-                    'VALUES ("' + req.body.current_company + '","' + req.body.sales + '","' + req.body.project + '","' + req.body.inventory + '","' + req.body.manufacturing + '","' + req.body.accounting + '","' + req.body.purchases + '","' + req.body.recruitment + '","' + req.body.expenses + '","' + req.body.timesheets + '","' + req.body.attendance + '","' + req.body.fleet + '","' + req.body.massmailing + '","' + req.body.pointofsale + '","' + req.body.administration + '","' + req.body.employee + '","' + req.body.manager + '","' + req.body.equipment_manager + '","' + req.body.officer + '",' + results.insertId + ')', function (error, results2, fields) {
+            }else {
+                num_current_users = results[0].number_current_users;
 
-                    if (!error) {
-                        connection.query('INSERT INTO `users_allowed_company` (`company_id`, `user_id`) ' +
-                            'VALUES ("' + req.body.current_company + '",' + results.insertId + ')', function (error, results, fields) {
 
-                            if (error) {
-                                res.json({"status": "failed", "message": error.message});
-                            }else {
-                                transporter.sendMail(mailOptions, function (err, info) {
-                                    if (err) {
-                                        console.log(err);
-                                        res.send("Something goes wrong!");
-                                    }
-                                    else {
-                                        console.log("successfull");
-                                        //res.render('registration');
-                                        res.json({"status": "ok", "result": results});
-                                    }
 
-                                });
-
-                            }
-
-                        });
-
-                    } else {
-                        //console.log("fail");
+                connection.query("select number_of_users as number_allowed_users from sprout_users.companies_data where company_name = '"+req.session.db_name+"'", function (error, results, fields) {
+                    if (error) {
                         res.json({"status": "failed", "message": error.message});
-                    }
+                    }else {
+                        num_allowed_users = results[0].number_allowed_users;
 
+
+                        if(num_current_users >= num_allowed_users ){
+                            console.log("LIMIT EXCEDED." + num_current_users + " " + num_allowed_users);
+                            res.json({"status": "failed", "message": "User limit exceded. ", "detail": "User Limit Exceded."});
+                        }
+                        else{
+                            console.log("LIMIT NOT EXCEDED.");
+
+
+
+                            res.render('email_template', {token: token}, function (err, output) {
+                                html = output;
+                            });
+                            var mailOptions = {
+                                from: '<no-reply@gmail.com>', // sender address
+                                to: req.body.email, // list of receivers
+                                subject: 'Hello USama ✔', // Subject line
+                                html: html // html body
+                            };
+                            connection.query('INSERT INTO `user`(`username`, `email`, `user_token`, `country_id`,`status`,`type`,`created_at`,`language`,`timezone`,`notification`,`alias_id`,`signature`,`barcode`,`security_pin`) ' +
+                                'VALUES ("' + req.body.username + '","' + req.body.email + '","' + token + '","' + req.body.country_id + '","' + status + '","' + type + '","' + datetime + '","' + req.body.language + '","' + req.body.timezone + '","' + req.body.emailmessages + '","' + req.body.alias + '","' + req.body.signature + '","' + req.body.barcode + '","' + req.body.security_pin + '")', function (error, results, fields) {
+
+                                if (error) {
+                                    res.json({"status": "failed", "message": error.message});
+                                } else {
+                                    connection.query('INSERT INTO `users_access_rights`(`current_company_id`, `sales`, `project`, `inventory`, `manufacturing`, `accounting`, `purchases`, `recruitment`, `expenses`, `timesheets`, `attandance`, `fleet`, `mass_mailing`, `pos`, `administration`,`employee`,`manager`,`equipment_manager`,`officer`, `user_id`) ' +
+                                        'VALUES ("' + req.body.current_company + '","' + req.body.sales + '","' + req.body.project + '","' + req.body.inventory + '","' + req.body.manufacturing + '","' + req.body.accounting + '","' + req.body.purchases + '","' + req.body.recruitment + '","' + req.body.expenses + '","' + req.body.timesheets + '","' + req.body.attendance + '","' + req.body.fleet + '","' + req.body.massmailing + '","' + req.body.pointofsale + '","' + req.body.administration + '","' + req.body.employee + '","' + req.body.manager + '","' + req.body.equipment_manager + '","' + req.body.officer + '",' + results.insertId + ')', function (error, results2, fields) {
+
+                                        if (!error) {
+                                            connection.query('INSERT INTO `users_allowed_company` (`company_id`, `user_id`) ' +
+                                                'VALUES ("' + req.body.current_company + '",' + results.insertId + ')', function (error, results, fields) {
+
+                                                if (error) {
+                                                    res.json({"status": "failed", "message": error.message});
+                                                }else {
+                                                    transporter.sendMail(mailOptions, function (err, info) {
+                                                        if (err) {
+                                                            console.log(err);
+                                                            res.send("Something goes wrong!");
+                                                        }
+                                                        else {
+                                                            console.log("successfull");
+                                                            //res.render('registration');
+                                                            res.json({"status": "ok", "result": results});
+                                                        }
+
+                                                    });
+
+                                                }
+
+                                            });
+
+                                        } else {
+                                            //console.log("fail");
+                                            res.json({"status": "failed", "message": error.message});
+                                        }
+
+                                    });
+                                    // console.log(results.insertId);
+                                    // res.json({"status": "failed", "results": results});
+                                }
+                            });
+
+                        }
+
+
+
+
+                    }
+                    console.log(num_allowed_users);
                 });
-                // console.log(results.insertId);
-                // res.json({"status": "failed", "results": results});
+
+
+
+
             }
+            console.log(num_current_users);
         });
+
+
+
+
+
+        // Azeem's modifications ends here.
+
+
+
+
+
+
+
+
     }
 });
 //templateinfo

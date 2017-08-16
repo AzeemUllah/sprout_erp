@@ -356,19 +356,19 @@ router.get("/test",privilegeAuthentication, function(req, res, next){
 router.get("/recruitment",privilegeAuthentication, function(req, res, next){
     res.render('modules/recruitment', {title: 'Sprout'});
 });
-router.get("/setting", function(req, res, next){
+router.get("/setting",privilegeAuthentication, function(req, res, next){
     res.render('modules/Setting', {title: 'Sprout'});
 });
-router.get("/setting/*", function(req, res, next){
+router.get("/setting/*",privilegeAuthentication, function(req, res, next){
     res.render('modules/Setting', {title: 'Sprout'});
 });
 router.get("/discuess", privilegeAuthentication, function(req, res, next){
     res.render('modules/discuess', {title: 'Sprout'});
 });
-router.get("/purchase", function(req, res, next){
+router.get("/purchase",privilegeAuthentication, function(req, res, next){
     res.render('modules/purchase', {title: 'Sprout'});
 });
-router.get("/purchase/*", function(req, res, next){
+router.get("/purchase/*",privilegeAuthentication, function(req, res, next){
     res.render('modules/purchase', {title: 'Sprout'});
 });
 router.get("/pointofsale", privilegeAuthentication, function(req, res, next){

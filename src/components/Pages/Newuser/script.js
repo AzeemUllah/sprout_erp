@@ -9,7 +9,7 @@ export default{
                         // validation failed.
                     }
                     self.submit();
-                    window.location.href = "../setting/users";
+                    //window.location.href = "../setting/users";
                 });
             });
             $('#submitSaveBtn').on("click",function(){
@@ -115,7 +115,15 @@ export default{
                 "barcode": self.barcode,
                 "security_pin": self.security_pin
             }).then(function(res){
-                //console.log(res.body);
+                //console.log(res);
+                if(!(typeof res.body.detail === 'undefined')){
+                    alert(res.body.detail);
+                    window.location.href = "../setting/users";
+                }
+                else {
+                    window.location.href = "../setting/users";
+                }
+
             },function(err){
                 //alert(err);
             });

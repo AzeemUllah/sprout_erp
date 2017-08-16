@@ -73,7 +73,7 @@ export default{
         },
         submit: function () {
             var self = this;
-            self.$http.post("/setting/outgoing_update", {
+            self.$http.post("/setting/outgoingmail", {
                 "id": self.$route.params.id,
                 "description_e": self.description_e,
                 "priority_e": self.priority_e,
