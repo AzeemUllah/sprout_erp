@@ -83,6 +83,7 @@ app.use(validator({
     }
 }));
 app.use(flash());
+
 var connection = require('./routes/db_conn');
 app.use('/get-companies', getCompanies);
 app.use('/', webRoutes);
