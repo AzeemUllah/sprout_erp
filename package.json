@@ -1,6 +1,8 @@
 {
   "name": "sp-main",
+  "productName": "SproutERP",
   "version": "0.0.0",
+  "main": "electron.js",
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
@@ -17,7 +19,6 @@
     "build_expenses": "cross-env NODE_ENV=production browserify -g envify -p [ vueify/plugins/extract-css -o public/Modules/Expenses/build.css ] -e src/Pages/Expenses/main.js | uglifyjs -c warnings=false -m > public/Modules/Expenses/build.js",
     "build_inventory": "cross-env NODE_ENV=production browserify -g envify -p [ vueify/plugins/extract-css -o public/Modules/Inventory/build.css ] -e src/Pages/Inventory/main.js | uglifyjs -c warnings=false -m > public/Modules/Inventory/build.js",
     "build_leaves": "cross-env NODE_ENV=production browserify -g envify -p [ vueify/plugins/extract-css -o public/Modules/Leaves/build.css ] -e src/Pages/Leaves/main.js | uglifyjs -c warnings=false -m > public/Modules/Leaves/build.js",
-
     "build_maintenance": "cross-env NODE_ENV=production browserify -g envify -p [ vueify/plugins/extract-css -o public/Modules/Maintenance/build.css ] -e src/Pages/Maintenance/main.js | uglifyjs -c warnings=false -m > public/Modules/Maintenance/build.js",
     "build_manufacturing": "cross-env NODE_ENV=production browserify -g envify -p [ vueify/plugins/extract-css -o public/Modules/Manufacturing/build.css ] -e src/Pages/Manufacturing/main.js | uglifyjs -c warnings=false -m > public/Modules/Manufacturing/build.js",
     "build_notes": "cross-env NODE_ENV=production browserify -g envify -p [ vueify/plugins/extract-css -o public/Modules/Notes/build.css ] -e src/Pages/Notes/main.js | uglifyjs -c warnings=false -m > public/Modules/Notes/build.js",
@@ -28,10 +29,16 @@
     "build_repairs": "cross-env NODE_ENV=production browserify -g envify -p [ vueify/plugins/extract-css -o public/Modules/Repairs/build.css ] -e src/Pages/Repairs/main.js | uglifyjs -c warnings=false -m > public/Modules/Repairs/build.js",
     "build_sales": "cross-env NODE_ENV=production browserify -g envify -p [ vueify/plugins/extract-css -o public/Modules/Sales/build.css ] -e src/Pages/Sales/main.js | uglifyjs -c warnings=false -m > public/Modules/Sales/build.js",
     "build_testing": "cross-env NODE_ENV=production browserify -g envify -p [ vueify/plugins/extract-css -o public/Modules/Testing/build.css ] -e src/Pages/Testing/main.js | uglifyjs -c warnings=false -m > public/Modules/Testing/build.js",
-    "build_timesheet": "cross-env NODE_ENV=production browserify -g envify -p [ vueify/plugins/extract-css -o public/Modules/Timesheet/build.css ] -e src/Pages/Timesheet/main.js | uglifyjs -c warnings=false -m > public/Modules/Timesheet/build.js"
+    "build_timesheet": "cross-env NODE_ENV=production browserify -g envify -p [ vueify/plugins/extract-css -o public/Modules/Timesheet/build.css ] -e src/Pages/Timesheet/main.js | uglifyjs -c warnings=false -m > public/Modules/Timesheet/build.js",
+
+
+    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=new_logo.icns --prune=true --out=release-builds",
+    "package-win32": "electron-packager . --overwrite --asar=true --platform=win32 --arch=ia32 --icon=new_logo.icns --prune=true --out=release-builds --version-string.CompanyName=4Slash --version-string.FileDescription=SproutERP --version-string.ProductName=\"SproutERP\"",
+    "package-linux": "electron-packager . --overwrite --platform=linux --arch=x64 --icon=new_logo.png --prune=true --out=release-builds",
+
+    "create-installer-mac": "electron-installer-dmg ./release-builds/SproutERP-darwin-x64/SproutERP.app SproutERP-Installer --icon=new_logo.icns --icon-size=64"
+
   },
-
-
   "browserify": {
     "transform": [
       "babelify",
@@ -55,6 +62,7 @@
     "express-session": "^1.15.0",
     "express-validator": "^3.2.1",
     "jade": "~1.11.0",
+    "jquery": "^3.2.1",
     "lodash": "^4.17.4",
     "mongoose": "^4.11.1",
     "morgan": "~1.7.0",
@@ -85,6 +93,9 @@
     "browserify-hmr": "^0.3.1",
     "browserify-middleware": "^7.1.0",
     "cross-env": "^4.0.0",
+    "electron": "^1.4.15",
+    "electron-installer-dmg": "^0.2.1",
+    "electron-packager": "^8.7.2",
     "nodemon": "^1.11.0",
     "npm-run-all": "^2.3.0",
     "uglify-js": "^2.5.0",

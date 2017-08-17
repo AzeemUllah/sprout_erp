@@ -28,7 +28,15 @@ html(lang='en')
             router-view
         if(!error)
             //script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/prism/1.4.1/prism.min.js')
-            script(src='/javascripts/jquery.min.js')
+
+
+        //FOR electron DO not remove.
+        <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+        <script>window.$ = window.jQuery = require('jquery')</script>
+        <script>if (window.module) module = window.module;</script>
+
+
+        script(src='/javascripts/jquery.min.js')
             script(src='/javascripts/jqueryui.js')
             script(src='/plugins/ckeditor/ckeditor.js')
             //script(src='http://cdn.bootcss.com/jquery/1.11.3/jquery.js')
