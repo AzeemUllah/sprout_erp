@@ -19,10 +19,11 @@ var webSetting = require('./routes/setting');
 var webpurchase = require('./routes/purchase');
 var webrecruitment = require('./routes/recruitment');
 //var apiRoutes = require('./routes/api');
-
+var webcontact = require('./routes/contact');
+var compression = require('compression');
 
 var app = express();
-
+app.use(compression());
 
 
 // view engine setup
@@ -40,7 +41,7 @@ app.use(session({secret: "This is Sprout Secret!", resave: false, saveUninitiali
 app.use(flash());
 //app.use(passport.initialize());
 //app.use(passport.session());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'), { maxAge: 86400000*365 }));
 
 /*app.use(function(req, res, next){
  res.locals.login = req.isAuthenticated();
@@ -91,10 +92,12 @@ app.use('/', webRoutes);
 app.use('/connect-4slash', connectRoutes);
 //ENDS HERE
 app.use('/user', userRoutes);
+app.use('/contact', webcontact);
 
 app.use(history({
     rewrites: [
         { from: /\/sales/, to: '/sales'},
+        { from: /\/contact/, to: '/contact'},
         { from: /\/attendance/, to: '/attendance'},
         { from: /\/purchase/, to: '/purchase'},
         { from: /\/employees/, to: '/employees'},
