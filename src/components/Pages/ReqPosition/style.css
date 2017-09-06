@@ -6,6 +6,25 @@
     outline: none;
     text-align: center;
 }
+label:hover {
+    background: #f2f5ff;
+    border-radius:5px;
+    padding:2px 4px;
+}
+.box{
+    padding:8px;
+    border:1px solid blue;
+    margin-bottom:8px;
+    width:300px;
+    height:100px;
+}
+.newbox{
+    padding:8px;
+    border:1px solid red;
+    margin-bottom:8px;
+    width:200px;
+    height:50px;
+}
 .xyz:focus
 {
     background-color: white;

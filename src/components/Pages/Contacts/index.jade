@@ -1,17 +1,21 @@
 .Contacts
-    dashconterller(v-bind:createbtn='true',v-bind:searchbar='true',v-bind:dropdownbtn1='true',v-bind:dropdownbtn2='true',v-bind:dropdownbtn3='true',v-bind:importbtn='true', v-bind:links="btnlinks", v-bind:num1='true',v-bind:num2='true',v1-bind:paginbtn1='true',v1-bind:paginbtn2='true',v-bind:secondbtn='true',v-bind:firstbtn='true')
+    dashconterller(v-bind:createbtn='true',v-bind:searchbar='true',v-bind:dropdownbtn1='true',v-bind:dropdownbtn2='true',v-bind:dropdownbtn3='true',v-bind:importbtn='false', v-bind:links="btnlinks", v-bind:num1='true',v-bind:num2='true',v1-bind:paginbtn1='true',v1-bind:paginbtn2='true',v-bind:secondbtn='true',v-bind:firstbtn='true')
         .col-sm-6(style='padding:0px;')(slot='job')
-            h4.samodashheading(style="font-size: 18px;") Contacts
-
+            h4.samodashheading(style="font-size: 18px;") Contact
     .row
         .col-md-12
             .table(style='width:335px;height: 135px;display:inline-block' ,v-for="row in names" )
                 router-link(v-bind:to="'contact/contactinfo/'+row.id")
                     .row
                         .col-xs-2
-                            a(href='#', data-toggle='tooltip', data-placement='top', title='Distributor')
+                            a#a(href='#', data-toggle='tooltip', data-placement='top', title='Distributor')
                                 .blue
-
+                            a#b(style='display:none;',href='#', data-toggle='tooltip', data-placement='top', title='Distributor')
+                                .green
+                            a#c(style='display:none;',href='#', data-toggle='tooltip', data-placement='top', title='Distributor')
+                                .red
+                            a#d(style='display:none;',href='#', data-toggle='tooltip', data-placement='top', title='Distributor')
+                                .orange
                     .row
                         .col-xs-5(style='padding-top: 17px;')
                             .img
@@ -26,8 +30,6 @@
                             | {{row.city}},{{row.country}}
                             br(style='font-size:8px;color:black;')
                             |  {{row.email}}
-
-
                     .row
                         .col-xs-3.offset-sm-4(style='padding-right: 5px;')
                             span.badge

@@ -1,12 +1,16 @@
 .Letters
     DashboardController(v-bind:save='true',v-bind:heading="nextactivity",v-bind:searchbar='true',v-bind:dropdownbtn1='true',v-bind:dropdownbtn2='true',v-bind:dropdownbtn3='true', v-bind:links="btnlinks",v-bind:num1='true',v-bind:num2='true',v-bind:paginbtn1='true',v-bind:paginbtn2='true',v-bind:firstbtn='true',v-bind:secondbtn='true')
-    .row(style="margin-top: 10px;")
+        .col-sm-6(style='padding:0px;')(slot='job')
+            h4.samodashheading(style="font-size: 18px;") Resumes and Letters
+    .row(style="margin-top: 10px;" v-for="row in names")
         .col-md-3(style='padding-right: 0px;')
             .table
-                router-link(to='ResumeandLetters')
+                router-link(v-bind:to="'ResumeandLetters/'+row.application_id")
                     .row
                         .col-xs-5
-                            p(style='padding-left: 12px;color: black;margin-top: -10px;text-decoration: none;font-size: 13px;') Williams_CV.doc
+                            p(style='padding-left: 12px;color: black;margin-top: -10px;text-decoration: none;font-size: 13px;') {{row.application_tittle}}
+
+
 
 
  

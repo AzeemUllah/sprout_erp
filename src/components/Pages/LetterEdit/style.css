@@ -57,6 +57,58 @@
         opacity: 0;
     }
 }
+#mybutton {
+    clear: both;
+    display: inline-block;
+    float: left;
+    overflow: hidden;
+    position: relative;
+    background-color: #ccc;
+    color: #222;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #555;
+}
+#myfile {
+    opacity: 0;
+    font-size:42px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+}
+#mytext {
+    clear: both;
+    float: left;
+    margin-top: 5px;
+}
+
+
+div.fakefile {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+}
+div.fileinputs {
+    position: relative;
+}
+
+div.fakefile {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+}
+
+input.file {
+    position: relative;
+    text-align: right;
+    -moz-opacity:0 ;
+    filter:alpha(opacity: 0);
+    opacity: 0;
+    z-index: 2;
+}
 
 @keyframes fadeInOut {
     0% {

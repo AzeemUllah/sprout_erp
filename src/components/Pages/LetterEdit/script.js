@@ -10,54 +10,34 @@ import Modal from "./../../partials/Modal/Modal.vue"
 import Request_quotation_lower from "./../../partials/Request_quotation_lower/Request_quotation_lower.vue"
 import Message from "./../../partials/Message/Message.vue"
 import EmpContract from "./../../partials/EmpContract/EmpContract.vue"
-
 export default{
     created: function () {
-
+        var self = this;
+        this.select();
+        function showDiv(elem){
+            if(elem.value == 'false')
+                document.getElementById('#urls').style.display = "block";
+        }
         $(function(){
-            $(".colorbg").on("click", function (e) {
-                e.preventDefault();
-                var col = $(this).css("backgroundColor");
-                var anch = $(this).parent().parent().parent().parent().parent().find("a:first-child");
-                anch.css({"backgroundColor":col});
-            });
-            $(document).ready(function(){
-                $(".btn.btn-success.b").click(function(){
-                    $("#panel").slideToggle("slow");
-                });
-            });
+            $('#fils').hide();
 
-            $('.samobuttopcontroller2').off('click');
-            $('.samobuttopcontroller2').on('click', function () {
-                let check = $('#edit1').css("display");
-                if(check == "none"){
-                    $('#edit1').show();
-                    $('#main1').hide();
-                }else{
-                    $('#edit1').hide();
-                    $('#main1').show();
-                }
-
+            $("#save").click(function () {
+                self.submit();
             });
+            $('#o_field_input_65').on('change',function(){
+               var ab = $('#o_field_input_65 option:selected').val();
 
-            document.title = this.title;
-            var oldtext;
-            $('.note.btn.btn-primary').hover(function(){
-                oldtext = $(this).text();
-                $(this).text("Unfollow");
-            }, function(){
-                $(this).text(oldtext)
-            });
-            $(document).ready(function () {
-                var d = new Date();
-                var hour    = d.getHours();
-                var minute  = d.getMinutes();
-                var second  = d.getSeconds();
-                var time = hour+":"+minute+":"+second;
-                $("#demo").html(time);
+               if(ab=="url"){
+                   $('#urls').show();
+                   $('#fils').hide();
+               }
+               else
+                {
+                   $('#fils').show();
+                   $('#urls').hide();
+               }
             });
         });
-
     },
     data(){
         return {
@@ -68,7 +48,9 @@ export default{
             p:true,
             f:false,
             l:false,
-
+            document_url: '',
+            type: '',
+            application_tittle: '',
             u:false,
             counter: 0,
             m: 'Log an internal note which will not be sent to followers, but which can be read by users accessing this document.',
@@ -78,8 +60,8 @@ export default{
             btnlinks: {
                 createbtnlink:"#/app/attendance/Createemp",
                 importbtnlink:"#/app/imported",
-                discardbtnlink: "#/app/Recruitment/ResumeandLetters",
-                savebtnlink:"#/app/Employees/Contractone",
+                discardbtnlink: "/recruitment/ResumeandLetters",
+                savebtnlink:"",
             },
             tableheader: [
                 "Reference",
@@ -115,7 +97,6 @@ export default{
                         "Chicago Warehouse",
                         "Proposition",
                         "Available",
-
                     ],
                     "url": "/#/app/sales/request_quotation_inner"
 
@@ -129,7 +110,6 @@ export default{
                         "Chicago Warehouse",
                         "Proposition",
                         "Available",
-
                     ],
                     "url": "/#/app/sales/request_quotation_inner"
 
@@ -138,6 +118,78 @@ export default{
             }
 
         }
+    },
+    methods: {
+        submit: function () {
+            var self = this;
+            self.$http.post("/recruitment/letterEdit", {"application_id": self.$route.params.id,"document_url": self.document_url,"type": self.type}).then(function(res){
+                console.log(res.body);
+            },function(err){
+                alert(err);
+            });
+            self.$http.post("/recruitment/letterEditss", {"application_id": self.$route.params.id,"application_tittle": self.application_tittle}).then(function(res){
+                console.log(res.body);
+            },function(err){
+                alert(err);
+            });
+        },
+
+        select: function () {
+            var self = this;
+            self.$http.post("/recruitment/letterEdits", {
+                "application_id": self.$route.params.id,
+            }).then(function(res){
+                var parentdata = res.body.data[0];
+                self.document_url = parentdata.document_url;
+                self.type = parentdata.type;
+                console.log(self.parentdata);
+            },function(err){
+                alert(err);
+            });
+            self.$http.post("/recruitment/letterEditsjobs", {
+                "application_id": self.$route.params.id,
+
+            }).then(function(res){
+                var parentdata = res.body.data[0];
+                self.application_tittle = parentdata.application_tittle;
+
+                console.log(self.parentdata);
+
+            },function(err){
+                alert(err);
+            });
+
+            //console.log(this.$route.query.id);
+            // console.log(self.job_specific);
+        },
+
+
+        // select: function () {
+        //     var self = this;
+        //     self.$http.post("/letter", {"id": self.$route.params.id}).then(function (res) {
+        //         self.names = res.body.data;
+        //
+        //
+        //         console.log(self.names);
+        //     },function(err){
+        //         alert(err);
+        //     });
+        //     //console.log(this.$route.query.id);
+        //     // console.log(self.job_specific);
+        // },
+
+        validateBeforeSubmit() {
+            this.$validator.validateAll().then(() => {
+                // eslint-disable-next-line
+                this.submit();
+                alert('From Submitted!');
+            }).catch(() => {
+                // eslint-disable-next-line
+                alert('Correct them errors!');
+            });
+        }
+
+
     },
     components: {
         Emptyform,

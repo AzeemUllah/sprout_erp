@@ -26,6 +26,94 @@
     }
 }
 
+.rating {
+    float:left;
+    margin-top: 7px;
+}
+.o_form_view .oe_title .o_priority > .o_priority_star {
+    font-size: inherit;
+}
+.o_priority {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    vertical-align: middle;
+}
+
+.o_priority > .o_priority_star {
+    display: inline-block;
+    font-size: 1.35em;
+}
+
+.o_priority > .o_priority_star:hover, .o_priority > .o_priority_star:focus {
+    text-decoration: none;
+    outline: none;
+}
+
+.o_priority > .o_priority_star + .o_priority_star {
+    padding-left: 5px;
+}
+
+.o_priority > .o_priority_star.fa-star-o {
+    color: #a8a8a8;
+}
+
+.o_priority > .o_priority_star.fa-star {
+    color: gold;
+}
+
+/* :not(:checked) is a filter, so that browsers that don’t support :checked don’t
+   follow these rules. Every browser that supports :checked also supports :not(), so
+   it doesn’t make the test unnecessarily selective */
+.rating:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+    clip:rect(0,0,0,0);
+}
+
+.rating:not(:checked) > label {
+    float:right;
+    width:1em;
+    padding:0 .1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:130%;
+    line-height:1.2;
+    color:#ddd;
+    text-shadow:1px 1px #bbb, 2px 2px #666, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+.rating:not(:checked) > label:before {
+    content: '★ ';
+}
+
+.rating > input:checked ~ label {
+    color: gold;
+    text-shadow:1px 1px #c60, 2px 2px #940, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+.rating:not(:checked) > label:hover,
+.rating:not(:checked) > label:hover ~ label {
+    color: gold;
+    text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+.rating > input:checked + label:hover,
+.rating > input:checked + label:hover ~ label,
+.rating > input:checked ~ label:hover,
+.rating > input:checked ~ label:hover ~ label,
+.rating > label:hover ~ input:checked ~ label {
+    color: gold;
+    text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+.rating > label:active {
+    position:relative;
+    top:2px;
+    left:2px;
+}
+
 @keyframes fadeInDownSmall {
     0% {
         opacity: 0;
@@ -56,6 +144,10 @@
     100% {
         opacity: 0;
     }
+}
+.btn-info.disabled, .btn-info[disabled], fieldset[disabled] .btn-info, .btn-info.disabled:hover, .btn-info[disabled]:hover, fieldset[disabled] .btn-info:hover, .btn-info.disabled:focus, .btn-info[disabled]:focus, fieldset[disabled] .btn-info:focus, .btn-info.disabled.focus, .btn-info[disabled].focus, fieldset[disabled] .btn-info.focus, .btn-info.disabled:active, .btn-info[disabled]:active, fieldset[disabled] .btn-info:active, .btn-info.disabled.active, .btn-info[disabled].active, fieldset[disabled] .btn-info.active {
+    background-color: #5bc0de;
+    border-color: #46b8da;
 }
 
 @keyframes fadeInOut {
@@ -4549,7 +4641,7 @@ textarea.input-group-sm > .form-control, textarea.input-group-sm > .input-group-
 }
 
 .input-group-addon:first-child {
-    border-right: 0;
+
 }
 
 .input-group .form-control:last-child, .input-group-addon:last-child, .input-group-btn:last-child > .btn, .input-group-btn:last-child > .btn-group > .btn, .input-group-btn:last-child > .dropdown-toggle, .input-group-btn:first-child > .btn:not(:first-child), .input-group-btn:first-child > .btn-group:not(:first-child) > .btn {
@@ -4558,7 +4650,7 @@ textarea.input-group-sm > .form-control, textarea.input-group-sm > .input-group-
 }
 
 .input-group-addon:last-child {
-    border-left: 0;
+
 }
 
 .input-group-btn {
@@ -9005,34 +9097,6 @@ a:hover {
     background-color: #B6BBBF;
 }
 
-.o_priority {
-    display: inline-block;
-    padding: 0;
-    margin: 0;
-    vertical-align: middle;
-}
-
-.o_priority > .o_priority_star {
-    display: inline-block;
-    font-size: 1.35em;
-}
-
-.o_priority > .o_priority_star:hover, .o_priority > .o_priority_star:focus {
-    text-decoration: none;
-    outline: none;
-}
-
-.o_priority > .o_priority_star + .o_priority_star {
-    padding-left: 5px;
-}
-
-.o_priority > .o_priority_star.fa-star-o {
-    color: #a8a8a8;
-}
-
-.o_priority > .o_priority_star.fa-star {
-    color: gold;
-}
 
 .oe_view_nocontent a {
     cursor: pointer;
@@ -9867,9 +9931,7 @@ a.o_form_view .oe_form_box_info:hover, a.o_form_view .oe_form_box_info:focus {
     display: none !important;
 }
 
-.o_form_view .oe_title .o_priority > .o_priority_star {
-    font-size: inherit;
-}
+
 
 .o_form_view .o_group.o_label_nowrap .o_form_label {
     white-space: nowrap;

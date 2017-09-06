@@ -37,7 +37,7 @@ export default{
                 createbtnlink: "",
                 discardbtnlink: "",
                 importbtnlink: "",
-                cancelbtnlink:"#app/Recruitment/ReqAppDocTable"
+                cancelbtnlink:"/recruitment/ReqAppDocTable"
 
             },
         }

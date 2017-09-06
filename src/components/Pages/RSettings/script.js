@@ -89,10 +89,10 @@ export default{
             modal60: "Open:Manager",
             modal61: "Open:Manager",
             btnlinks: {
-                createbtnlink: "#/app/Recruitment/ReqSettingCreate",
+                createbtnlink: "/recruitment/ReqSettingCreate",
                 discardbtnlink: "#/app/Employees/EmpDash",
-                editbtnlink:"#/app/Recruitment/ReqSettingEdit",
-                importbtnlink: "#/app/imported"
+                editbtnlink:"/recruitment/ReqSettingEdit",
+                importbtnlink: ""
             },
         }
     },

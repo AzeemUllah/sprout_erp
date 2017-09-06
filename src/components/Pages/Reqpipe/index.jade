@@ -1,13 +1,68 @@
 .Reqpipe
     dashconterller(v-bind:save='false',v-bind:heading="pipeline",v-bind:createbtn='true',v-bind:importbtn='false', v-bind:links="btnlinks",v-bind:num1='true',v-bind:num2='true',v-bind:paginbtn1='false',v-bind:paginbtn2='false',v-bind:firstbtn='true',v-bind:secondbtn='true',v-bind:fifthbtn='true',v-bind:thirdbtn='true',v-bind:fourthbtn='true',v-bind:searchbar='true',v-bind:dropdownbtn1='true',v-bind:dropdownbtn2='true',v-bind:dropdownbtn3='true')
-    modal( v-bind:save='false',v-bind:heading="modalheading", v-bind:sheduaeactivity='true', v-bind:noactivity='true')
-        ScheduleanActivity
+        .col-sm-6(style='padding:0px;')(slot='job')
+            h4.samodashheading(style="font-size: 18px;") Job Positions
+    modal(v-bind:save='true',v-bind:discard='true',v-bind:close='true',v-bind:heading="modal",v-bind:modal='"bd-example-modal-lg"')
+        .modal-body.o_act_window
+            .o_form_view.o_form_nosheet.o_form_editable
+                .o_group
+                    .o_horizontal_separator
+                        | Stage Definition
+                    table.o_group.o_inner_group.o_group_col_6
+                        tbody
+                            tr
+                                td.o_td_label(colspan='1')
+                                    label.o_form_label(for='o_field_input_5')
+                                        | Stage name
+                                td(colspan='1', style='width: 100%;')
+                                    input#o_field_input_5.o_form_input.o_form_field.o_form_required(name='name',v-model='name', v-validate:name.initial="'required|alpha'", :class="{'input': true, 'is-danger': errors.has('name') }",type='text')
+                                    i.fa.fa-warning.cl(v-show="errors.has('name')",style='color:red;')
+                                    span.help.is-danger.cl(v-show="errors.has('name')",style='color:red;') {{ errors.first('name') }}
+                                    button.o_field_translate.fa.fa-globe.btn.btn-link.o_translate_active(type='button')
+                            tr
+                                td.o_td_label(colspan='1')
+                                    label.o_form_label.o_form_label_help.o_form_invisible(for='o_field_input_6', data-original-title='', title='')
+                                        | Sequence
+                                td(colspan='1', style='width: 100%;')
+                                    input#o_field_input_6.o_form_input.o_form_field.o_form_invisible.o_form_field_number(type='text')
+                            tr
+                                td.o_td_label(colspan='1')
+                                    label.o_form_label.o_form_label_help(for='o_field_input_7', data-original-title='', title='')
+                                        | Job Specific
+                                td(colspan='1', style='width: 100%;')
+                                    select(v-model='job_specific')
+                                        option(v-for='option in options2', v-bind:value="option.id")
+                                            | {{ option.job_tittle }}
+                                        button.fa.fa-external-link.btn.btn-default.o_external_button(draggable='false', tabindex='-1', type='button', style='display: none;')
+                    table.o_group.o_inner_group.o_group_col_6
+                        tbody
+                            tr
+                                td.o_td_label(colspan='1')
+                                    label.o_form_label.o_form_label_help(for='o_field_input_8', data-original-title='', title='')
+                                        | Folded in Recruitment Pipe
+                                td(colspan='1', style='width: 100%;')
+                                    input(type='checkbox', name='my-checkbox', value='1', v-bind:true-value='1', v-bind:false-value='0', v-model='folded')
+                            tr
+                                td.o_td_label(colspan='1')
+                                    label.o_form_label.o_form_label_help(for='o_field_input_9', data-original-title='', title='')
+                                        | Use template
+                                td(colspan='1', style='width: 100%;')
+                                    select(v-model='email_template_id')
+                                        option(v-for='option in options', v-bind:value="option.id")
+                                            | {{ option.name }}
+                                        button.fa.fa-external-link.btn.btn-default.o_external_button(draggable='false', tabindex='-1', type='button', style='display: none;')
+                .o_horizontal_separator
+                    | Requirements
+                textarea.o_form_textarea.o_form_field(v-model='description',rows='6', name='requirements')
+                textarea.o_form_textarea.o_form_field(disabled='', style='position: absolute; opacity: 0; height: 10px; top: -10000px; left: -10000px; width: 0px;')
+
     .o_content(style='margin-left:-24px')
         .o_view_manager_content
             .o_kanban_view.o_kanban_small_column.o_opportunity_kanban.o_kanban_grouped.connectedSortable(style='display: flex;height: 91vh;')
-                .o_kanban_group(data-id='1')
+                .o_kanban_group(v-for="option in stages",v-bind:value="option.id",v-model='g')
                     .o_kanban_header(data-delay='500', title='', data-original-title='<p>1 records</p>')
-                        span.o_column_title New
+                        span.o_column_title {{option.name}}
+                        span.o_column_title(v-model='g') {{option.id}}
                         span.o_column_unfold
                             i.fa.fa-arrows-h
                         span.o_kanban_config.dropdown
@@ -15,33 +70,31 @@
                                 i.fa.fa-gear
                             ul.dropdown-menu.memu-p(role='menu')
                                 li
-                                    a.o_kanban_toggle_fold(href='#') Fold
+                                    a.o_kanban_toggle_fold(href='#',v-on:click="select(option.id)") Folds
                                 li
-                                    a.o_column_edit(href='#') Edit Stage
+                                    a.o_column_edit(href='#',data-toggle='modal', data-target='.bd-example-modal-lg') Edit Stage
                                 li
-                                    a.o_column_delete(href='#') Delete
+                                    a.o_column_delete(href='#',v-on:click="submit(option.id)") Delete
                                 li
-                                    a.o_column_archive(href='#') Archive Records
+                                    a.o_column_archive(href='#') Archive Recordss
                                 li
-                                    a.o_column_unarchive(href='#') Unarchive Records
+                                    a.o_column_unarchive(href='#') Restore Records
                         span.o_kanban_quick_add
-                            i.fa.fa-plus#click
-                    .o_kanban_quick_create#create(style='display:none')
-                        input(placeholder='Add', type='text')
-                        button.btn.btn-sm.btn-primary.o_kanban_add Add
-                        button.btn.btn-sm.btn-default.o_kanban_cancel Discard
-                    #sortable1.connectedSortable(style='min-height:50%')
-                        .oe_kanban_color_0.oe_kanban_global_click.o_kanban_record
+                            i.fa.fa-plus#click1
+                    .o_kanban_quick_create#create1(style='display:none')
+                        input(v-model='title',placeholder='Add', type='text')
+                        button.btn.btn-sm.btn-primary.o_kanban_add(v-on:click="insert1") Add
+                        button.btn.btn-sm.btn-default.o_kanban_cancel Discards
+                    #sortable1.connectedSortable(style='height:100%')
+                        .oe_kanban_color_0.oe_kanban_card.oe_kanban_global_click.oe_semantic_html_override.o_kanban_record.ui-sortable-handle(v-for="row in names")
                             .o_dropdown_kanban.dropdown
                                 a.dropdown-toggle.btn(data-toggle='dropdown', href='#')
                                     span.fa.fa-bars.fa-lg
                                 ul.dropdown-menu(role='menu', aria-labelledby='dLabel')
-                                    li.memu-p
-                                        a.oe_kanban_action.oe_kanban_action_a(data-type='edit', href='#') Edit
-                                    li.memu-p
+                                    li
+                                        a.oe_kanban_action.oe_kanban_action_a(data-type='edit', href='#') Edit...
+                                    li
                                         a.oe_kanban_action.oe_kanban_action_a(data-type='delete', href='#') Delete
-                                    li.memu-p
-                                        a.oe_kanban_action.oe_kanban_action_a(data-name='action_set_unactive', data-type='object', href='#') Archive
                                     li
                                         ul.oe_kanban_colorpicker(data-field='color')
                                             li
@@ -64,16 +117,32 @@
                                                 a.oe_kanban_color_8.colorbg(href='#', data-color='8')
                                             li
                                                 a.oe_kanban_color_9.colorbg(href='#', data-color='9')
-
-                            router-link(to='Salespipelineview')
-                                .oe_kanban_content
-                                    div
-                                        .oe_form_field.o_form_field_many2manytags.o_kanban_tags(name='tag_ids', can_create='true', can_write='true', modifiers='{}')
-                                    div
-                                        strong
-                                            span(name='name', modifiers='{"required": true}') Hassan
-                                    .text-muted
-                                    .o_kanban_footer
+                            .oe_kanban_content(tooltip='kanban-tooltip', data-original-title='', title='')
+                                div
+                                    b {{row.application_tittle}}
+                                    br
+                                    span(name='owner_user_id')
+                                        | {{row.availability}}
+                                        br
+                                    span.oe_grey
+                                        | {{row.source}}
+                                        br
+                                .oe_kanban_footer_left(style='margin-top:2px;')
+                                    span Computers
+                                .oe_kanban_bottom_right
+                                    img.oe_kanban_avatar.pull-right(width='24', height='24', src='http://192.168.25.104:8069/web/image?model=res.users&field=image_small&id=5&unique=20170408094906', title='Demo User')
+                                    .pull-left
+                                        .btn-group.o_kanban_selection
+                                            a(data-toggle='dropdown', href='#')
+                                                span.oe_kanban_status.oe_kanban_status_green
+                                            ul.dropdown-menu.state(role='menu')
+                                                li(data-value='normal')
+                                                    a(href='#')
+                                                        span.oe_kanban_status
+                                                        |                     In Progress
+                                                li(data-value='blocked')
+                                                    span.oe_kanban_status.oe_kanban_status_red.button#jQueryColorChange.Button
+                                                    |                     Blocked
                                         .o_priority
                                             fieldset.rating
                                                 input#star5(type='radio', name='rating', value='5')
@@ -82,273 +151,12 @@
                                                 label(for='star4', title='Pretty good') 4 stars
                                                 input#star3(type='radio', name='rating', value='3')
                                                 label(for='star3', title='Meh') 3 stars
-
-                            div.modalopen
-                                .o_kanban_inline_block
-                                    .o_kanban_inline_block.dropdown.o_kanban_selection.o_mail_activity
-                                        a(data-toggle='modal', data-target='.bd-example-modal-lg')
-                                            span.oe_kanban_status.oe_kanban_status_grey
-
-                                img.oe_kanban_avatar(width='24', height='24', src='http://192.168.25.104:8069/web/image?model=res.users&field=image_small&id=1&unique=20170313113712', title='hassan')
                             .oe_clear
-                .o_kanban_group(data-id='2')
-                    .o_kanban_header(data-delay='500', title='', data-original-title='<p>1 records</p>')
-                        span.o_column_title Qualified
-                        span.o_column_unfold
-                            i.fa.fa-arrows-h
-                        span.o_kanban_config.dropdown
-                            a.dropdown-toggle(data-toggle='dropdown', href='#')
-                                i.fa.fa-gear
-                            ul.dropdown-menu.memu-p(role='menu')
-                                li
-                                    a.o_kanban_toggle_fold(href='#') Fold
-                                li
-                                    a.o_column_edit(href='#') Edit Stage
-                                li
-                                    a.o_column_delete(href='#') Delete
-                                li
-                                    a.o_column_archive(href='#') Archive Records
-                                li
-                                    a.o_column_unarchive(href='#') Restore Records
-                        span.o_kanban_quick_add
-                            i.fa.fa-plus#click1
-                    .o_kanban_quick_create#create1(style='display:none')
-                        input(placeholder='Add', type='text')
-                        button.btn.btn-sm.btn-primary.o_kanban_add Add
-                        button.btn.btn-sm.btn-default.o_kanban_cancel Discard
-                    #sortable1.connectedSortable(style='min-height:50%')
-                        .oe_kanban_color_0.oe_kanban_global_click.o_kanban_record
-                            .o_dropdown_kanban.dropdown
-                                a.dropdown-toggle.btn(data-toggle='dropdown', href='#')
-                                    span.fa.fa-bars.fa-lg
-                                ul.dropdown-menu(role='menu', aria-labelledby='dLabel')
-                                    li.memu-p
-                                        a.oe_kanban_action.oe_kanban_action_a(data-type='edit', href='#') Edit
-                                    li.memu-p
-                                        a.oe_kanban_action.oe_kanban_action_a(data-type='delete', href='#') Delete
-                                    li.memu-p
-                                        a.oe_kanban_action.oe_kanban_action_a(data-name='action_set_unactive', data-type='object', href='#') Archive
-                                    li
-                                        ul.oe_kanban_colorpicker(data-field='color')
-                                            li
-                                                a.oe_kanban_color_0.colorbg(href='#', data-color='0')
-                                            li
-                                                a.oe_kanban_color_1.colorbg(href='#', data-color='1')
-                                            li
-                                                a.oe_kanban_color_2.colorbg(href='#', data-color='2')
-                                            li
-                                                a.oe_kanban_color_3.colorbg(href='#', data-color='3')
-                                            li
-                                                a.oe_kanban_color_4.colorbg(href='#', data-color='4')
-                                            li
-                                                a.oe_kanban_color_5.colorbg(href='#', data-color='5')
-                                            li
-                                                a.oe_kanban_color_6.colorbg(href='#', data-color='6')
-                                            li
-                                                a.oe_kanban_color_7.colorbg(href='#', data-color='7')
-                                            li
-                                                a.oe_kanban_color_8.colorbg(href='#', data-color='8')
-                                            li
-                                                a.oe_kanban_color_9.colorbg(href='#', data-color='9')
-                            router-link(to='Salespipelineview')
-                                .oe_kanban_content
-                                    div
-                                        .oe_form_field.o_form_field_many2manytags.o_kanban_tags(name='tag_ids', can_create='true', can_write='true', modifiers='{}')
-                                    div
-                                        strong
-                                            span(name='name', modifiers='{"required": true}') Sameer
-                                    .text-muted
-                                    .o_kanban_footer
-                                        .o_priority
-                                            fieldset.rating
-                                                input#star1(type='radio', name='rating', value='5')
-                                                label(for='star1', title='Rocks!') 5 stars
-                                                input#star2(type='radio', name='rating', value='4')
-                                                label(for='star2', title='Pretty good') 4 stars
-                                                input#star0(type='radio', name='rating', value='3')
-                                                label(for='star0', title='Meh') 3 stars
-                            div.modalopen
-                                .o_kanban_inline_block
-                                    .o_kanban_inline_block.dropdown.o_kanban_selection.o_mail_activity
-                                        a.oe_kanban_action.oe_kanban_action_a(data-toggle='modal', data-target='.bd-example-modal-lg')
-                                            span.oe_kanban_status.oe_kanban_status_grey
-
-                                img.oe_kanban_avatar(width='24', height='24', src='http://192.168.25.104:8069/web/image?model=res.users&field=image_small&id=1&unique=20170313113712', title='sameer')
-                            .oe_clear
-                .o_kanban_group(data-id='2')
-                    .o_kanban_header(data-delay='500', title='', data-original-title='<p>1 records</p>')
-                        span.o_column_title Qualified
-                        span.o_column_unfold
-                            i.fa.fa-arrows-h
-                        span.o_kanban_config.dropdown
-                            a.dropdown-toggle(data-toggle='dropdown', href='#')
-                                i.fa.fa-gear
-                            ul.dropdown-menu.memu-p(role='menu')
-                                li
-                                    a.o_kanban_toggle_fold(href='#') Fold
-                                li
-                                    a.o_column_edit(href='#') Edit Stage
-                                li
-                                    a.o_column_delete(href='#') Delete
-                                li
-                                    a.o_column_archive(href='#') Archive Records
-                                li
-                                    a.o_column_unarchive(href='#') Restore Records
-                        span.o_kanban_quick_add
-                            i.fa.fa-plus#click1
-                    .o_kanban_quick_create#create1(style='display:none')
-                        input(placeholder='Add', type='text')
-                        button.btn.btn-sm.btn-primary.o_kanban_add Add
-                        button.btn.btn-sm.btn-default.o_kanban_cancel Discard
-                    #sortable1.connectedSortable(style='min-height:50%')
-                        .oe_kanban_color_0.oe_kanban_global_click.o_kanban_record
-                            .o_dropdown_kanban.dropdown
-                                a.dropdown-toggle.btn(data-toggle='dropdown', href='#')
-                                    span.fa.fa-bars.fa-lg
-                                ul.dropdown-menu(role='menu', aria-labelledby='dLabel')
-                                    li.memu-p
-                                        a.oe_kanban_action.oe_kanban_action_a(data-type='edit', href='#') Edit
-                                    li.memu-p
-                                        a.oe_kanban_action.oe_kanban_action_a(data-type='delete', href='#') Delete
-                                    li.memu-p
-                                        a.oe_kanban_action.oe_kanban_action_a(data-name='action_set_unactive', data-type='object', href='#') Archive
-                                    li
-                                        ul.oe_kanban_colorpicker(data-field='color')
-                                            li
-                                                a.oe_kanban_color_0.colorbg(href='#', data-color='0')
-                                            li
-                                                a.oe_kanban_color_1.colorbg(href='#', data-color='1')
-                                            li
-                                                a.oe_kanban_color_2.colorbg(href='#', data-color='2')
-                                            li
-                                                a.oe_kanban_color_3.colorbg(href='#', data-color='3')
-                                            li
-                                                a.oe_kanban_color_4.colorbg(href='#', data-color='4')
-                                            li
-                                                a.oe_kanban_color_5.colorbg(href='#', data-color='5')
-                                            li
-                                                a.oe_kanban_color_6.colorbg(href='#', data-color='6')
-                                            li
-                                                a.oe_kanban_color_7.colorbg(href='#', data-color='7')
-                                            li
-                                                a.oe_kanban_color_8.colorbg(href='#', data-color='8')
-                                            li
-                                                a.oe_kanban_color_9.colorbg(href='#', data-color='9')
-                            router-link(to='Salespipelineview')
-                                .oe_kanban_content
-                                    div
-                                        .oe_form_field.o_form_field_many2manytags.o_kanban_tags(name='tag_ids', can_create='true', can_write='true', modifiers='{}')
-                                    div
-                                        strong
-                                            span(name='name', modifiers='{"required": true}') Ahsan
-                                    .text-muted
-                                    .o_kanban_footer
-                                        .o_priority
-                                            fieldset.rating
-                                                input#star7(type='radio', name='rating', value='5')
-                                                label(for='star7', title='Rocks!') 5 stars
-                                                input#star8(type='radio', name='rating', value='4')
-                                                label(for='star8', title='Pretty good') 4 stars
-                                                input#star9(type='radio', name='rating', value='3')
-                                                label(for='star9', title='Meh') 3 stars
-                            div.modalopen
-                                .o_kanban_inline_block
-                                    .o_kanban_inline_block.dropdown.o_kanban_selection.o_mail_activity
-                                        a.oe_kanban_action.oe_kanban_action_a(data-toggle='modal', data-target='.bd-example-modal-lg')
-                                            span.oe_kanban_status.oe_kanban_status_grey
-
-                                img.oe_kanban_avatar(width='24', height='24', src='http://192.168.25.104:8069/web/image?model=res.users&field=image_small&id=1&unique=20170313113712', title='Ahsan')
-                            .oe_clear
-                .o_kanban_group(data-id='2')
-                    .o_kanban_header(data-delay='500', title='', data-original-title='<p>1 records</p>')
-                        span.o_column_title Qualified
-                        span.o_column_unfold
-                            i.fa.fa-arrows-h
-                        span.o_kanban_config.dropdown
-                            a.dropdown-toggle(data-toggle='dropdown', href='#')
-                                i.fa.fa-gear
-                            ul.dropdown-menu.memu-p(role='menu')
-                                li
-                                    a.o_kanban_toggle_fold(href='#') Fold
-                                li
-                                    a.o_column_edit(href='#') Edit Stage
-                                li
-                                    a.o_column_delete(href='#') Delete
-                                li
-                                    a.o_column_archive(href='#') Archive Records
-                                li
-                                    a.o_column_unarchive(href='#') Restore Records
-                        span.o_kanban_quick_add
-                            i.fa.fa-plus#click1
-                    .o_kanban_quick_create#create1(style='display:none')
-                        input(placeholder='Add', type='text')
-                        button.btn.btn-sm.btn-primary.o_kanban_add Add
-                        button.btn.btn-sm.btn-default.o_kanban_cancel Discard
-                    #sortable1.connectedSortable(style='min-height:50%')
-                        .oe_kanban_color_0.oe_kanban_global_click.o_kanban_record
-                            .o_dropdown_kanban.dropdown
-                                a.dropdown-toggle.btn(data-toggle='dropdown', href='#')
-                                    span.fa.fa-bars.fa-lg
-                                ul.dropdown-menu(role='menu', aria-labelledby='dLabel')
-                                    li.memu-p
-                                        a.oe_kanban_action.oe_kanban_action_a(data-type='edit', href='#') Edit
-                                    li.memu-p
-                                        a.oe_kanban_action.oe_kanban_action_a(data-type='delete', href='#') Delete
-                                    li.memu-p
-                                        a.oe_kanban_action.oe_kanban_action_a(data-name='action_set_unactive', data-type='object', href='#') Archive
-                                    li
-                                        ul.oe_kanban_colorpicker(data-field='color')
-                                            li
-                                                a.oe_kanban_color_0.colorbg(href='#', data-color='0')
-                                            li
-                                                a.oe_kanban_color_1.colorbg(href='#', data-color='1')
-                                            li
-                                                a.oe_kanban_color_2.colorbg(href='#', data-color='2')
-                                            li
-                                                a.oe_kanban_color_3.colorbg(href='#', data-color='3')
-                                            li
-                                                a.oe_kanban_color_4.colorbg(href='#', data-color='4')
-                                            li
-                                                a.oe_kanban_color_5.colorbg(href='#', data-color='5')
-                                            li
-                                                a.oe_kanban_color_6.colorbg(href='#', data-color='6')
-                                            li
-                                                a.oe_kanban_color_7.colorbg(href='#', data-color='7')
-                                            li
-                                                a.oe_kanban_color_8.colorbg(href='#', data-color='8')
-                                            li
-                                                a.oe_kanban_color_9.colorbg(href='#', data-color='9')
-                            router-link(to='Salespipelineview')
-                                .oe_kanban_content
-                                    div
-                                        .oe_form_field.o_form_field_many2manytags.o_kanban_tags(name='tag_ids', can_create='true', can_write='true', modifiers='{}')
-                                    div
-                                        strong
-                                            span(name='name', modifiers='{"required": true}') Usama
-                                    .text-muted
-                                    .o_kanban_footer
-                                        .o_priority
-                                            fieldset.rating
-                                                input#star10(type='radio', name='rating', value='5')
-                                                label(for='star10', title='Rocks!') 5 stars
-                                                input#star11(type='radio', name='rating', value='4')
-                                                label(for='star11', title='Pretty good') 4 stars
-                                                input#star12(type='radio', name='rating', value='3')
-                                                label(for='star12', title='Meh') 3 stars
-
-                            div.modalopen
-                                .o_kanban_inline_block
-                                    .o_kanban_inline_block.dropdown.o_kanban_selection.o_mail_activity
-                                        a.oe_kanban_action.oe_kanban_action_a(data-toggle='modal', data-target='.bd-example-modal-lg')
-                                            span.oe_kanban_status.oe_kanban_status_grey
-
-                                img.oe_kanban_avatar(width='24', height='24', src='http://192.168.25.104:8069/web/image?model=res.users&field=image_small&id=1&unique=20170313113712', title='usama')
-                        .oe_clear
                 .o_column_quick_create#addnew
                     .o_column_header
                         span.o_kanban_add_column
                             i.fa.fa-chevron-right
-                        span.o_kanban_title Add new Column
+                        span.o_kanban_title Add new Columns
                         .o_kanban_quick_create
                             input(placeholder='Add', type='text')
                             button.btn.btn-sm.btn-primary.o_kanban_add Add
@@ -357,8 +165,8 @@
                     .o_kanban_header(data-delay='500', title='', data-original-title='<p>0 records</p>')
                         span.o_column_title
                     .o_kanban_quick_create
-                        input(placeholder='Add', type='text')
+                        input(v-model='stagename',placeholder='Add', type='text')
                         br
-                        button.btn.btn-sm.btn-primary.o_kanban_add Add
+                        button.btn.btn-sm.btn-primary.o_kanban_add(v-on:click="validateBeforeSubmit",type='submit') Add
                         button.btn.btn-sm.btn-default.o_kanban_cancel#discard Discard
 

@@ -3,8 +3,6 @@ import Request_quotation_lower from "./../../partials/Request_quotation_lower/Re
 import Message from "./../../partials/Message/Message.vue"
 import Modal from "./../../partials/Modal/Modal.vue"
 import selectcontact from "./../../partials/selectcontact/selectcontact.vue"
-
-
 export default{
     created: function () {
         var self = this;
@@ -14,9 +12,22 @@ export default{
         $(function () {
             $(".delete").click(function () {
                 self.submit();
+                alert("are you sure delete the user");
+                window.location.href = "/contact";
             });
             $(".Duplicate").click(function () {
-                self.dsubmit();
+                var r = confirm("Are you sure duplicate the user");
+                if (r)
+                {
+                    // x="You pressed OK!";
+                    window.location.href = "/contact";
+                    self.dsubmit();
+                }
+                else
+                {
+                    // x="You pressed Cancel!";
+                }
+
             });
             $("#num01").click(function () {
                 self.ssubmit();
@@ -174,10 +185,10 @@ export default{
                         //console.log(self.job_tittle);
                     },
                     function (err) {
-                        alert(err);
+
                     });
             }, function (err) {
-                alert(err);
+
             });
         },
         submit: function () {
@@ -185,7 +196,7 @@ export default{
             self.$http.post("/contact/contactdeletes", {"id": self.$route.params.id}).then(function(res){
                 console.log(res.body);
             },function(err){
-                alert(err);
+
             });
         },
         select: function () {
@@ -198,10 +209,10 @@ export default{
                     self.tname = data.tname;
 
             },function(err){
-                alert(err);
+
             });
             },function(err){
-                alert(err);
+
             });
             self.$http.post("/contact/selectcontactinfo", {"id": self.$route.params.id}).then(function (res) {
                 var parentdata = res.body.data[0];
@@ -268,34 +279,34 @@ export default{
 
 
             function (err) {
-                alert(err);
+
             });
             },
 
 
             function (err) {
-                alert(err);
+
             });
             },
 
 
             function (err) {
-                alert(err);
+
             });
             },
 
 
             function (err) {
-                alert(err);
+
             });
 
             },
 
             function (err) {
-                alert(err);
+
             });
             }, function (err) {
-                alert(err);
+
             });
 
 
@@ -309,7 +320,7 @@ export default{
                 var parentdata = res.body.data[0];
                 self.num = parentdata.count;
             }, function (err) {
-                alert(err);
+
             });
 
 
@@ -361,7 +372,7 @@ export default{
                 console.log(res.body);
 
             },function(err){
-                alert(err);
+
             });
         },
         ssubmit: function () {
@@ -433,34 +444,34 @@ export default{
 
 
                                                     function (err) {
-                                                        alert(err);
+
                                                     });
                                             },
 
 
                                             function (err) {
-                                                alert(err);
+
                                             });
                                     },
 
 
                                     function (err) {
-                                        alert(err);
+
                                     });
                             },
 
 
                             function (err) {
-                                alert(err);
+
                             });
 
                     },
 
                     function (err) {
-                        alert(err);
+
                     });
             }, function (err) {
-                alert(err);
+
             });
         },
         psubmit: function () {
@@ -531,34 +542,34 @@ export default{
 
 
                                                     function (err) {
-                                                        alert(err);
+
                                                     });
                                             },
 
 
                                             function (err) {
-                                                alert(err);
+
                                             });
                                     },
 
 
                                     function (err) {
-                                        alert(err);
+
                                     });
                             },
 
 
                             function (err) {
-                                alert(err);
+
                             });
 
                     },
 
                     function (err) {
-                        alert(err);
+
                     });
             }, function (err) {
-                alert(err);
+
             });
         },
         validateBeforeSubmit() {

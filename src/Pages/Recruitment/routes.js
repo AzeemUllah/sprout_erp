@@ -2,7 +2,10 @@ import Letters from "./../../components/Pages/Letters/Letters.vue"
 import ReportRecruitment from "./../../components/Pages/ReportRecruitment/ReportRecruitment.vue"
 import JobPosition from "./../../components/Pages/JobPosition/JobPosition.vue"
 import ReqDep from "./../../components/Pages/ReqDep/ReqDep.vue"
+import Reqapplication from "./../../components/Pages/Reqapplication/Reqapplication.vue"
+import Reqssettings from "./../../components/Pages/Reqssettings/Reqssettings.vue"
 import JobImport from "./../../components/Pages/JobImport/JobImport.vue"
+import DepDuplicate from "./../../components/Pages/DepDuplicate/DepDuplicate.vue"
 import ReqDepImport from "./../../components/Pages/ReqDepImport/ReqDepImport.vue"
 import ReqDepcreate from "./../../components/Pages/ReqDepcreate/ReqDepcreate.vue"
 import ReqDepEdit from "./../../components/Pages/ReqDepEdit/ReqDepEdit.vue"
@@ -47,11 +50,19 @@ import ReqCalandar from "./../../components/Pages/ReqCalandar/ReqCalandar.vue"
 import Modalcreate from "./../../components/partials/Modalcreate/Modalcreate.vue"
 import Job from "./../../components/Pages/Job/Job.vue"
 import Test from "./../../components/Pages/Test/Test.vue"
+import ReqapplicationEdit from "./../../components/Pages/ReqapplicationEdit/ReqapplicationEdit.vue"
+import Absent from "./../../components/Pages/Absent/Absent.vue"
 import Recruitment_layout from "./../../components/Pages/Recruitment_layout/Recruitment_layout.vue"
 import ReqJobAppCreate from "./../../components/Pages/ReqJobAppCreate/ReqJobAppCreate.vue"
 import ReqPipeImport from "./../../components/Pages/ReqPipeImport/ReqPipeImport.vue"
 import EmpContract from "./../../components/partials/EmpContract/EmpContract.vue"
 import ContractNew from "./../../components/partials/ContractNew/ContractNew.vue"
+import rexBox from "./../../components/partials/rexBox/rexBox.vue"
+import Stager from "./../../components/partials/Stager/Stager.vue"
+import Reqjobs from "./../../components/partials/Reqjobs/Reqjobs.vue"
+import Department from "./../../components/partials/Department/Department.vue"
+import StagesEdits from "./../../components/partials/StagesEdits/StagesEdits.vue"
+import ReqEdit from "./../../components/partials/ReqEdit/ReqEdit.vue"
 
 
 const routes = [
@@ -60,56 +71,67 @@ const routes = [
 
             { path: '', component: Recruitment_layout,
                 children: [
-                    { path: 'Letters', component: Letters},
-                    { path: 'ReportRecruitment', component: ReportRecruitment},
-                    { path: 'ReqDocTablecreaate', component: ReqDocTablecreaate},
-                    { path: 'ReqDocTableimport', component: ReqDocTableimport},
-                    { path: 'ReqDocTable', component: ReqDocTable},
-                    { path: 'RecutSetting', component: RecutSetting},
-                    { path: 'JobPosition', component: JobPosition},
-                    { path: 'ReqDep', component: ReqDep},
-                    { path: 'ReqDepEdit', component: ReqDepEdit},
-                    { path: 'ReqDepcreate', component: ReqDepcreate},
-                    { path: 'DepsReq', component: DepsReq},
-                    { path: 'ReqDepImport', component: ReqDepImport},
-                    { path: 'ReqStages', component: ReqStages},
-                    { path: 'ReqPosition', component: ReqPosition},
-                    { path: 'Job', component: Job},
-                    { path: 'JobImport', component: JobImport},
-                    { path: 'JobEdit', component: JobEdit},
-                    { path: 'Jobcreate', component: Jobcreate},
-                    { path: 'Jobs', component: Jobs},
-                    { path: 'LetterEdit', component: LetterEdit},
-                    { path: 'LetterTable', component: LetterTable},
-                    { path: 'ResumeandLetters', component: ResumeandLetters},
-                    { path: 'Stages', component: Stages},
-                    { path: 'StageEdit', component: StageEdit},
-                    { path: 'Stagecreate', component: Stagecreate},
-                    { path: 'StageImport', component: StageImport},
-                    { path: 'Reqpipe', component: Reqpipe},
-                    { path: 'ReqApps', component: ReqApps},
-                    { path: 'ReqDoc', component: ReqDoc},
-                    { path: 'ReqApp', component: ReqApp},
-                    { path: 'ReqAppDoc', component: ReqAppDoc},
-                    { path: 'ReqAppDocCreate', component: ReqAppDocCreate},
-                    { path: 'ReqDoccreate', component: ReqDoccreate},
-                    { path: 'ReqAppDocTable', component: ReqAppDocTable},
-                    { path: 'ReqAppDocImport', component: ReqAppDocImport},
-                    { path: 'ReqCreateTable', component: ReqCreateTable},
-                    { path: 'AppReqCreate', component: AppReqCreate},
-                    { path: 'ReqSetting', component: ReqSetting},
-                    { path: 'ReqSettingEdit', component: ReqSettingEdit},
-                    { path: 'ReqSettingCreate', component: ReqSettingCreate},
-                    { path: 'RSettings', component: RSettings},
-                    { path: 'ReqAppPosition', component: ReqAppPosition},
-                    { path: 'ReqpipeTable', component: ReqpipeTable},
-                    { path: 'ReqPipeImport', component: ReqPipeImport},
-                    { path: 'ReqJobApp', component: ReqJobApp},
-                    { path: 'ReqJobAppEdit', component: ReqJobAppEdit},
-                    { path: 'ReqJobAppCreate', component: ReqJobAppCreate},
-                    { path: 'ReqpipeCreate', component: ReqpipeCreate},
-                    { path: 'ReqCalandar', component: ReqCalandar},
-                    { path: 'Modalcreate', component: Modalcreate},
+                    { path: 'letters', component: Letters},
+                    { path: 'reqapplicationEdit/:id', component: ReqapplicationEdit},
+                    { path: 'reqapplication/:id', component: Reqapplication},
+                    { path: 'depDuplicate', component: DepDuplicate},
+                    { path: 'reqEdit', component: ReqEdit},
+                    { path: 'department', component: Department},
+                    { path: 'reqjobs', component: Reqjobs},
+                    { path: 'stagesEdits', component: StagesEdits},
+                    { path: 'stager', component: Stager},
+                    { path: 'rexBox', component: rexBox},
+                    { path: 'reportRecruitment', component: ReportRecruitment},
+                    { path: 'reqDocTablecreaate', component: ReqDocTablecreaate},
+                    { path: 'reqDocTableimport', component: ReqDocTableimport},
+                    { path: 'reqDocTable', component: ReqDocTable},
+                    { path: 'recutSetting', component: RecutSetting},
+                    { path: 'jobPosition', component: JobPosition},
+                    { path: 'reqDep/:id', component: ReqDep},
+                    { path: 'reqDepEdit/:id', component: ReqDepEdit},
+                    { path: 'reqDepcreate', component: ReqDepcreate},
+                    { path: 'depsReq', component: DepsReq},
+                    { path: 'reqDepImport', component: ReqDepImport},
+                    { path: 'reqStages', component: ReqStages},
+                    { path: 'reqPosition', component: ReqPosition},
+                    { path: 'job/:id', component: Job},
+                    { path: 'jobImport', component: JobImport},
+                    { path: 'jobEdit/:id', component: JobEdit},
+                    { path: 'jobcreate', component: Jobcreate},
+                    { path: 'jobs', component: Jobs},
+                    { path: 'letterEdit/:id', component: LetterEdit},
+                    { path: 'letterTable', component: LetterTable},
+                    { path: 'resumeandLetters/:id', component: ResumeandLetters},
+                    { path: 'stages/:id', component: Stages},
+                    { path: 'stageEdit/:id', component: StageEdit},
+                    { path: 'stagecreate', component: Stagecreate},
+                    { path: 'stageImport', component: StageImport},
+                    { path: 'reqpipe/:id', component: Reqpipe},
+                    { path: 'reqApps', component: ReqApps},
+                    { path: 'reqDoc', component: ReqDoc},
+                    { path: 'reqApp', component: ReqApp},
+                    { path: 'reqAppDoc/:id', component: ReqAppDoc},
+                    { path: 'reqAppDocCreate', component: ReqAppDocCreate},
+                    { path: 'reqDoccreate', component: ReqDoccreate},
+                    { path: 'reqAppDocTable', component: ReqAppDocTable},
+                    { path: 'reqAppDocImport', component: ReqAppDocImport},
+                    { path: 'reqCreateTable', component: ReqCreateTable},
+                    { path: 'appReqCreate/:id', component: AppReqCreate},
+                    { path: 'reqSetting/:id', component: ReqSetting},
+                    { path: 'reqSettingEdit/:id', component: ReqSettingEdit},
+                    { path: 'reqSettingCreate', component: ReqSettingCreate},
+                    { path: 'rSettings', component: RSettings},
+                    { path: 'reqAppPosition', component: ReqAppPosition},
+                    { path: 'reqpipeTable', component: ReqpipeTable},
+                    { path: 'reqPipeImport', component: ReqPipeImport},
+                    { path: 'reqJobApp', component: ReqJobApp},
+                    { path: 'reqJobAppEdit', component: ReqJobAppEdit},
+                    { path: 'reqJobAppCreate', component: ReqJobAppCreate},
+                    { path: 'reqpipeCreate/:id', component: ReqpipeCreate},
+                    { path: 'reqCalandar', component: ReqCalandar},
+                    { path: 'modalcreate', component: Modalcreate},
+                    { path: 'reqssettings', component: Reqssettings},
+                    { path: 'absent', component: Absent},
                 ]
             },
 

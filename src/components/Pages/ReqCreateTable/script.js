@@ -89,7 +89,7 @@ export default{
             modal61: "Open:Manager",
             btnlinks: {
                 createbtnlink: "#/app/attendance/InsideHrTwo",
-                discardbtnlink: "#/app/Recruitment/ReqAppDocTable",
+                discardbtnlink: "/recruitment/ReqAppDocTable",
                 editbtnlink:"#/app/attendance/InsideHrTwo",
                 importbtnlink: "#/app/imported"
             },

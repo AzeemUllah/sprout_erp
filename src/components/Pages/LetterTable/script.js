@@ -3,6 +3,8 @@ import TableMain from "./../../partials/TableMain/TableMain.vue"
 
 export default{
     created: function () {
+        var self = this;
+        this.select();
         $(function () {
             $(".colorbg").on("click", function (e) {
                 e.preventDefault();
@@ -24,17 +26,13 @@ export default{
                 createbtnlink: "#/app/Employees/Dep",
                 discardbtnlink: "#/app/sales/Salesnextactivityview",
                 importbtnlink: "#/app/imported",
-                secondbtnlink: "#/app/Employees/TableDep",
-                firstbtnlink: "#/app/Recruitment/Letters",
+                secondbtnlink: "/recruitment/LetterTable",
+                firstbtnlink: "/recruitment/Letters",
             },
             tableheader: [
-                "  Attachment Name",
+                " Attachment Name",
                 " File Name",
-                " Resource Model",
-                " Resource Feild",
-                " Resource Id",
                 " Type",
-                " Company",
                 " Owner",
                 " Date Created",
 
@@ -46,11 +44,6 @@ export default{
                 "",
                 "",
                 "",
-                "",
-                "",
-                "",
-                "",
-
             ],
             tabledata: {
                 "row": {
@@ -64,16 +57,51 @@ export default{
                         "Alupak Industriess",
                         "Administrators",
                         "02/12/2017 08:12:40",
-
-
                     ],
-                    "url": "#/app/Recruitment/ResumeandLetters"
-
-
+                    "url": "/recruitment/ResumeandLetters"
                 },
 
             },
 
+        }
+    },
+    methods: {
+        select: function () {
+            var self = this;
+            self.$http.post("/recruitment/lettertable", {
+                "name": self.options,
+            }).then(function(res){
+                var data = res.body.data;
+                self.j = data.name;
+                self.tabledata = [];
+                if(data.length > 0){
+                    data.forEach(function(val) {
+                        self.tabledata.push({
+                            "data": [
+                                val.application_tittle,
+                                val.document_url,
+                                val.type,
+                                val.date_created,
+                                val.owner,
+                            ],
+                            "url": "/recruitment/ResumeandLetters/"+val.id,
+                        });
+                        console.log(data);
+                    });
+                }
+
+            },function(err){
+                alert(err);
+            });
+        },
+        validateBeforeSubmit() {
+            this.$validator.validateAll().then(() => {
+                // eslint-disable-next-line
+                // this.submiting();
+                alert('From Submitted!');
+            }).catch(() => {
+
+            });
         }
     },
 

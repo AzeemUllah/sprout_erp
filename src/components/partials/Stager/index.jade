@@ -31,16 +31,14 @@
                             tr
                                 td.o_td_label(colspan='1')
                                     label.o_form_label.o_form_label_help.o_form_label_false( data-original-title='', title='')
-                                        | Folded in Recruitment Pipe
+                                        | Folded in Recruitment Pipes
                                 td(colspan='1', style='width: 100%;')
                                     input(type='checkbox', name='my-checkbox', value='1', v-bind:true-value='1', v-bind:false-value='0', v-model='folded')
-                                    //.o_checkbox.o_form_field_boolean.o_form_field
-                                    //    input#o_field_input_61(type='checkbox', name='fold', disabled='')
-                                    //    span(v-model='folded')  {{ folded }}
+
                             tr
                                 td.o_td_label(colspan='1')
                                     label.o_form_label.o_form_label_help.o_form_label_empty.o_form_label_false( data-original-title='', title='')
-                                        | Use template
+                                        | Use templates
                                 td(colspan='1', style='width: 100%;')
                                     span.o_form_field.o_form_required(href='#')(v-model='emailname') {{ emailname }}
                 .o_horizontal_separator

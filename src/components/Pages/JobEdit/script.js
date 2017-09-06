@@ -1,81 +1,47 @@
 import DashboardController from "./../../partials/DashboardController/DashboardController.vue"
-import Message from "./../../partials/Message/Message.vue"
+import Request_Quotation_Lower from "./../../partials/Request_quotation_lower/Request_quotation_lower.vue"
 import Modal from "./../../partials/Modal/Modal.vue"
 import jobs from "./../../partials/Jobs/Jobs.vue"
-import Request_quotation_lower from "./../../partials/Request_quotation_lower/Request_quotation_lower.vue"
-
 
 
 export default{
     created: function () {
+        var self = this;
+        this.select();
+        this.select1();
         $(function() {
-            //use this method to add new colors to pallete
-            //$.fn.colorPicker.addColors(['000', '000', 'fff', 'fff']);
-
-            $('#color1').colorPicker();
-
-            $('#color2').colorPicker();
-
-            $('#color3').colorPicker({pickerDefault: "ffffff", colors: ["ffffff", "000000", "111FFF", "C0C0C0", "FFF000"], transparency: true});
-
-            $('#color4').colorPicker();
-
-            $('#color5').colorPicker({showHexField: false});
-
-            //fires an event when the color is changed
-            //$('#color1').change(function(){
-            //alert("color changed");
-            //});
-
-            $("#button1").click(function(){
-                $("#color1").val("#ffffff");
-                $("#color1").change();
+            $("#save").click(function () {
+                self.submit();
             });
-
-            $("#button2").click(function(){
-                $("#color2").val("#000000");
-                $("#color2").change();
+            $("#num01").click(function () {
+                self.ssubmit();
             });
-
-        });
-        $(function(){
-            $('.samobuttopcontroller1').off('click');
-            $('.samobuttopcontroller1').on('click', function () {
-                let check = $('#createform').css("display");
-                if(check == "none"){
-                    $('#createform').show();
-                    $('#createedit').hide();
-                }else{
-                    $('#createform').hide();
-                    $('#createedit').show();
-                }
-
+            $("#num10").click(function () {
+                self.psubmit();
+            });
+            $("#save").click(function () {
+                self.submit();
+            });
+            $("#hide").click(function(){
+                $("#hide").hide();
+            });
+            $("#show").click(function(){
+                $("#show").hide();
+            });
+            $("#show").click(function(){
+                $("#hide").show();
+            });
+            $("#hide").click(function(){
+                $("#show").show();
             });
         });
-        $(function(){
-            $('.samobuttopcontroller2').off('click');
-            $('.samobuttopcontroller2').on('click', function () {
-                let check = $('#createform').css("display");
-                if(check == "none"){
-                    $('#createform').show();
-                    $('#createedit').hide();
-                }else{
-                    $('#createform').hide();
-                    $('#createedit').show();
-                }
-
-            });
-        });
-
-
     },
     props: [
         "edit",
-
     ],
     data () {
         return {
-            nextactivity: "Job Positions/Chief Executive Officer",
+            nextactivity: "Job Positions/New",
             modal2: "Open: Department",
             modal3: "Open: Job Title",
             modal4: "Open: Currency",
@@ -90,19 +56,228 @@ export default{
             modal50: "Open:Manager",
             modal60: "Open:Manager",
             modal61: "Open:Manager",
+            job_tittle: '',
+            department_id: '',
+            recruitment_responsible: '',
+            expected: '',
+            job_email: '',
+            job_location: '',
+            description: '',
+            options2: '',
+            options: '',
+            options3: '',
+            gf: '',
+            num: '',
             btnlinks: {
                 createbtnlink: "#/app/attendance/InsideHrTwo",
-                discardbtnlink: "#/app/Recruitment/Job",
+                discardbtnlink: "/recruitment/JobPosition",
                 editbtnlink:"#/app/attendance/InsideHrTwo",
+                savebtnlink:"",
                 importbtnlink: "#/app/imported"
             },
         }
     },
+    methods: {
+        selectid: function (id) {
+            var self = this;
+            self.gf=id;
+            alert(self.gf);
+        },
+        submit: function () {
+            var self = this;
+            self.$http.post("/recruitment/reqjobs", {"status": self.gf,"id": self.$route.params.id,"job_tittle": self.job_tittle,"job_email": self.job_email,"department_id": self.department_id,"recruitment_responsible": self.recruitment_responsible,"expected": self.expected,"job_location": self.job_location,"description": self.description}).then(function(res){
+                console.log(res.body);
+            },function(err){
+                alert(err);
+            });
+        },
+        ssubmit: function () {
+
+            var self = this;
+            self.$http.post("/recruitment/jobpage", {"id": self.$route.params.id}).then(function (res) {
+
+                var parentdata = res.body.data[0];
+                self.job_tittle = parentdata.job_tittle;
+                self.job_email = parentdata.job_email;
+                self.expected = parentdata.expected;
+                self.department_id = parentdata.department_id;
+                self.recruitment_responsible = parentdata.recruitment_responsible;
+                self.job_location = parentdata.job_location;
+                self.description = parentdata.description;
+                self.$route.params.id = parentdata.id;
+                console.log(res.body)
+                alert(self.$route.params.id);
+                //console.log(this.$route.query.id);
+                self.$http.post("/recruitment/ss", {"job_location":self.job_location}).then(function (res) {
+                        var data = res.body.data[0];
+                        self.j = data.company;
+                        //console.log(self.job_tittle);
+                        console.log(res.body);
+                        self.$http.post("/recruitment/sss", {"department_id":self.department_id}).then(function (res) {
+                                var data = res.body.data[0];
+                                self.p = data.name;
+                                //console.log(self.job_tittle);
+                                console.log(res.body);
+                                self.$http.post("/recruitment/sb", {"recruitment_responsible":self.recruitment_responsible}).then(function (res) {
+                                        var data = res.body.data[0];
+                                        self.d = data.username;
+                                        //console.log(self.job_tittle);
+                                        console.log(res.body);
+                                    },
+                                    function (err) {
+                                        alert(err);
+                                    });
+                            },
+                            function (err) {
+                                alert(err);
+                            });
+                    },
+                    function (err) {
+                        alert(err);
+                    });
+            }, function (err) {
+                alert(err);
+            });
+
+
+
+
+        },
+        psubmit: function () {
+            var self = this;
+            self.$http.post("/recruitment/jobpage2", {"id": self.$route.params.id}).then(function (res) {
+
+                var parentdata = res.body.data[0];
+                self.job_tittle = parentdata.job_tittle;
+                self.job_email = parentdata.job_email;
+                self.expected = parentdata.expected;
+                self.department_id = parentdata.department_id;
+                self.recruitment_responsible = parentdata.recruitment_responsible;
+                self.job_location = parentdata.job_location;
+                self.description = parentdata.description;
+                self.$route.params.id = parentdata.id;
+                console.log(res.body)
+                alert(self.$route.params.id);
+                //console.log(this.$route.query.id);
+                self.$http.post("/recruitment/ss", {"job_location":self.job_location}).then(function (res) {
+                        var data = res.body.data[0];
+                        self.j = data.company;
+                        //console.log(self.job_tittle);
+                        console.log(res.body);
+                        self.$http.post("/recruitment/sss", {"department_id":self.department_id}).then(function (res) {
+                                var data = res.body.data[0];
+                                self.p = data.name;
+                                //console.log(self.job_tittle);
+                                console.log(res.body);
+                                self.$http.post("/recruitment/sb", {"recruitment_responsible":self.recruitment_responsible}).then(function (res) {
+                                        var data = res.body.data[0];
+                                        self.d = data.username;
+                                        //console.log(self.job_tittle);
+                                        console.log(res.body);
+                                    },
+                                    function (err) {
+                                        alert(err);
+                                    });
+                            },
+                            function (err) {
+                                alert(err);
+                            });
+                    },
+                    function (err) {
+                        alert(err);
+                    });
+            }, function (err) {
+                alert(err);
+            });
+        },
+        select: function () {
+            var self = this;
+            self.$http.post("/recruitment/jobss", {"id": self.$route.params.id}).then(function (res) {
+
+                    var parentdata = res.body.data[0];
+                    self.job_tittle = parentdata.job_tittle;
+                    self.expected = parentdata.expected;
+                    self.job_email = parentdata.job_email;
+                    self.description = parentdata.description;
+
+
+
+                    // console.log(res.body)
+
+
+            //alert(self.companyName);
+            self.$http.post("/recruitment/deps", {
+                "job_tittle": self.jobspecific,
+            }).then(function(res){
+                self.options2 =res.body.data;
+                console.log(res.body);
+            },function(err){
+                alert(err);
+            });
+            self.$http.post("/recruitment/reqresponse", {
+                "job_tittle": self.jobspecific,
+            }).then(function(res){
+                self.options =res.body.data;
+                console.log(res.body);
+            },function(err){
+                alert(err);
+            });
+            self.$http.post("/recruitment/joblocation", {
+                "job_tittle": self.jobspecific,
+            }).then(function(res){
+                self.options3 =res.body.data;
+                console.log(res.body);
+
+            },function(err){
+                alert(err);
+            });
+            },function(err){
+                alert(err);
+            });
+        },
+        select1: function () {
+
+            var self = this;
+
+            self.$http.post("/recruitment/num5", {"id": self.$route.params.id}).then(function (res) {
+
+                var parentdata = res.body.data[0];
+                self.num = parentdata.count;
+
+
+
+                console.log(res.body)
+                alert(self.num);
+                console.log(self.num)
+                //console.log(this.$route.query.id);
+
+
+
+            }, function (err) {
+                alert(err);
+            });
+
+
+
+
+        },
+        validateBeforeSubmit() {
+            this.$validator.validateAll().then(() => {
+                // eslint-disable-next-line
+                this.submit();
+                alert('From Submitted!');
+            }).catch(() => {
+                // eslint-disable-next-line
+                alert('Correct them errors!');
+            });
+        }
+
+
+    },
     components: {
         DashboardController,
-        Request_quotation_lower,
+        Request_Quotation_Lower,
         Modal,
-        Message,
         jobs,
     },
 

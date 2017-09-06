@@ -1,74 +1,18 @@
 import DashboardController from "./../../partials/DashboardController/DashboardController.vue"
-
+import Request_quotation_lower from "./../../partials/Request_quotation_lower/Request_quotation_lower.vue"
 import Message from "./../../partials/Message/Message.vue"
 import Modal from "./../../partials/Modal/Modal.vue"
-import jobs from "./../../partials/Jobs/Jobs.vue"
-import Request_quotation_lower from "./../../partials/Request_quotation_lower/Request_quotation_lower.vue"
-
+import Reqjobs from "./../../partials/Reqjobs/Reqjobs.vue"
 
 
 export default{
     created: function () {
-        $(function() {
-            //use this method to add new colors to pallete
-            //$.fn.colorPicker.addColors(['000', '000', 'fff', 'fff']);
-
-            $('#color1').colorPicker();
-
-            $('#color2').colorPicker();
-
-            $('#color3').colorPicker({pickerDefault: "ffffff", colors: ["ffffff", "000000", "111FFF", "C0C0C0", "FFF000"], transparency: true});
-
-            $('#color4').colorPicker();
-
-            $('#color5').colorPicker({showHexField: false});
-
-            //fires an event when the color is changed
-            //$('#color1').change(function(){
-            //alert("color changed");
-            //});
-
-            $("#button1").click(function(){
-                $("#color1").val("#ffffff");
-                $("#color1").change();
-            });
-
-            $("#button2").click(function(){
-                $("#color2").val("#000000");
-                $("#color2").change();
-            });
-
-        });
-        $(function(){
-            $('.samobuttopcontroller1').off('click');
-            $('.samobuttopcontroller1').on('click', function () {
-                let check = $('#createform').css("display");
-                if(check == "none"){
-                    $('#createform').show();
-                    $('#createedit').hide();
-                }else{
-                    $('#createform').hide();
-                    $('#createedit').show();
-                }
-
-            });
-        });
-        $(function(){
-            $('.samobuttopcontroller2').off('click');
-            $('.samobuttopcontroller2').on('click', function () {
-                let check = $('#createform').css("display");
-                if(check == "none"){
-                    $('#createform').show();
-                    $('#createedit').hide();
-                }else{
-                    $('#createform').hide();
-                    $('#createedit').show();
-                }
-
-            });
-        });
-
-
+        var self =this;
+        this.select();
+        this.select1();
+        $(function () {
+            self.btnlinks.editbtnlink ="/recruitment/JobEdit/"+self.$route.params.id;
+        })
     },
     props: [
         "edit",
@@ -90,21 +34,120 @@ export default{
             modal12: "Warning",
             modal50: "Open:Manager",
             modal60: "Open:Manager",
+            job_email: '',
+            job_tittle: '',
+            expected: '',
+            department_id: '',
+            recruitment_responsible: '',
+            description: '',
+            job_location: '',
+            j: '',
+            d: '',
+            num: '',
             modal61: "Open:Manager",
             btnlinks: {
-                createbtnlink: "#/app/attendance/InsideHrTwo",
-                discardbtnlink: "#/app/Recruitment/Job",
-                editbtnlink:"#/app/attendance/InsideHrTwo",
+                createbtnlink: "/recruitment/ReqSettingCreate",
+                discardbtnlink: "#/app/Employees/EmpDash",
+                editbtnlink:"/recruitment/ReqSettingEdit",
                 importbtnlink: "#/app/imported"
             },
+        }
+    },
+    methods: {
+        select: function () {
+            var self = this;
+            self.$http.post("/recruitment/jobselect", {"id": self.$route.params.id}).then(function (res) {
+
+                var parentdata = res.body.data[0];
+                self.job_tittle = parentdata.job_tittle;
+                self.job_email = parentdata.job_email;
+                self.expected = parentdata.expected;
+                self.department_id = parentdata.department_id;
+                self.recruitment_responsible = parentdata.recruitment_responsible;
+                self.job_location = parentdata.job_location;
+                self.description = parentdata.description;
+                console.log(res.body)
+                alert(self.recruitment_responsible);
+                //console.log(this.$route.query.id);
+                self.$http.post("/recruitment/ss", {"job_location":self.job_location}).then(function (res) {
+                        var data = res.body.data[0];
+                        self.j = data.company;
+                        //console.log(self.job_tittle);
+                        console.log(res.body);
+                        self.$http.post("/recruitment/sss", {"department_id":self.department_id}).then(function (res) {
+                                var data = res.body.data[0];
+                                self.p = data.name;
+                                //console.log(self.job_tittle);
+                                console.log(res.body);
+                                self.$http.post("/recruitment/sb", {"recruitment_responsible":self.recruitment_responsible}).then(function (res) {
+                                        var data = res.body.data[0];
+                                        self.d = data.username;
+                                        //console.log(self.job_tittle);
+                                        console.log(res.body);
+                                    },
+                                    function (err) {
+                                        alert(err);
+                                    });
+                            },
+                            function (err) {
+                                alert(err);
+                            });
+                    },
+                    function (err) {
+                        alert(err);
+                    });
+            }, function (err) {
+                alert(err);
+            });
+        },
+        select1: function () {
+            var self = this;
+            self.$http.post("/recruitment/num", {"id": self.$route.params.id}).then(function (res) {
+                var parentdata = res.body.data[0];
+                self.num = parentdata.count;
+
+
+
+                console.log(res.body)
+                alert(self.num);
+                console.log(self.num)
+                //console.log(this.$route.query.id);
+
+
+
+            }, function (err) {
+                alert(err);
+            });
+
+
+
+
+        },
+
+        validateBeforeSubmit() {
+            var self = this;
+            this.$validator.validateAll().then(() => {
+                // eslint-disable-next-line
+                //this.submit();
+                //this.tags();
+                //this.insert();
+                //this.select();
+                //this.insert();
+                // this.submiting();
+
+                alert('From Submitted!');
+            }).catch(() => {
+                // eslint-disable-next-line
+                //  alert('Correct them errors!');
+            });
         }
     },
     components: {
         DashboardController,
         Request_quotation_lower,
         Modal,
+        Reqjobs,
         Message,
-        jobs,
     },
 
 

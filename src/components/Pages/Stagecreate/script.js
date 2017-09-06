@@ -1,68 +1,23 @@
 import DashboardController from "./../../partials/DashboardController/DashboardController.vue"
 import Request_Quotation_Lower from "./../../partials/Request_quotation_lower/Request_quotation_lower.vue"
 import Modal from "./../../partials/Modal/Modal.vue"
+import StagesEdits from "./../../partials/StagesEdits/StagesEdits.vue"
 
 
 export default{
     created: function () {
+        var self = this;
+        this.select();
+
+        //this.selectjob();
         $(function() {
-            //use this method to add new colors to pallete
-            //$.fn.colorPicker.addColors(['000', '000', 'fff', 'fff']);
-
-            $('#color1').colorPicker();
-
-            $('#color2').colorPicker();
-
-            $('#color3').colorPicker({pickerDefault: "ffffff", colors: ["ffffff", "000000", "111FFF", "C0C0C0", "FFF000"], transparency: true});
-
-            $('#color4').colorPicker();
-
-            $('#color5').colorPicker({showHexField: false});
-
-            //fires an event when the color is changed
-            //$('#color1').change(function(){
-            //alert("color changed");
-            //});
-
-            $("#button1").click(function(){
-                $("#color1").val("#ffffff");
-                $("#color1").change();
-            });
-
-            $("#button2").click(function(){
-                $("#color2").val("#000000");
-                $("#color2").change();
+            $("#save").click(function () {
+                self.submit();
             });
 
         });
-        $(function(){
-            $('.samobuttopcontroller1').off('click');
-            $('.samobuttopcontroller1').on('click', function () {
-                let check = $('#createform').css("display");
-                if(check == "none"){
-                    $('#createform').show();
-                    $('#createedit').hide();
-                }else{
-                    $('#createform').hide();
-                    $('#createedit').show();
-                }
 
-            });
-        });
-        $(function(){
-            $('.samobuttopcontroller2').off('click');
-            $('.samobuttopcontroller2').on('click', function () {
-                let check = $('#createform').css("display");
-                if(check == "none"){
-                    $('#createform').show();
-                    $('#createedit').hide();
-                }else{
-                    $('#createform').hide();
-                    $('#createedit').show();
-                }
 
-            });
-        });
 
 
     },
@@ -87,18 +42,112 @@ export default{
             modal50: "Open:Manager",
             modal60: "Open:Manager",
             modal61: "Open:Manager",
+            stagename: '',
+            name: '',
+            jobspecific: '',
+            options: '',
+            options2: '',
+            folded: '',
+            Usetemplate: '',
+            job_specific: '',
+            email_template_id: '',
             btnlinks: {
                 createbtnlink: "#/app/attendance/InsideHrTwo",
-                discardbtnlink: "#/app/Recruitment/ReqStages",
+                discardbtnlink: "/recruitment/ReqStages",
                 editbtnlink:"#/app/attendance/InsideHrTwo",
+                savebtnlink:"",
                 importbtnlink: "#/app/imported"
             },
         }
+    },
+    methods: {
+        submit: function () {
+            var self = this;
+
+            self.$http.post("/recruitment/stages", {"name": self.name,"job_specific": self.job_specific,"email_template_id": self.email_template_id,"folded": self.folded,"description": self.description}).then(function(res){
+                console.log(res.body);
+
+            },function(err){
+                alert(err);
+            });
+        },
+        select: function () {
+
+            var self = this;
+            //alert(self.companyName);
+            self.$http.post("/recruitment/emailss", {
+                "name": self.Usetemplate,
+
+
+            }).then(function(res){
+
+
+                self.options =res.body.data;
+                console.log(res.body);
+
+
+
+
+
+            },function(err){
+                alert(err);
+            });
+            self.$http.post("/recruitment/jobspecific", {
+                "job_tittle": self.jobspecific,
+
+            }).then(function(res){
+
+
+                self.options2 =res.body.data;
+                console.log(res.body);
+
+
+
+
+
+            },function(err){
+                alert(err);
+            });
+        },
+        selectjob: function () {
+
+            var self = this;
+
+            self.$http.post("/recruitment/jobspecific", {
+                "job_tittle": self.jobspecific,
+
+            }).then(function(res){
+
+
+                self.options2 =res.body.data;
+                console.log(res.body);
+
+
+
+
+
+            },function(err){
+                alert(err);
+            });
+        },
+        validateBeforeSubmit() {
+            this.$validator.validateAll().then(() => {
+                // eslint-disable-next-line
+                this.submit();
+                alert('From Submitted!');
+            }).catch(() => {
+                // eslint-disable-next-line
+                alert('Correct them errors!');
+            });
+        }
+
+
     },
     components: {
         DashboardController,
         Request_Quotation_Lower,
         Modal,
+        StagesEdits,
     },
 
 

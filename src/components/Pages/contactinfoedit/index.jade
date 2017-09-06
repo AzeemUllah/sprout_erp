@@ -410,6 +410,17 @@
                 .tab-content
                     #profile.tab-pane.fade.in.active(role='tabpanel')
                         button.btn.btn-success(type='button' ,data-toggle='modal', data-target='.bd-example-modal-lg', style='color: white;background-color: #7c7bad;border-color: #7c7bad;') Create
+                        .row(style='padding-left:15px;')(v-for="row in names1")
+                            .col-xs-1
+                                .oe_kanban_color_0.oe_kanban_global_click.o_kanban_record
+                                    .o_kanban_image
+                                        img(src='http://localhost:8069/base/static/src/img/avatar.png',style='width: 68px;')
+                            .col-xs-5
+                                a.fa.fa-times.pull-right.oe_kanban_action.oe_kanban_action_a(data-type='delete', href='#',v-on:click="submit51(row.id)")
+                                .oe_kanban_details(data-toggle='modal',v-on:click="select51(row.id)", data-target='.bd-example-modal-lg')
+                                    | {{row.name}}
+                                    div {{row.job_position}}
+                                    div {{row.email}}
                         .row(style='padding-left:15px;')(v-for="row in names")
                             .col-xs-1
                                 .oe_kanban_color_0.oe_kanban_global_click.o_kanban_record
@@ -631,21 +642,7 @@
                                                 | Currency
                                         td(colspan='1', style='width: 100%;')
                                             a.o_form_uri.o_form_field.o_form_invisible(href='#') EUR
-                            table.o_group.o_inner_group.o_group_col_6
-                                tbody
-                                    tr
-                                        td(colspan='2', style='width: 100%;')
-                                            .o_horizontal_separator
-                                                | Fiscal Information
-                                    tr
-                                        td.o_td_label(colspan='1')
-                                            label.o_form_label.o_form_label_help(for='o_field_input_1704', data-original-title='', title='')
-                                                | Fiscal Position
-                                        td(colspan='1', style='width: 100%;')
-                                            .o_form_field_many2one.o_form_field
-                                                .o_form_input_dropdown
-                                                    input#o_field_input_1704.o_form_input.ui-autocomplete-input(type='text', autocomplete='off')
-                                                    span.o_dropdown_button(draggable='false')
+
                             table.o_group.o_inner_group.o_group_col_6
                                 tbody
                                     tr

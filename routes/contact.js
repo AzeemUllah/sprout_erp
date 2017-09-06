@@ -110,6 +110,15 @@ router.post('/selectgrid', function (req, res, next) {
         }
     });
 });
+router.post('/selectgridtag', function (req, res, next) {
+
+    connection.query("select * from tags_contacts", function (error, results, fields) {
+        if (error) res.json({"status": "failed", "message": error.message});
+        else{
+            res.json({"status": "ok", "data": results});
+        }
+    });
+});
 //contactcreatestuff
 router.post('/createcontact', function (req, res, next) {
     connection.query('INSERT INTO `contact_notes`(`notes`) VALUES ("' + req.body.notes_id + '")', function (error, results, fields) {
@@ -153,7 +162,7 @@ router.post('/createcontactmodal', function (req, res, next) {
                 }
                 else {
                     console.log(req.body);
-                    connection.query('INSERT INTO `contact_contacts_addresses`(`parent_contact_id`,`child_contact_id`) VALUES ("' + req.body.last + '","' + results1.insertId + '")', function (error, results1, fields) {
+                    connection.query('INSERT INTO `contact_contacts_addresses`(`parent_contact_id`,`child_contact_id`) VALUES ("' + req.body.lasting + '","' + results1.insertId + '")', function (error, results1, fields) {
                         if (error) {
                             res.json({"status": "failed", "message": error.message});
                         }
@@ -161,6 +170,16 @@ router.post('/createcontactmodal', function (req, res, next) {
                     });
                 }
             });
+        }
+    });
+});
+router.post('/tags', function (req, res, next) {
+
+    connection.query("select * from tags", function (error, results, fields) {
+        if (error) res.json({"status": "failed", "message": error.message});
+        else{
+            res.json({"status": "ok", "data": results});
+
         }
     });
 });
@@ -296,6 +315,7 @@ router.post('/createcontactedit', function (req, res, next) {
         if (error) {
             res.json({"status": "failed", "message": error.message});
         }
+
         // console.log(results);
     });
     connection.query('UPDATE contact_contacts_addresses SET parent_contact_id = "'+req.body.id+'" WHERE parent_contact_id = "'+ req.body.lasting +'"', function (error, results1, fields) {

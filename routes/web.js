@@ -359,6 +359,9 @@ router.get("/test", function(req, res, next){
 router.get("/recruitment", function(req, res, next){
     res.render('modules/recruitment', {title: 'Sprout'});
 });
+router.get("/recruitment/*", function(req, res, next){
+    res.render('modules/recruitment', {title: 'Sprout'});
+});
 router.get("/setting", function(req, res, next){
     res.render('modules/Setting', {title: 'Sprout'});
 });

@@ -3,7 +3,7 @@
         .o_view_manager_content
             .o_form_view.oe_form_configuration.o_form_nosheet.o_form_editable
                 header(style='margin-left:-32px;margin-right:-32px;')
-                    button.btn.btn-sm.oe_highlight(type='button')
+                    button.btn.btn-sm.oe_highlight(v-on:click="validateBeforeSubmit",type='button')
                         span Apply
                     button.btn.btn-sm.oe_link(type='button')
                         span Cancel
@@ -20,8 +20,8 @@
                             td(colspan='1', style='width: 100%;')
                                 .o_form_field_radio.o_vertical.o_form_field
                                     .o_radio_item
-                                        input#radio461_0.o_form_radio(type='radio', name='radio461', value='0')
+                                        input#radio461_0.o_form_radio(type='radio', name='radio461', value='0',v-model='notinterview_form')
                                         label.o_form_label(for='radio461_0') Do not use interview forms
                                     .o_radio_item
-                                        input#radio461_1.o_form_radio(type='radio', name='radio461', value='1')
+                                        input#radio461_1.o_form_radio(type='radio', name='radio461', value='1',v-model='interview_form')
                                         label.o_form_label(for='radio461_1') Use interview forms during the recruitment process

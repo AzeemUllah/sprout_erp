@@ -20,10 +20,10 @@ export default{
             nextactivity: "Job Positions/Attachments",
             dashboard: "Dashboard",
             btnlinks: {
-                createbtnlink: "#/app/Recruitment/ReqCreateTable",
+                createbtnlink: "/recruitment/ReqCreateTable",
                 discardbtnlink: "#/app/sales/Salesnextactivityview",
-                importbtnlink: "#/app/Recruitment/ReqAppDocImport",
-                firstbtnlink: "#/app/Recruitment/ReqAppDoc",
+                importbtnlink: "/recruitment/ReqAppDocImport",
+                firstbtnlink: "/recruitment/ReqAppDoc",
             },
 
         }

@@ -10,10 +10,10 @@
                         .o_form_field_radio.o_horizontal.o_form_field.o_form_required(data-original-title='', title='')
                             .o_radio_item
                                 input#radio75_contact.contact_invoice.o_form_radio(type='radio', name='gender', value='contact')
-                                label.o_form_label(for='radio75_contact') Contact
+                                label.o_form_label(for='radio75_contact') Contacts
                             .o_radio_item
                                 input#radio75_invoice.contact_invoice1.o_form_radio(type='radio', name='radio75', value='invoice')
-                                label.o_form_label(for='radio75_invoice') Invoice address
+                                label.o_form_label(for='radio75_invoice') Invoice addresss
                             .o_radio_item
                                 input#radio75_delivery.o_form_radio(type='radio', name='radio75', value='delivery')
                                 label.o_form_label(for='radio75_delivery') Shipping address
@@ -27,7 +27,7 @@
                                     tr
                                         td.o_td_label(colspan='1')
                                             label.o_form_label(for='o_field_input_67')
-                                                | Address
+                                                | Addressss
                                         td(colspan='1', style='width: 100%;')
                                             div
                                                 .o_address_format(name='div_address')
@@ -204,9 +204,9 @@
                                 label Individual
                             .col-md-7(style='padding:0px;')
                                 input.individual_btn_click(type='radio', name='gender',value='0', v-model='individual')
-                                label Company
-
-                    input.o_form_input.o_form_field.o_form_required(placeholder='Name',v-model='name',type='text',style='width: 285px;display: block;height: 45px;')
+                                label Companys
+                    input.o_form_input.o_form_field.o_form_required(placeholder='Name',name='name',v-model='name',type='text',style='width: 285px;display: block;height: 45px;', v-validate="'required'")
+                    span(v-show="errors.has('name')") {{ errors.first('name') }}
                     .o_form_field_many2manytags.o_form_field.company_btn
                         .o_form_field_many2one.o_form_field
                             .o_form_input_dropdown
@@ -398,7 +398,7 @@
                         a.nav-link(href='#buzz1', role='tab', data-toggle='tab') Sales and Purchases
                     li.nav-item
                         a.nav-link(href='#buzz2', role='tab', data-toggle='tab') Accounting
-                // Tab panes
+
                 .tab-content
                     #profile.tab-pane.fade.in.active(role='tabpanel')
                         button.btn.btn-success(type='button' ,data-toggle='modal', data-target='.bd-example-modal-lg', style='color: white;background-color: #7c7bad;border-color: #7c7bad;') Create
@@ -467,7 +467,7 @@
                                                 span
                                     tr
                                         td.o_td_label(colspan='1')
-                                            label.o_form_label.o_form_label_help(for='o_field_input_1685', data-original-title='', title='')
+                                            label.o_form_label.o_form_label_help( data-original-title='', title='')
                                                 | Salesperson
                                         td(colspan='1', style='width: 100%;')
                                             .o_form_field_many2one.o_form_field
@@ -611,7 +611,7 @@
                                     tr
                                         td(colspan='2', style='width: 100%;')
                                             .o_horizontal_separator
-                                                | Purchases
+                                                | Purchase
                                     tr
                                         td.o_td_label(colspan='1')
                                             label.o_form_label.o_form_label_help(for='o_field_input_1701', data-original-title='', title='')
@@ -624,31 +624,15 @@
                                                 option(value='30% Advance End of Following Month') 30% Advance End of Following Month
                                                 option(value='End of Following Month') End of Following Month
                                                 option(value='Immediate Payment') Immediate Payment
-
                             table.o_group.o_inner_group.o_group_col_6
                                 tbody
                                     tr
                                         td(colspan='2', style='width: 100%;')
                                             .o_horizontal_separator
-                                                | Fiscal Informations
+                                                | Accounting Entries
                                     tr
                                         td.o_td_label(colspan='1')
-                                            label.o_form_label.o_form_label_help(for='o_field_input_1704', data-original-title='', title='')
-                                                | Fiscal Position
-                                        td(colspan='1', style='width: 100%;')
-                                            .o_form_field_many2one.o_form_field
-                                                .o_form_input_dropdown
-                                                    input#o_field_input_1704.o_form_input.ui-autocomplete-input(type='text', autocomplete='off')
-                                                    span.o_dropdown_button(draggable='false')
-                            table.o_group.o_inner_group.o_group_col_6
-                                tbody
-                                    tr
-                                        td(colspan='2', style='width: 100%;')
-                                            .o_horizontal_separator
-                                                | Accounting Entriess
-                                    tr
-                                        td.o_td_label(colspan='1')
-                                            label.o_form_label.o_form_label_help(for='o_field_input_1705', data-original-title='', title='')
+                                            label.o_form_label.o_form_label_help( data-original-title='', title='')
                                                 | Account Receivable
                                         td(colspan='1', style='width: 100%;')
                                             .o_form_field_many2one.o_with_button.o_form_field.o_form_required
@@ -658,7 +642,7 @@
                                                             | {{ cm_name5.name }}
                                     tr
                                         td.o_td_label(colspan='1')
-                                            label.o_form_label.o_form_label_help(for='o_field_input_1706', data-original-title='', title='')
+                                            label.o_form_label.o_form_label_help( data-original-title='', title='')
                                                 | Account Payable
                                         td(colspan='1', style='width: 100%;')
                                             .o_form_field_many2one.o_with_button.o_form_field.o_form_required

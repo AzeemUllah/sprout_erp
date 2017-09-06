@@ -11,6 +11,7 @@ export default{
         document.title = this.title;
         $(function(){
 
+
             var oldtext;
             $('.note.btn.btn-primary').hover(function(){
                 oldtext = $(this).text();
@@ -86,11 +87,36 @@ export default{
             nextactivity: "Job Positions",
             title : "Configure Recuritment - Sprout",
             counter: 0,
+            interview_form: '',
+            notinterview_forms: '',
             m: 'Log an internal note which will not be sent to followers, but which can be read by users accessing this document.',
             message: 'To: Followers of "PO00007: 637.50 Rs."',
             v: false,
 
         }
+    },
+    methods: {
+        submit: function () {
+            var self = this;
+            self.$http.post("/recruitment/settings", {"interview_form": self.interview_form,"notinterview_form": self.notinterview_form}).then(function(res){
+                console.log(res.body);
+            },function(err){
+                alert(err);
+            });
+        },
+
+        validateBeforeSubmit() {
+            this.$validator.validateAll().then(() => {
+
+                this.submit();
+                alert('From Submitted!');
+            }).catch(() => {
+                // eslint-disable-next-line
+                alert('Correct them errors!');
+            });
+        }
+
+
     },
     components: {
         Emptyform,

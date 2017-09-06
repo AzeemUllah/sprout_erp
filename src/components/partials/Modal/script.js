@@ -1,7 +1,6 @@
 export default{
     created: function() {
     },
-
     props: [
         "close",
         "links",

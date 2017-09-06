@@ -16,7 +16,14 @@ import ContractNew from "./../../partials/ContractNew/ContractNew.vue"
 
 export default{
     created: function () {
-
+        var self = this;
+        this.select();
+        $(function () {
+            self.btnlinks.editbtnlink ="/recruitment/LetterEdit/"+self.$route.params.id;
+            $(".delete").click(function () {
+                self.submit();
+            });
+        })
         $(function(){
             $(".colorbg").on("click", function (e) {
                 e.preventDefault();
@@ -71,7 +78,10 @@ export default{
             p:true,
             f:false,
             l:false,
-
+            document_url: '',
+            type: '',
+            application_tittle: '',
+            degree: '',
             u:false,
             counter: 0,
             m: 'Log an internal note which will not be sent to followers, but which can be read by users accessing this document.',
@@ -80,7 +90,6 @@ export default{
             nextactivity: "Resumes and Letters/Jose_CV.txt",
             btnlinks: {
                 createbtnlink:"#/app/Employees/Contracttwo",
-                editbtnlink:"#/app/Recruitment/LetterEdit",
                 importbtnlink:"#/app/imported",
                 savebtnlink:"#/app/Employees/Contractone",
             },
@@ -135,12 +144,64 @@ export default{
 
                     ],
                     "url": "/#/app/sales/request_quotation_inner"
-
                 },
 
             }
 
         }
+    },
+    methods: {
+        submit: function () {
+            var self = this;
+            self.$http.post("/recruitment/deleteletter", {"id": self.$route.params.id}).then(function(res){
+                console.log(res.body);
+            },function(err){
+                alert(err);
+            });
+        },
+        select: function () {
+            var self = this;
+            self.$http.post("/recruitment/letterEdits", {
+                "application_id": self.$route.params.id,
+
+            }).then(function(res){
+                var parentdata = res.body.data[0];
+                self.document_url = parentdata.document_url;
+                self.type = parentdata.type;
+                console.log(self.parentdata);
+
+            },function(err){
+                alert(err);
+            });
+            self.$http.post("/recruitment/letterEditsjobs", {
+                "application_id": self.$route.params.id,
+
+            }).then(function(res){
+                var parentdata = res.body.data[0];
+                self.application_tittle = parentdata.application_tittle;
+
+                console.log(self.parentdata);
+
+            },function(err){
+                alert(err);
+            });
+
+            //console.log(this.$route.query.id);
+            // console.log(self.job_specific);
+        },
+
+        validateBeforeSubmit() {
+            this.$validator.validateAll().then(() => {
+                // eslint-disable-next-line
+                this.submit();
+                alert('From Submitted!');
+            }).catch(() => {
+                // eslint-disable-next-line
+                alert('Correct them errors!');
+            });
+        }
+
+
     },
     components: {
         Emptyform,
@@ -155,10 +216,6 @@ export default{
         Request_quotation_lower,
         Message,
         EmpContract,
-
-
-
-
     }
 
 }

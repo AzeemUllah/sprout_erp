@@ -3,12 +3,26 @@ import DashboardController from "./../../partials/DashboardController/DashboardC
 import Message from "./../../partials/Message/Message.vue"
 import Modal from "./../../partials/Modal/Modal.vue"
 import Request_quotation_lower from "./../../partials/Request_quotation_lower/Request_quotation_lower.vue"
+import StagesEdits from "./../../partials/StagesEdits/StagesEdits.vue"
 
 
 
 export default{
     created: function () {
+        console.log('From Submitted21!');
+        var self = this;
+        this.select();
+        this.select1();
         $(function() {
+            $("#save").click(function () {
+                self.submit();
+            });
+            $("#num01").click(function () {
+                self.ssubmit();
+            });
+            $("#num10").click(function () {
+                self.psubmit();
+            });
             //use this method to add new colors to pallete
             //$.fn.colorPicker.addColors(['000', '000', 'fff', 'fff']);
 
@@ -37,8 +51,7 @@ export default{
                 $("#color2").change();
             });
 
-        });
-        $(function(){
+
             $('.samobuttopcontroller1').off('click');
             $('.samobuttopcontroller1').on('click', function () {
                 let check = $('#createform').css("display");
@@ -51,8 +64,7 @@ export default{
                 }
 
             });
-        });
-        $(function(){
+
             $('.samobuttopcontroller2').off('click');
             $('.samobuttopcontroller2').on('click', function () {
                 let check = $('#createform').css("display");
@@ -90,19 +102,211 @@ export default{
             modal50: "Open:Manager",
             modal60: "Open:Manager",
             modal61: "Open:Manager",
+            stagename: '',
+            name: '',
+            id: '',
+            num: '',
+            jobspecific: '',
+            options: '',
+            options2: '',
+            folded: '',
+            Usetemplate: '',
+            job_specific: '',
+            email_template_id: '',
             btnlinks: {
                 createbtnlink: "#/app/attendance/InsideHrTwo",
-                discardbtnlink: "#/app/Recruitment/Stages",
+                discardbtnlink: "/recruitment/Stages",
                 editbtnlink:"#/app/attendance/InsideHrTwo",
+                savebtnlink:"",
                 importbtnlink: "#/app/imported"
             },
         }
+    },
+    methods: {
+        submit: function () {
+            var self = this;
+            self.$http.post("/recruitment/Editstages", {"id": self.$route.params.id,"name": self.name,"job_specific": self.job_specific,"email_template_id": self.email_template_id,"folded": self.folded,"description": self.description}).then(function(res){
+                console.log(res.body);
+
+            },function(err){
+                alert(err);
+            });
+        },
+        ssubmit: function () {
+
+            var self = this;
+            self.$http.post("/recruitment/stagepage", {"id": self.$route.params.id}).then(function (res) {
+
+                var parentdata = res.body.data[0];
+                self.name = parentdata.name;
+                self.id = parentdata.id;
+                self.job_specific = parentdata.job_specific;
+                self.email_template_id = parentdata.email_template_id;
+                self.folded = parentdata.folded.data;
+                self.$route.params.id = parentdata.id;
+                self.description = parentdata.description;
+                //console.log(this.$route.query.id);
+
+                self.$http.post("/recruitment/s", {"job_specific":self.job_specific}).then(function (res) {
+                        var data = res.body.data[0];
+                        self.job_tittle = data.job_tittle;
+                        //console.log(self.job_tittle);
+
+                        // console.log(res.body);
+                        self.$http.post("/recruitment/selectemail", {"email_template_id":self.email_template_id}).then(function (res) {
+                                var data = res.body.data[0];
+                                self.emailname = data.name;
+                                //console.log(self.job_tittle);
+
+                                // console.log(res.body);
+
+                            },
+
+                            function (err) {
+                                alert(err);
+                            });
+
+                    },
+
+                    function (err) {
+                        alert(err);
+                    });
+
+
+            }, function (err) {
+                alert(err);
+            });
+
+
+
+        },
+        psubmit: function () {
+            var self = this;
+            self.$http.post("/recruitment/stagespages1", {"id": self.$route.params.id}).then(function (res) {
+
+                var parentdata = res.body.data[0];
+                self.name = parentdata.name;
+                self.id = parentdata.id;
+                self.job_specific = parentdata.job_specific;
+                self.email_template_id = parentdata.email_template_id;
+                self.folded = parentdata.folded.data;
+                self.$route.params.id = parentdata.id;
+                self.description = parentdata.description;
+                //console.log(this.$route.query.id);
+
+                self.$http.post("/recruitment/s", {"job_specific":self.job_specific}).then(function (res) {
+                        var data = res.body.data[0];
+                        self.job_tittle = data.job_tittle;
+                        //console.log(self.job_tittle);
+
+                        // console.log(res.body);
+                        self.$http.post("/recruitment/selectemail", {"email_template_id":self.email_template_id}).then(function (res) {
+                                var data = res.body.data[0];
+                                self.emailname = data.name;
+                                //console.log(self.job_tittle);
+
+                                // console.log(res.body);
+
+                            },
+
+                            function (err) {
+                                alert(err);
+                            });
+
+                    },
+
+                    function (err) {
+                        alert(err);
+                    });
+
+
+            }, function (err) {
+                alert(err);
+            });
+        },
+        select: function () {
+            var self = this;
+            self.$http.post("/recruitment/tablestagesselect", {"id": self.$route.params.id}).then(function (res) {
+
+                    var parentdata = res.body.data[0];
+                    self.name = parentdata.name;
+                    self.id = parentdata.id;
+
+                    self.folded = parentdata.folded.data;
+                    self.description = parentdata.description
+
+                    console.log(res.body)
+            },function(err){
+                alert(err);
+            });
+                    //console.log(this.$route.query.id);
+                    // console.log(self.job_specific);
+
+            //alert(self.companyName);
+            self.$http.post("/recruitment/emailss", {
+                "name": self.Usetemplate,
+            }).then(function(res){
+                self.options =res.body.data;
+                console.log(res.body);
+            },function(err){
+                alert(err);
+            });
+            self.$http.post("/recruitment/jobspecific", {
+                "job_tittle": self.jobspecific,
+            }).then(function(res){
+                self.options2 =res.body.data;
+                console.log(res.body);
+
+            },function(err){
+                alert(err);
+            });
+        },
+        select1: function () {
+
+            var self = this;
+
+            self.$http.post("/recruitment/num", {"id": self.$route.params.id}).then(function (res) {
+
+                var parentdata = res.body.data[0];
+                self.num = parentdata.count;
+
+
+
+                console.log(res.body)
+                alert(self.num);
+                console.log(self.num)
+                //console.log(this.$route.query.id);
+
+
+
+            }, function (err) {
+                alert(err);
+            });
+
+
+
+
+        },
+
+        validateBeforeSubmit() {
+            this.$validator.validateAll().then(() => {
+                // eslint-disable-next-line
+                this.submit();
+                alert('From Submitted!');
+            }).catch(() => {
+                // eslint-disable-next-line
+                alert('Correct them errors!');
+            });
+        }
+
+
     },
     components: {
         DashboardController,
         Request_quotation_lower,
         Modal,
         Message,
+        StagesEdits,
     },
 
 

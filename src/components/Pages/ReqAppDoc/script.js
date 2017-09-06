@@ -1,106 +1,79 @@
-import Emptyform from "./../../partials/Emptyform/Emptyform.vue"
-import Tabs from "./../../partials/Tabs/Tabs.vue"
-import ModelDescription from "./../../partials/Modeldescription/Modeldescription.vue"
-import Componame from "./../../partials/Componame/Componame.vue"
-import Tableview from "./../../partials/Tableview/Tableview.vue"
-import TableMain from "./../../partials/TableMain/TableMain.vue"
 import DashboardController from "./../../partials/DashboardController/DashboardController.vue"
-import Pin from "./../../partials/Pin/Pin.vue"
+
 export default{
     created: function () {
+        var self = this;
+        document.title = this.title;
+        this.select();
+        self.btnlinks.createbtnlink ="/recruitment/AppReqCreate/"+self.$route.params.id;
+        $(function () {
 
-        $(function(){
-
-            var oldtext;
-            $('.note.btn.btn-primary').hover(function(){
-                oldtext = $(this).text();
-                $(this).text("Unfollow");
-            }, function(){
-                $(this).text(oldtext)
+            $(".colorbg").on("click", function (e) {
+                e.preventDefault();
+                var col = $(this).css("backgroundColor");
+                var parent = $(this).parent().parent().parent().parent().parent().parent().parent().parent().parent().parent();
+                parent.css({"backgroundColor":col});
+                var subparent = $(this).parent().parent().parent().parent().parent();
+                subparent.css({"backgroundColor":col});
             });
         });
-        $(function(){
-            $('.samobuttopcontroller2').off('click');
-            $('.samobuttopcontroller2').on('click', function () {
-                let check = $('#createform').css("display");
-                if(check == "none"){
-                    $('#createform').show();
-                    $('#createedit').hide();
-                }else{
-                    $('#createform').hide();
-                    $('#createedit').show();
-                }
 
-            });
-        });
+
     },
-    data(){
+    data () {
         return {
+            nextactivity: "Resumes and Letters",
+            title : "Resumes and Letters - Sprout",
+            dashboard: "Dashboard",
+            names: [],
+            namess: [],
+
+            application_tittle: '',
             btnlinks: {
-                createbtnlink:"#/app/Recruitment/AppReqCreate",
-                importbtnlink:"#/app/Recruitment/JobImport",
-                editbtnlink:"#/app/attendance/Pin",
-                secondbtnlink: "#/app/Recruitment/ReqAppDocTable",
-
+                createbtnlink:"",
+                discardbtnlink: "#/app/sales/Salesnextactivityview",
+                importbtnlink: "#/app/imported",
+                secondbtnlink: "/recruitment/LetterTable"
             },
-            tableheader: [
-                " Job Title",
-                " Department",
-                " Current Number Of Empolyee",
-                " Expected New Empolyee",
-                " Total Forcasted Empolyee",
-                " Hired Empolyees",
-                " Status",
-
-
-
-
-
-            ],
-            tabledata: {
-                "row": {
-                    "data": [
-                        "Asad",
-                        "Alupak",
-                        "khan",
-                        "Leaves",
-
-
-                    ],
-                    "url": "#/app/Recruitment/job"
-
-
-                },
-
-            },
-            r: true,
-            p: false,
-            k: true,
-            nextactivity: "Job Positions/Attachments",
-            counter: 0,
-            m: 'Log an internal note which will not be sent to followers, but which can be read by users accessing this document.',
-            message: 'To: Followers of "PO00007: 637.50 Rs."',
-            v: false,
 
         }
     },
+    methods: {
+        select: function () {
+            var self = this;
+
+
+            self.$http.post("/recruitment/abcs", {"id": self.$route.params.id}).then(function (res) {
+                self.names = res.body.data;
+                console.log(self.names);
+
+
+            },function(err){
+                alert(err);
+            });
+            //console.log(this.$route.query.id);
+            // console.log(self.job_specific);
+        },
+
+        validateBeforeSubmit() {
+            this.$validator.validateAll().then(() => {
+                // eslint-disable-next-line
+                this.submit();
+                alert('From Submitted!');
+            }).catch(() => {
+                // eslint-disable-next-line
+                alert('Correct them errors!');
+            });
+        }
+
+
+    },
+
     components: {
-        Emptyform,
-        Tabs,
-        ModelDescription,
-        Componame,
-        Pin,
-        Tableview,
-        TableMain,
-        dashconterller: DashboardController
+        DashboardController
+
+
 
     }
 
 }
-
-
-
-
-
-
-

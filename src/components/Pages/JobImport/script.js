@@ -37,7 +37,7 @@ export default{
                 createbtnlink: "",
                 discardbtnlink: "",
                 importbtnlink: "",
-                cancelbtnlink:"#app/Recruitment/JobPosition"
+                cancelbtnlink:"/recruitment/JobPosition"
 
             },
         }

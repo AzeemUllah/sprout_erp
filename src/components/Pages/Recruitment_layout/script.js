@@ -11,24 +11,24 @@ export default{
         return{
             title: 'Recurtment',
             sidebarData: {
-                JobPositions: "/Recruitment/ReqPosition",
-                ResumesandLetters: "/Recruitment/Letters",
-                Reports: "/Recruitment/ReportRecruitment",
+                JobPositions: "/recruitment/ReqPosition",
+                ResumesandLetters: "/recruitment/Letters",
+                Reports: "/recruitment/ReportRecruitment",
                 Configuration: [
                     {
-                        url: "/Recruitment/RecutSetting",
+                        url: "/recruitment/RecutSetting",
                         title: "Settings"
                     },
                     {
-                        url: "/Recruitment/ReqStages",
+                        url: "/recruitment/ReqStages",
                         title: "Stages"
                     },
                     {
-                        url: "/Recruitment/JobPosition",
+                        url: "/recruitment/JobPosition",
                         title: "Job Positions"
                     },
                     {
-                        url: "/Recruitment/DepsReq",
+                        url: "/recruitment/DepsReq",
                         title: "Departments"
                     },
 

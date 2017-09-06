@@ -29,23 +29,11 @@ export default{
     ],
     data () {
         return {
-
-            modal2: "Open: Department",
-            modal3: "Open: Job Title",
-            modal4: "Open: Currency",
-            modal5: "Open: Recruitment Responsible",
-            modal6: "Open: Job Location",
-            modal7: "Create: Contacts",
-            modal8: "Open: Title",
-            modal9: "Open: Account Receivable",
-            modal10: "Open: Account Payable",
-            modal11: "Open: Working Address",
-            modal12: "Warning",
-            modal50: "Open:Manager",
-            modal60: "Open:Manager",
-            modal61: "Open:Manager",
             name: '',
+            tag_id: '',
+            contact_id: '',
             names: '',
+            n:[],
             f: '',
             parent_dept_id: '',
             manager_id: '',
@@ -62,14 +50,13 @@ export default{
             },
         }
     },
-
     methods: {
         submit: function () {
             var self = this;
             self.$http.post("/contact/deletes", {"id": self.$route.params.id}).then(function(res){
-                console.log(res.body);
+
             },function(err){
-                alert(err);
+
             });
         },
         select: function () {
@@ -78,7 +65,41 @@ export default{
                 self.names = res.body.data;
                 console.log(self.names);
             }, function (err) {
-                alert(err);
+
+            });
+            self.$http.post("/contact/selectgridtag", {"id": self.$route.params.id}).then(function (res) {
+                self.n = res.body.data;
+                console.log(self.n);
+
+
+
+
+                console.log(tag_id);
+                if(tag_id == "1"){
+                    $('#a').show();
+                    $('#b').hide();
+                    $('#c').hide();
+                    $('#d').hide();
+                }else if(tag_id == "2"){
+                    $('#b').show();
+                    $('#a').hide();
+                    $('#c').hide();
+                    $('#d').hide();
+                }
+                else if(tag_id == "3"){
+                    $('#c').show();
+                    $('#a').hide();
+                    $('#b').hide();
+                    $('#d').hide();
+                }else if(n.tag_id == "29"){
+                    $('#d').show();
+                    $('#a').hide();
+                    $('#c').hide();
+                    $('#b').hide();
+                }
+
+            }, function (err) {
+
             });
 
 
@@ -109,14 +130,14 @@ export default{
                                 // console.log(res.body);
                             },
                             function (err) {
-                                alert(err);
+
                             });
                     },
                     function (err) {
-                        alert(err);
+
                     });
             }, function (err) {
-                alert(err);
+
             });
 
 
@@ -146,14 +167,14 @@ export default{
                                 // console.log(res.body);
                             },
                             function (err) {
-                                alert(err);
+
                             });
                     },
                     function (err) {
-                        alert(err);
+
                     });
             }, function (err) {
-                alert(err);
+
             });
         },
         select1: function () {
@@ -168,7 +189,7 @@ export default{
                 console.log(self.num)
                 //console.log(this.$route.query.id);
             }, function (err) {
-                alert(err);
+
             });
 
 
@@ -187,7 +208,7 @@ export default{
                 console.log(res.body);
 
             },function(err){
-                alert(err);
+
             });
         },
 

@@ -6,6 +6,7 @@ import ScheduleanActivity from "./../../partials/ScheduleanActivity/ScheduleanAc
 
 export default{
     created: function () {
+        this.select();
         document.title = this.title;
         $(function () {
             $("#sortable1, #sortable2").sortable({
@@ -48,21 +49,18 @@ export default{
             title : "Your Pipeline - Sprout",
             pipeline: "Job Positions/Applications",
             btnlinks: {
-                createbtnlink: "#/app/Recruitment/ReqJobAppCreate",
-                importbtnlink: "#/app/Recruitment/ReqPipeImport",
-                firstbtnlink: "#/app/Recruitment/Reqpipe",
+                createbtnlink: "/recruitment/ReqJobAppCreate",
+                importbtnlink: "/recruitment/ReqPipeImport",
+                firstbtnlink: "/recruitment/Reqpipe",
                 secondbtnlink: ""
             },
             tableheader: [
-                " create_date",
                 " Subject / Application Name",
                 " Applicant's Name",
                 " Email",
                 " Phone",
-                " Applied Job",
-                " Stage",
-                " Medium",
                 " Source",
+                " Applied Job",
                 " Appreciation",
                 " Responsible",
             ],
@@ -75,10 +73,7 @@ export default{
                 "",
                 "",
                 "",
-                "",
-                "",
-                "",
-                "",
+
 
             ],
             tabledata: {
@@ -100,7 +95,7 @@ export default{
 
 
                     ],
-                    "url": "#/app/Recruitment/ReqJobApp"
+                    "url": "/recruitment/ReqJobApp"
 
 
                 },
@@ -108,12 +103,57 @@ export default{
             },
         }
     },
+    methods: {
+        select: function () {
+            var self = this;
+            self.$http.post("/pipe", {
+                "name": self.options,
+            }).then(function(res){
+                var data = res.body.data;
+                self.tabledata = [];
+                if(data.length > 0){
+                    data.forEach(function(val) {
+                        self.tabledata.push({
+                            "data": [
+                                val.applicants_name,
+                                val.application_tittle,
+                                val.email,
+                                val.phone,
+                                val.source,
+                                val.appreciation,
+                                val.responsible_id,
+                            ],
+                            "url": "/recruitment/Stages/"+val.id,
+
+                        });
+                    });
+                }
+                //self.options =res.body.data;
+                //console.log(res.body);
+            },function(err){
+                alert(err);
+            });
+        },
+
+        validateBeforeSubmit() {
+            this.$validator.validateAll().then(() => {
+                // eslint-disable-next-line
+                //this.select();
+                //this.insert();
+                // this.submiting();
+
+                alert('From Submitted!');
+            }).catch(() => {
+                // eslint-disable-next-line
+                //  alert('Correct them errors!');
+            });
+        }
+    },
     components: {
         dashconterller: DashboardController,
         Modal,
         ScheduleanActivity,
         TableMain,
-
     }
 }
 

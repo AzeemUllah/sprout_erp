@@ -8,15 +8,35 @@ export default{
         document.title = this.title;
         var self = this;
         $(function () {
+            $("#save").click(function () {
+                var r = confirm("Are you sure duplicate the user");
+                if (r)
+                {
+                    // x="You pressed OK!";
+                    window.location.href = "/contact";
+                    self.insert();
+                }
+                else
+                {
+                    // x="You pressed Cancel!";
+                }
+            });
             self.select();
+
             $("#saves").click(function () {
                 self.insert2();
+                self.new();
+               // self.select2();
+
+            });
+            $("#savesn").click(function () {
+                self.insert2();
+                self.new();
+                self.select2();
+
             });
             $("#discard").click(function () {
                 self.select2();
-            });
-            $("#save").click(function () {
-                self.insert();
             });
             $(".contact_invoice").click(function () {
                 $(".contact_pro").hide();
@@ -111,10 +131,11 @@ export default{
             mcustomer_payment_terms:'',
             mdegree_of_trust:'',
             mvendor_payment_terms:'',
+            null:'',
             btnlinks: {
                 savebtnlink:"",
                 createbtnlink: "/sales/contactinfocreate",
-                discardbtnlink: "/sales/customers",
+                discardbtnlink: "/contact",
                 importbtnlink: "/sales/imported"
             },
         }
@@ -133,7 +154,7 @@ export default{
                 "city": self.city,
                 "states": self.states,
                 "zip": self.zip,
-                "lasting": self.lasting,
+                "last": self.last,
                 "country": self.country,
                 "title": self.title,
                 "website": self.website,
@@ -160,8 +181,42 @@ export default{
             }).then(function(res){
                 console.log(res.body);
             },function(err){
-                alert(err);
+                if(!(typeof res.body.detail === 'undefined')){
+                    alert(res.body.detail);
+                    window.location.href = "/contact";
+                }
+                else {
+                    window.location.href = "/contact";
+                }
+
             });
+
+        },
+        new: function () {
+                var self = this;
+                self.mname= self.null,
+                self.mtitle= self.null,
+                self.mstreet1= self.null,
+                self.mstreet2= self.null,
+                self.mjob_position=self.null,
+                self.mphone_number=self.null,
+                self.mmobile_number=self.null,
+                self.mfax_number=self.null,
+                self.memail=self.null,
+                self.mcity=self.null,
+                self.mzip=self.null,
+                self.mlanguage=self.null,
+                self.mis_Customer=self.null,
+                self.mis_sales_person=self.null,
+                self.msale_pricelist=self.null,
+                self.minternal_reference_id=self.null,
+                self.mbank_account_id=self.null,
+
+                self.mcountry=self.null,
+
+                self. maddress=self.null,
+                self.mnotes_id=self.null
+
 
         },
         insert2: function () {
@@ -191,7 +246,7 @@ export default{
             }).then(function(res){
                 console.log(res.body);
             },function(err){
-                alert(err);
+
             });
         },
         select: function () {
@@ -200,7 +255,7 @@ export default{
                 self.names = res.body.data;
                 console.log(self.names);
             },function(err){
-                alert(err);
+
             });
             //alert(self.companyName);
             self.$http.post("/contact/company_name", {
@@ -209,7 +264,7 @@ export default{
                 self.options =res.body.data;
                 console.log(res.body);
             },function(err){
-                alert(err);
+
             });
             self.$http.post("/contact/state", {
                 "name": self.name,
@@ -217,7 +272,7 @@ export default{
                 self.options1 =res.body.data;
                 console.log(res.body);
             },function(err){
-                alert(err);
+
             });
             self.$http.post("/contact/country", {
                 "name": self.name,
@@ -225,7 +280,7 @@ export default{
                 self.options2 =res.body.data;
                 console.log(res.body);
             },function(err){
-                alert(err);
+
             });
             self.$http.post("/contact/tags", {
                 "name": self.name,
@@ -233,7 +288,7 @@ export default{
                 self.options3 =res.body.data;
                 console.log(res.body);
             },function(err){
-                alert(err);
+
             });
             self.$http.post("/contact/lastcontactid", {"id": self.$route.params.id}).then(function (res) {
                 var parentdata = res.body.data[0];
@@ -241,7 +296,7 @@ export default{
                 console.log(self.last);
 
             },function(err){
-                alert(err);
+
             });
             self.$http.post("/contact/selectacoount", {
                 "name": self.name,
@@ -249,7 +304,7 @@ export default{
                 self.options5 =res.body.data;
                 console.log(res.body);
             },function(err){
-                alert(err);
+
             });
             self.$http.post("/contact/selectuser", {
                 "name": self.name,
@@ -257,7 +312,7 @@ export default{
                 self.options4 =res.body.data;
                 console.log(res.body);
             },function(err){
-                alert(err);
+
             });
         },
         select2: function () {
@@ -266,7 +321,7 @@ export default{
                 self.names1 = res.body.data;
                 console.log(self.names1);
             },function(err){
-                alert(err);
+
             });
             //alert(self.companyName);
         },

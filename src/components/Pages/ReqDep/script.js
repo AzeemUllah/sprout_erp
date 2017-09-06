@@ -2,74 +2,34 @@ import DashboardController from "./../../partials/DashboardController/DashboardC
 import Request_quotation_lower from "./../../partials/Request_quotation_lower/Request_quotation_lower.vue"
 import Message from "./../../partials/Message/Message.vue"
 import Modal from "./../../partials/Modal/Modal.vue"
+import Department from "./../../partials/Department/Department.vue"
 
 
 export default{
     created: function () {
-        $(function() {
-            //use this method to add new colors to pallete
-            //$.fn.colorPicker.addColors(['000', '000', 'fff', 'fff']);
-
-            $('#color1').colorPicker();
-
-            $('#color2').colorPicker();
-
-            $('#color3').colorPicker({pickerDefault: "ffffff", colors: ["ffffff", "000000", "111FFF", "C0C0C0", "FFF000"], transparency: true});
-
-            $('#color4').colorPicker();
-
-            $('#color5').colorPicker({showHexField: false});
-
-            //fires an event when the color is changed
-            //$('#color1').change(function(){
-            //alert("color changed");
-            //});
-
-            $("#button1").click(function(){
-                $("#color1").val("#ffffff");
-                $("#color1").change();
+        var self = this;
+        this.select();
+        this.select1();
+        $(function () {
+            $(".delete").click(function () {
+                self.submit();
             });
-
-            $("#button2").click(function(){
-                $("#color2").val("#000000");
-                $("#color2").change();
+            $(".Duplicate").click(function () {
+                self.dsubmit();
             });
-
-        });
-        $(function(){
-            $('.samobuttopcontroller1').off('click');
-            $('.samobuttopcontroller1').on('click', function () {
-                let check = $('#createform').css("display");
-                if(check == "none"){
-                    $('#createform').show();
-                    $('#createedit').hide();
-                }else{
-                    $('#createform').hide();
-                    $('#createedit').show();
-                }
+            $("#num01").click(function () {
+                self.ssubmit();
+                self.select3();
 
             });
-        });
-        $(function(){
-            $('.samobuttopcontroller2').off('click');
-            $('.samobuttopcontroller2').on('click', function () {
-                let check = $('#createform').css("display");
-                if(check == "none"){
-                    $('#createform').show();
-                    $('#createedit').hide();
-                }else{
-                    $('#createform').hide();
-                    $('#createedit').show();
-                }
-
+            $("#num10").click(function () {
+                self.psubmit();
             });
-        });
-
-
+            self.btnlinks.editbtnlink ="/recruitment/ReqDepEdit/"+self.$route.params.id
+        })
     },
     props: [
         "edit",
-
     ],
     data () {
         return {
@@ -88,12 +48,197 @@ export default{
             modal50: "Open:Manager",
             modal60: "Open:Manager",
             modal61: "Open:Manager",
+            name: '',
+            f: '',
+            parent_dept_id: '',
+            manager_id: '',
+            j: '',
+            d: '',
+            num: '',
+            num4: '1',
             btnlinks: {
-                createbtnlink: "#/app/Recruitment/ReqDepcreate",
+                createbtnlink: "/recruitment/ReqDepcreate",
                 discardbtnlink: "#/app/Employees/EmpDash",
-                editbtnlink:"#/app/Recruitment/ReqDepEdit",
+                editbtnlink:"/recruitment/ReqDepEdit",
                 importbtnlink: "#/app/imported"
             },
+        }
+    },
+    methods: {
+        submit: function () {
+            var self = this;
+            self.$http.post("/recruitment/deletes", {"id": self.$route.params.id}).then(function(res){
+                console.log(res.body);
+            },function(err){
+                alert(err);
+            });
+        },
+        select: function () {
+            var self = this;
+            self.$http.post("/recruitment/depss", {"id": self.$route.params.id}).then(function (res) {
+                var parentdata = res.body.data[0];
+                self.f = parentdata.name;
+                self.parent_dept_id = parentdata.parent_dept_id;
+                self.manager_id = parentdata.manager_id;
+                //console.log(this.$route.query.id);
+            self.$http.post("/recruitment/parentdep", {"parent_dept_id":self.parent_dept_id}).then(function (res) {
+                    var data = res.body.data[0];
+                    self.j = data.name;
+
+
+                    //console.log(self.job_tittle);
+
+            self.$http.post("/recruitment/manager", {"manager_id":self.manager_id}).then(function (res) {
+                    var data = res.body.data[0];
+                    self.d = data.employeename;
+
+                    //console.log(self.job_tittle);
+
+                   // console.log(res.body);
+            },
+
+
+            function (err) {
+                alert(err);
+            });
+            },
+
+            function (err) {
+                alert(err);
+            });
+
+            }, function (err) {
+                alert(err);
+            });
+
+
+
+
+        },
+        ssubmit: function () {
+
+            var self = this;
+            self.$http.post("/recruitment/usa", {"id": self.$route.params.id}).then(function (res) {
+                var parentdata = res.body.data[0];
+                self.f = parentdata.name;
+                self.$route.params.id = parentdata.id;
+                self.parent_dept_id = parentdata.parent_dept_id;
+                self.manager_id = parentdata.manager_id;
+                // console.log(res.body)
+                //console.log(this.$route.query.id);
+            self.$http.post("/recruitment/parentdep", {"parent_dept_id":self.parent_dept_id}).then(function (res) {
+                    var data = res.body.data[0];
+                    self.j = data.name;
+
+                    //console.log(self.job_tittle);
+                    //   console.log(res.body);
+            self.$http.post("/recruitment/manager", {"manager_id":self.manager_id}).then(function (res) {
+                    var data = res.body.data[0];
+                    self.d = data.employeename;
+                    //console.log(self.job_tittle);
+                   // console.log(res.body);
+            },
+            function (err) {
+                alert(err);
+            });
+            },
+            function (err) {
+                alert(err);
+            });
+            }, function (err) {
+                alert(err);
+            });
+
+
+
+
+        },
+        psubmit: function () {
+            var self = this;
+            self.$http.post("/recruitment/usaa", {"id": self.$route.params.id}).then(function (res) {
+                var parentdata = res.body.data[0];
+                self.f = parentdata.name;
+                self.$route.params.id = parentdata.id;
+                self.parent_dept_id = parentdata.parent_dept_id;
+                self.manager_id = parentdata.manager_id;
+                // console.log(res.body)
+                //console.log(this.$route.query.id);
+            self.$http.post("/recruitment/parentdep", {"parent_dept_id":self.parent_dept_id}).then(function (res) {
+                    var data = res.body.data[0];
+                    self.j = data.name;
+
+                    //console.log(self.job_tittle);
+                    //   console.log(res.body);
+            self.$http.post("/recruitment/manager", {"manager_id":self.manager_id}).then(function (res) {
+                    var data = res.body.data[0];
+                    self.d = data.employeename;
+                    //console.log(self.job_tittle);
+                   // console.log(res.body);
+            },
+            function (err) {
+                alert(err);
+            });
+            },
+            function (err) {
+                alert(err);
+            });
+            }, function (err) {
+                alert(err);
+            });
+        },
+        select1: function () {
+
+            var self = this;
+
+            self.$http.post("/recruitment/numdep", {"id": self.$route.params.id}).then(function (res) {
+
+                var parentdata = res.body.data[0];
+                self.num = parentdata.count;
+                console.log(res.body)
+                console.log(self.num)
+                //console.log(this.$route.query.id);
+            }, function (err) {
+                alert(err);
+            });
+
+
+
+
+        },
+        select3: function () {
+
+            var self = this;
+            self.num4+1;
+        },
+        dsubmit: function () {
+            var self = this;
+
+            self.$http.post("/recruitment/depinserts", {"f": self.f,"parent_dept_id": self.parent_dept_id,"manager_id": self.manager_id}).then(function(res){
+                console.log(res.body);
+
+            },function(err){
+                alert(err);
+            });
+        },
+
+        validateBeforeSubmit() {
+            var self = this;
+            this.$validator.validateAll().then(() => {
+                // eslint-disable-next-line
+
+                //this.submit();
+                //this.tags();
+                //this.insert();
+                //this.select();
+                //this.insert();
+
+                // this.submiting();
+
+
+            }).catch(() => {
+                // eslint-disable-next-line
+                //  alert('Correct them errors!');
+            });
         }
     },
     components: {
@@ -101,6 +246,7 @@ export default{
         Request_quotation_lower,
         Modal,
         Message,
+        Department,
     },
 
 

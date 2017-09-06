@@ -11,17 +11,37 @@ export default{
             self.select1();
             self.select2();
             self.select51();
-
             $("#discard").click(function () {
                 self.select3();
+                self.new();
             });
             $("#save").click(function () {
-                self.submit1();
+                var r = confirm("Are you sure update user");
+                if (r)
+                {
+                    // x="You pressed OK!";
+                    //console.log("asdasdas");
+                    window.location.href = "../contactinfo/"+self.$route.params.id;
+                    self.submit1();
+                }
+                else
+                {
+                    // x="You pressed Cancel!";
+                }
             });
             $("#saves").click(function () {
-                //self.insert2();
+                 self.insert2();
+                self.new();
+                self.select3();
                 // self.submit12();
-                self.insert3();
+                // self.insert3();
+            });
+            $("#savesn").click(function () {
+                self.insert2();
+                self.new();
+                self.select3();
+                // self.select2();
+
             });
             $("#num01").click(function () {
                 self.ssubmit();
@@ -35,6 +55,7 @@ export default{
             $(".contact_invoice1").click(function () {
                 $(".contact_pro").show();
             });
+            self.btnlinks.discardbtnlink = "/contact/contactinfo/"+self.$route.params.id;
         });
     },
     data () {
@@ -132,12 +153,39 @@ export default{
             btnlinks: {
                 savebtnlink:"",
                 createbtnlink: "/sales/salescustomeredit",
-                discardbtnlink: "/sales/customers",
+                discardbtnlink: "",
                 importbtnlink: "/sales/imported"
             },
         }
     },
     methods: {
+        new: function () {
+            var self = this;
+            self.mname= self.null,
+                self.mtitle= self.null,
+                self.mstreet1= self.null,
+                self.mstreet2= self.null,
+                self.mjob_position=self.null,
+                self.mphone_number=self.null,
+                self.mmobile_number=self.null,
+                self.mfax_number=self.null,
+                self.memail=self.null,
+                self.mcity=self.null,
+                self.mzip=self.null,
+                self.mlanguage=self.null,
+                self.mis_Customer=self.null,
+                self.mis_sales_person=self.null,
+                self.msale_pricelist=self.null,
+                self.minternal_reference_id=self.null,
+                self.mbank_account_id=self.null,
+
+                self.mcountry=self.null,
+
+                self. maddress=self.null,
+                self.mnotes_id=self.null
+
+
+        },
         insert3: function () {
             var self = this;
             self.$http.post("/contact/createcontactmodal", {
@@ -145,7 +193,6 @@ export default{
                 "individual": self.mindividual,
                 "company": self.mcompany,
                 "address": self.maddress,
-                "lasting": self.lasting,
                 "street1": self.mstreet1,
                 "street2": self.mstreet2,
                 "city": self.mcity,
@@ -165,7 +212,7 @@ export default{
             }).then(function(res){
                 console.log(res.body);
             },function(err){
-                alert(err);
+
             });
         },
         submit51: function (id) {
@@ -173,7 +220,7 @@ export default{
             self.$http.post("/contact/contactdeletes1", {"id": id}).then(function(res){
                 console.log(res.body);
             },function(err){
-                alert(err);
+
             });
         },
         submit12: function () {
@@ -181,6 +228,7 @@ export default{
             self.$http.post("/contact/createcontacteditmodal", {
                 "name": self.mname,
                 "id": self.ids,
+
                 "individual": self.mindividual,
                 "company": self.mcompany,
                 "address": self.maddress,
@@ -206,13 +254,14 @@ export default{
             }).then(function(res){
                 console.log(res.body);
             },function(err){
-                alert(err);
+
             });
         },
         submit1: function () {
             var self = this;
             self.$http.post("/contact/createcontactedit", {
                 "name": self.name,
+                "lasting": self.lasting,
                 "individual": self.individual,
                 "company": self.company,
                 "address": self.address,
@@ -231,6 +280,7 @@ export default{
                 "mobile_number": self.mobile_number,
                 "fax_number": self.fax_number,
                 "email": self.email,
+
                 "language": self.language,
                 "notes_id": self.notes_id,
                 "is_Customer": self.is_Customer,
@@ -246,10 +296,11 @@ export default{
                 "degree_of_trust": self.degree_of_trust,
                 "id": self.$route.params.id,
                 "vendor_payment_terms": self.vendor_payment_terms,
+
             }).then(function(res){
                 console.log(res.body);
             },function(err){
-                alert(err);
+
             });
         },
         insert2: function () {
@@ -260,7 +311,6 @@ export default{
                 "company": self.mcompany,
                 "address": self.maddress,
                 "lasting": self.lasting,
-
                 "street1": self.mstreet1,
                 "street2": self.mstreet2,
                 "city": self.mcity,
@@ -280,7 +330,7 @@ export default{
             }).then(function(res){
                 console.log(res.body);
             },function(err){
-                alert(err);
+
             });
         },
         select1: function () {
@@ -292,7 +342,7 @@ export default{
                 self.options =res.body.data;
                 console.log(res.body);
             },function(err){
-                alert(err);
+
             });
             self.$http.post("/contact/state", {
                 "name": self.name,
@@ -300,7 +350,7 @@ export default{
                 self.options1 =res.body.data;
                 console.log(res.body);
             },function(err){
-                alert(err);
+
             });
             self.$http.post("/contact/country", {
                 "name": self.name,
@@ -308,7 +358,7 @@ export default{
                 self.options2 =res.body.data;
                 console.log(res.body);
             },function(err){
-                alert(err);
+
             });
             self.$http.post("/contact/tags", {
                 "name": self.name,
@@ -316,7 +366,7 @@ export default{
                 self.options3 =res.body.data;
                 console.log(res.body);
             },function(err){
-                alert(err);
+
             });
             self.$http.post("/contact/selectacoount", {
                 "name": self.name,
@@ -324,7 +374,7 @@ export default{
                 self.options5 =res.body.data;
                 console.log(res.body);
             },function(err){
-                alert(err);
+
             });
             self.$http.post("/contact/selectuser", {
                 "name": self.name,
@@ -332,7 +382,7 @@ export default{
                 self.options4 =res.body.data;
                 console.log(res.body);
             },function(err){
-                alert(err);
+
             });
         },
         ssubmit: function () {
@@ -402,27 +452,27 @@ export default{
 
 
                                                     function (err) {
-                                                        alert(err);
+
                                                     });
                                             },
                                             function (err) {
-                                                alert(err);
+
                                             });
                                     },
                                     function (err) {
-                                        alert(err);
+
                                     });
                             },
                             function (err) {
-                                alert(err);
+
                             });
                     },
 
                     function (err) {
-                        alert(err);
+
                     });
             }, function (err) {
-                alert(err);
+
             });
 
         },
@@ -492,27 +542,27 @@ export default{
 
 
                                                     function (err) {
-                                                        alert(err);
+
                                                     });
                                             },
                                             function (err) {
-                                                alert(err);
+
                                             });
                                     },
                                     function (err) {
-                                        alert(err);
+
                                     });
                             },
                             function (err) {
-                                alert(err);
+
                             });
                     },
 
                     function (err) {
-                        alert(err);
+
                     });
             }, function (err) {
-                alert(err);
+
             });
 
         },
@@ -522,7 +572,7 @@ export default{
                 self.names1 = res.body.data;
                 console.log(self.names1);
             },function(err){
-                alert(err);
+
             });
             //alert(self.companyName);
         },
@@ -533,7 +583,7 @@ export default{
                 self.num = parentdata.count;
 
             }, function (err) {
-                alert(err);
+
             });
 
 
@@ -571,10 +621,10 @@ export default{
                     },
 
                     function (err) {
-                        alert(err);
+
                     });
             }, function (err) {
-                alert(err);
+
             });
         },
         select: function () {
@@ -638,27 +688,27 @@ export default{
                                                         // console.log(res.body);
                                                     },
                                                     function (err) {
-                                                        alert(err);
+
                                                     });
                                             },
                                             function (err) {
-                                                alert(err);
+
                                             });
                                     },
                                     function (err) {
-                                        alert(err);
+
                                     });
                             },
                             function (err) {
-                                alert(err);
+
                             });
                     },
 
                     function (err) {
-                        alert(err);
+
                     });
             }, function (err) {
-                alert(err);
+
             });
         },
     },

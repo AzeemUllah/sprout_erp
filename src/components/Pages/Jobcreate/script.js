@@ -6,70 +6,30 @@ import jobs from "./../../partials/Jobs/Jobs.vue"
 
 export default{
     created: function () {
+        var self = this;
+        this.select();
         $(function() {
-            //use this method to add new colors to pallete
-            //$.fn.colorPicker.addColors(['000', '000', 'fff', 'fff']);
-
-            $('#color1').colorPicker();
-
-            $('#color2').colorPicker();
-
-            $('#color3').colorPicker({pickerDefault: "ffffff", colors: ["ffffff", "000000", "111FFF", "C0C0C0", "FFF000"], transparency: true});
-
-            $('#color4').colorPicker();
-
-            $('#color5').colorPicker({showHexField: false});
-
-            //fires an event when the color is changed
-            //$('#color1').change(function(){
-            //alert("color changed");
-            //});
-
-            $("#button1").click(function(){
-                $("#color1").val("#ffffff");
-                $("#color1").change();
+            $("#save").click(function () {
+                self.submit();
+            });
+            $("#hide").click(function(){
+                $("#hide").hide();
+            });
+            $("#show").click(function(){
+                $("#show").hide();
+            });
+            $("#show").click(function(){
+                $("#hide").show();
+            });
+            $("#hide").click(function(){
+                $("#show").show();
             });
 
-            $("#button2").click(function(){
-                $("#color2").val("#000000");
-                $("#color2").change();
-            });
 
         });
-        $(function(){
-            $('.samobuttopcontroller1').off('click');
-            $('.samobuttopcontroller1').on('click', function () {
-                let check = $('#createform').css("display");
-                if(check == "none"){
-                    $('#createform').show();
-                    $('#createedit').hide();
-                }else{
-                    $('#createform').hide();
-                    $('#createedit').show();
-                }
-
-            });
-        });
-        $(function(){
-            $('.samobuttopcontroller2').off('click');
-            $('.samobuttopcontroller2').on('click', function () {
-                let check = $('#createform').css("display");
-                if(check == "none"){
-                    $('#createform').show();
-                    $('#createedit').hide();
-                }else{
-                    $('#createform').hide();
-                    $('#createedit').show();
-                }
-
-            });
-        });
-
-
     },
     props: [
         "edit",
-
     ],
     data () {
         return {
@@ -88,13 +48,83 @@ export default{
             modal50: "Open:Manager",
             modal60: "Open:Manager",
             modal61: "Open:Manager",
+            job_tittle: '',
+            department_id: '',
+            recruitment_responsible: '',
+            expected: '',
+            job_email: '',
+            job_location: '',
+            description: '',
+            options2: '',
+            options: '',
+            options3: '',
+            gf: '',
             btnlinks: {
                 createbtnlink: "#/app/attendance/InsideHrTwo",
-                discardbtnlink: "#/app/Recruitment/JobPosition",
+                discardbtnlink: "/recruitment/JobPosition",
                 editbtnlink:"#/app/attendance/InsideHrTwo",
+                savebtnlink:" ",
                 importbtnlink: "#/app/imported"
             },
         }
+    },
+    methods: {
+        selectid: function (id) {
+            var self = this;
+            self.gf=id;
+            alert(self.gf);
+        },
+
+        submit: function () {
+            var self = this;
+            self.$http.post("/recruitment/reqjob", {"status": self.gf,"job_tittle": self.job_tittle,"job_email": self.job_email,"department_id": self.department_id,"recruitment_responsible": self.recruitment_responsible,"expected": self.expected,"job_location": self.job_location,"description": self.description}).then(function(res){
+                console.log(res.body);
+
+            },function(err){
+                alert(err);
+            });
+        },
+        select: function () {
+            var self = this;
+            //alert(self.companyName);
+            self.$http.post("/recruitment/deps", {
+                "job_tittle": self.jobspecific,
+            }).then(function(res){
+                self.options2 =res.body.data;
+                console.log(res.body);
+            },function(err){
+                alert(err);
+            });
+            self.$http.post("/recruitment/reqresponse", {
+                "job_tittle": self.jobspecific,
+            }).then(function(res){
+                self.options =res.body.data;
+                console.log(res.body);
+            },function(err){
+                alert(err);
+            });
+            self.$http.post("/recruitment/joblocation", {
+                "job_tittle": self.jobspecific,
+            }).then(function(res){
+                self.options3 =res.body.data;
+                console.log(res.body);
+
+            },function(err){
+                alert(err);
+            });
+        },
+        validateBeforeSubmit() {
+            this.$validator.validateAll().then(() => {
+                // eslint-disable-next-line
+                this.submit();
+                alert('From Submitted!');
+            }).catch(() => {
+                // eslint-disable-next-line
+                alert('Correct them errors!');
+            });
+        }
+
+
     },
     components: {
         DashboardController,

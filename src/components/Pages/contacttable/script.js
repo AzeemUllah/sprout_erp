@@ -38,8 +38,9 @@ export default{
         return {
             btnlinks: {
                 createbtnlink:"/contact/contactinfocreate",
-                importbtnlink:"/recruitment/ReqDepImport",
-                editbtnlink:"#/app/attendance/Pin"
+                editbtnlink:"#/app/attendance/Pin",
+                firstbtnlink: "/contact",
+                importbtnlink: "/contact/contactimport"
             },
             tableheader: [
                 " Name",
@@ -103,14 +104,14 @@ export default{
                 }
 
             },function(err){
-                alert(err);
+
             });
         },
         validateBeforeSubmit() {
             this.$validator.validateAll().then(() => {
                 // eslint-disable-next-line
                 // this.submiting();
-                alert('From Submitted!');
+
             }).catch(() => {
                 // eslint-disable-next-line
                 //  alert('Correct them errors!');
